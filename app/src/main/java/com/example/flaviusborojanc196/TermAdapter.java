@@ -13,12 +13,13 @@ import java.util.List;
 
 public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermHolder> {
     private List<Term> terms = new ArrayList<>();
+    private OnItemClickListener listener;
 
     @NonNull
     @Override
     public TermHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.term_item,parent,false);
+                .inflate(R.layout.term_item, parent, false);
         return new TermHolder(itemView);
     }
 
@@ -36,12 +37,12 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermHolder> {
         return terms.size();
     }
 
-    public void setTerms(List<Term> terms){
+    public void setTerms(List<Term> terms) {
         this.terms = terms;
         notifyDataSetChanged();
     }
 
-    class TermHolder extends RecyclerView.ViewHolder{
+    class TermHolder extends RecyclerView.ViewHolder {
         private TextView textViewTitle;
         private TextView textViewDescription;
         private TextView textViewId;
@@ -52,6 +53,29 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermHolder> {
             textViewTitle = itemView.findViewById(R.id.text_view_title);
             textViewDescription = itemView.findViewById(R.id.text_view_description);
             textViewId = itemView.findViewById(R.id.text_view_ID);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(terms.get(position));
+                    }
+                }
+            });
         }
+
+    }
+
+    public Term getTermAt(int position){
+        return terms.get(position);
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(Term term);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 }
