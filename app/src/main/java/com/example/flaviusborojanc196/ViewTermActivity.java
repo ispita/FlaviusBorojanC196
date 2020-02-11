@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -39,6 +40,11 @@ public class ViewTermActivity extends AppCompatActivity {
             }
         });
 
+        RelativeLayout rl = (RelativeLayout)findViewById(R.id.term_item_layout);
+
+        rl.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {}
+        });
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
