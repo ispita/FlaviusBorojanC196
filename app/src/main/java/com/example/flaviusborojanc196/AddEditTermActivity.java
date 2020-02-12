@@ -18,6 +18,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AddEditTermActivity extends AppCompatActivity {
@@ -37,6 +38,7 @@ public class AddEditTermActivity extends AppCompatActivity {
     private EditText editTextStartDate;
     private EditText editTextEndDate;
     private CourseViewModel courseViewModel;
+    private List<Integer> courseArray = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +61,14 @@ public class AddEditTermActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable List<Course> courses){
                 adapter.setCourses(courses);
+            }
+        });
+
+        adapter.setOnItemClickListener(new CourseAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Course course) {
+                courseArray.add(course.getId());
+
             }
         });
 
