@@ -1,7 +1,12 @@
 package com.example.flaviusborojanc196;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +17,8 @@ import android.view.MenuItem;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.util.List;
 
 public class AddEditTermActivity extends AppCompatActivity {
     public static final String EXTRA_ID =
@@ -29,7 +36,7 @@ public class AddEditTermActivity extends AppCompatActivity {
     private EditText editTextDescription;
     private EditText editTextStartDate;
     private EditText editTextEndDate;
-
+    private CourseViewModel courseViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +47,21 @@ public class AddEditTermActivity extends AppCompatActivity {
         editTextStartDate = findViewById(R.id.edit_term_start_date);
         editTextEndDate = findViewById(R.id.edit_term_end_date);
 
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
+        RecyclerView recyclerView = findViewById(R.id.course_add_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+
+        final CourseAdapter adapter = new CourseAdapter();
+        recyclerView.setAdapter(adapter);
+
+        courseViewModel = ViewModelProviders.of(this).get(CourseViewModel.class);
+        courseViewModel.getAllCourses().observe(this,new Observer<List<Course>>(){
+            @Override
+            public void onChanged(@Nullable List<Course> courses){
+                adapter.setCourses(courses);
+            }
+        });
+
 
         Intent intent = getIntent();
         if(intent.hasExtra(EXTRA_ID)){

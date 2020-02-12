@@ -67,6 +67,15 @@
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="220dp" />
 
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/course_add_recycler_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_term_end_date"
+            tools:listitem="@layout/course_item"/>
+
+
     </RelativeLayout>
 
 
