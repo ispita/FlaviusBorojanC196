@@ -9,7 +9,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = Term.class, version = 1)
+@Database(entities = Term.class, version = 4, exportSchema = false)
 public abstract class TermDatabase extends RoomDatabase {
 
     private static TermDatabase instance;
@@ -40,10 +40,10 @@ public abstract class TermDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids){
-            termDao.insert(new Term("Title1", "Description1"));
-            termDao.insert(new Term("Title2", "Description2"));
-            termDao.insert(new Term("Title3", "Description3"));
-            termDao.insert(new Term("Title4", "Description4"));
+            termDao.insert(new Term("Title1", "Description1", "02/11/2020", "03/31/2020"));
+            termDao.insert(new Term("Title2", "Description2", "02/11/2020", "03/31/2020"));
+            termDao.insert(new Term("Title3", "Description3", "02/11/2020", "03/31/2020"));
+            termDao.insert(new Term("Title4", "Description4", "02/11/2020", "03/31/2020"));
             return null;
         }
     }

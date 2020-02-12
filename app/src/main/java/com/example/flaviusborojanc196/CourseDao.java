@@ -11,22 +11,22 @@ import java.util.List;
 
 @Dao
 
-public interface TermDao {
+public interface CourseDao {
 
     @Insert
-    void insert(Term term);
+    void insert(Course course);
 
     @Update
-    void update(Term term);
+    void update(Course course);
 
     @Delete
-    void delete(Term term);
+    void delete(Course course);
 
 
-    @Query("DELETE FROM term_table")
-    void deleteAllTerms();
+    @Query("DELETE FROM course_table")
+    void deleteAllCourses();
 
-    @Query("SELECT * FROM term_table ORDER BY id ASC")
-    LiveData<List<Term>> getAllTerms();
+    @Query("SELECT * FROM course_table ORDER BY id ASC")
+    LiveData<List<Course>> getAllCourses();
 
 }

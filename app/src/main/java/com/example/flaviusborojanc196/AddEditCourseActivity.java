@@ -1,19 +1,17 @@
 package com.example.flaviusborojanc196;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class AddEditTermActivity extends AppCompatActivity {
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class AddEditCourseActivity extends AppCompatActivity {
     public static final String EXTRA_ID =
             "com.example.flaviusborojanc196.EXTRA_ID";
     public static final String EXTRA_TITLE =
@@ -33,18 +31,18 @@ public class AddEditTermActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_term);
+        setContentView(R.layout.activity_add_course);
 
         editTextTitle = findViewById(R.id.edit_title);
         editTextDescription = findViewById(R.id.edit_description);
-        editTextStartDate = findViewById(R.id.edit_term_start_date);
-        editTextEndDate = findViewById(R.id.edit_term_end_date);
+        editTextStartDate = findViewById(R.id.edit_course_start_date);
+        editTextEndDate = findViewById(R.id.edit_course_end_date);
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
 
         Intent intent = getIntent();
         if(intent.hasExtra(EXTRA_ID)){
-            setTitle("Edit Term");
+            setTitle("Edit Course");
             editTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
             editTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
             editTextStartDate.setText(intent.getStringExtra(EXTRA_START_DATE));
@@ -53,10 +51,10 @@ public class AddEditTermActivity extends AppCompatActivity {
 
         }
         else {
-            setTitle("Add Term");
+            setTitle("Add Course");
         }
     }
-    private void saveTerm(){
+    private void saveCourse(){
         String title = editTextTitle.getText().toString();
         String description = editTextDescription.getText().toString();
         String start = editTextStartDate.getText().toString();
@@ -93,7 +91,7 @@ public class AddEditTermActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.save_term:
-                saveTerm();
+                saveCourse();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddEditTermActivity">
+    tools:context=".AddEditCourseActivity">
 
     <RelativeLayout
         android:layout_width="414dp"
@@ -18,7 +18,7 @@
             android:layout_height="79dp"
             android:layout_marginStart="5dp"
             android:ellipsize="end"
-            android:hint="Term Title"
+            android:hint="Course Title"
             android:inputType="text"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
@@ -28,17 +28,17 @@
             android:layout_height="109dp"
             android:layout_below="@id/edit_title"
             android:layout_marginTop="13dp"
-            android:hint="Term Description"
+            android:hint="Course Description"
             android:inputType="textMultiLine" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/edit_description"
-            android:labelFor="@+id/edit_term_end_date"
+            android:labelFor="@+id/edit_course_end_date"
             android:text="Start Date"/>
 
         <EditText
-            android:id="@+id/edit_term_start_date"
+            android:id="@+id/edit_course_start_date"
             android:layout_width="395dp"
             android:layout_height="68dp"
             android:layout_below="@id/edit_description"
@@ -51,15 +51,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/edit_term_start_date"
-            android:labelFor="@+id/edit_term_end_date"
+            android:layout_below="@id/edit_course_start_date"
+            android:labelFor="@+id/edit_course_end_date"
             android:text="End Date"/>
 
         <EditText
-            android:id="@+id/edit_term_end_date"
+            android:id="@+id/edit_course_end_date"
             android:layout_width="395dp"
             android:layout_height="68dp"
-            android:layout_below="@id/edit_term_start_date"
+            android:layout_below="@id/edit_course_start_date"
             android:layout_marginTop="31dp"
             android:calendarViewShown="false"
             android:hint="MM/YYYY"

@@ -42,14 +42,6 @@ public class ViewTermActivity extends AppCompatActivity {
             }
         });
 
-//        RelativeLayout viewTermRL = findViewById(R.id.term_item_layout);
-//        viewTermRL.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(ViewTermActivity.this, AddEditTermActivity.class);
-//                startActivityForResult(intent, ADD_TERM_REQUEST);
-//            }
-//        });
 
 
 
@@ -87,6 +79,8 @@ public class ViewTermActivity extends AppCompatActivity {
                 intent.putExtra(AddEditTermActivity.EXTRA_TITLE, term.getTitle());
                 intent.putExtra(AddEditTermActivity.EXTRA_DESCRIPTION, term.getDescription());
                 intent.putExtra(AddEditTermActivity.EXTRA_ID, term.getId());
+                intent.putExtra(AddEditTermActivity.EXTRA_START_DATE, term.getStart());
+                intent.putExtra(AddEditTermActivity.EXTRA_END_DATE, term.getEnd());
                 startActivityForResult(intent, EDIT_TERM_REQUEST);
             }
         });
@@ -123,8 +117,10 @@ public class ViewTermActivity extends AppCompatActivity {
         if(requestCode == ADD_TERM_REQUEST && resultCode == RESULT_OK){
             String title = data.getStringExtra(AddEditTermActivity.EXTRA_TITLE);
             String description = data.getStringExtra(AddEditTermActivity.EXTRA_DESCRIPTION); //need non null default value for int
+            String start = data.getStringExtra(AddEditTermActivity.EXTRA_START_DATE);
+            String end = data.getStringExtra(AddEditTermActivity.EXTRA_END_DATE);
 
-            Term term = new Term(title,description);
+            Term term = new Term(title,description,start,end);
             termViewModel.insert(term);
 
             Toast.makeText(this, "Term Saved", Toast.LENGTH_SHORT).show();
@@ -136,8 +132,10 @@ public class ViewTermActivity extends AppCompatActivity {
             }
             String title = data.getStringExtra(AddEditTermActivity.EXTRA_TITLE);
             String description = data.getStringExtra(AddEditTermActivity.EXTRA_DESCRIPTION); //need non null default value for int
+            String start = data.getStringExtra(AddEditTermActivity.EXTRA_START_DATE);
+            String end = data.getStringExtra(AddEditTermActivity.EXTRA_END_DATE);
 
-            Term term = new Term(title,description);
+            Term term = new Term(title,description,start,end);
             term.setId(id);
             termViewModel.update(term);
 

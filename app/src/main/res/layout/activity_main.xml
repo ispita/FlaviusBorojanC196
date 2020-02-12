@@ -32,6 +32,12 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/app_description"
             android:text="View Term" />
+        <Button
+            android:id="@+id/view_course_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_term_button"
+            android:text="View Course" />
 
     </RelativeLayout>
 

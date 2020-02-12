@@ -7,7 +7,7 @@
     android:layout_marginTop="8dp">
 
     <RelativeLayout
-        android:id="@+id/term_item_layout"
+        android:id="@+id/course_item_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp">
@@ -38,17 +38,41 @@
             android:layout_below="@id/text_view_title"
             android:text="Description"/>
         <TextView
-            android:id="@+id/text_term_start_date"
+            android:id="@+id/text_course_start_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/text_view_description"
             android:text="Start Date"/>
         <TextView
-            android:id="@+id/text_term_end_date"
+            android:id="@+id/text_course_end_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/text_term_start_date"
+            android:layout_below="@id/text_course_start_date"
             android:text="End Date"/>
+        <TextView
+            android:id="@+id/text_course_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_course_end_date"
+            android:text="Status"/>
+        <TextView
+            android:id="@+id/text_course_mentor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_course_status"
+            android:text="Mentor"/>
+        <TextView
+            android:id="@+id/text_course_assessment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_course_mentor"
+            android:text="Assessment"/>
+        <TextView
+            android:id="@+id/text_course_notes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_course_assessment"
+            android:text="Notes"/>
 
     </RelativeLayout>
 

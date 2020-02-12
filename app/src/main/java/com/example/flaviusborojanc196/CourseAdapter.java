@@ -15,40 +15,40 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermHolder> {
-    private List<Term> terms = new ArrayList<>();
+public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseHolder> {
+    private List<Course> courses = new ArrayList<>();
     private OnItemClickListener listener;
 
     @NonNull
     @Override
-    public TermHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CourseHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.term_item, parent, false);
-        return new TermHolder(itemView);
+                .inflate(R.layout.course_item, parent, false);
+        return new CourseHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TermHolder holder, int position) {
-        Term currentTerm = terms.get(position);
-        holder.textViewTitle.setText(currentTerm.getTitle());
-        holder.textViewDescription.setText(currentTerm.getDescription());
-        holder.textViewId.setText(String.valueOf(currentTerm.getId()));
-        holder.datePickerStart.setText(String.valueOf(currentTerm.getStart()));
-        holder.datePickerEnd.setText(String.valueOf(currentTerm.getEnd()));
+    public void onBindViewHolder(@NonNull CourseHolder holder, int position) {
+        Course currentCourse = courses.get(position);
+        holder.textViewTitle.setText(currentCourse.getTitle());
+        holder.textViewDescription.setText(currentCourse.getDescription());
+        holder.textViewId.setText(String.valueOf(currentCourse.getId()));
+        holder.datePickerStart.setText(String.valueOf(currentCourse.getStart()));
+        holder.datePickerEnd.setText(String.valueOf(currentCourse.getEnd()));
 
     }
 
     @Override
     public int getItemCount() {
-        return terms.size();
+        return courses.size();
     }
 
-    public void setTerms(List<Term> terms) {
-        this.terms = terms;
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
         notifyDataSetChanged();
     }
 
-    class TermHolder extends RecyclerView.ViewHolder {
+    class CourseHolder extends RecyclerView.ViewHolder {
         private TextView textViewTitle;
         private TextView textViewDescription;
         private TextView textViewId;
@@ -56,20 +56,20 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermHolder> {
         private TextView datePickerEnd;
 
 
-        public TermHolder(@NonNull View itemView) {
+        public CourseHolder(@NonNull View itemView) {
             super(itemView);
             textViewTitle = itemView.findViewById(R.id.text_view_title);
             textViewDescription = itemView.findViewById(R.id.text_view_description);
             textViewId = itemView.findViewById(R.id.text_view_ID);
-            datePickerStart = itemView.findViewById(R.id.text_term_start_date);
-            datePickerEnd = itemView.findViewById(R.id.text_term_end_date);
+            datePickerStart = itemView.findViewById(R.id.text_course_start_date);
+            datePickerEnd = itemView.findViewById(R.id.text_course_end_date);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
 
                     if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.onItemClick(terms.get(position));
+                        listener.onItemClick(courses.get(position));
                     }
                 }
             });
@@ -77,12 +77,12 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermHolder> {
 
     }
 
-    public Term getTermAt(int position){
-        return terms.get(position);
+    public Course getCourseAt(int position){
+        return courses.get(position);
     }
 
     public interface OnItemClickListener {
-        void onItemClick(Term term);
+        void onItemClick(Course course);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

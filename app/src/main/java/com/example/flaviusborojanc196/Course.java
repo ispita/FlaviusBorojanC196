@@ -3,9 +3,9 @@ package com.example.flaviusborojanc196;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "term_table")
+@Entity(tableName = "course_table")
 
-public class Term {
+public class Course {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -18,7 +18,7 @@ public class Term {
 
     private String end;
 
-    public Term(String title, String description, String start, String end) {
+    public Course(String title, String description, String start, String end) {
         this.title = title;
         this.description = description;
         this.start = start;

@@ -26,6 +26,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public static final int ADD_TERM_REQUEST = 1;
+    public static final int ADD_COURSE_REQUEST = 1;
 
 
 
@@ -42,6 +43,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,ViewTermActivity.class);
                 startActivityForResult(intent,ADD_TERM_REQUEST);
+            }
+        });
+
+        Button buttonViewCourse = findViewById(R.id.view_course_button);
+        buttonViewCourse.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,ViewCourseActivity.class);
+                startActivityForResult(intent,ADD_COURSE_REQUEST);
             }
         });
 
