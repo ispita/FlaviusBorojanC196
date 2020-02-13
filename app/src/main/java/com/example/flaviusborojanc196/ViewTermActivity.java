@@ -77,12 +77,12 @@ public class ViewTermActivity extends AppCompatActivity {
             @Override
             public void onItemClick(Term term) {
                 Intent intent = new Intent (ViewTermActivity.this, ViewTermDetailedActivity.class);
-                intent.putExtra(AddEditTermActivity.EXTRA_TITLE, term.getTitle());
-                intent.putExtra(AddEditTermActivity.EXTRA_DESCRIPTION, term.getDescription());
-                intent.putExtra(ViewTermDetailedActivity.EXTRA_ID, term.getId());
-                intent.putExtra(AddEditTermActivity.EXTRA_START_DATE, term.getStart());
-                intent.putExtra(AddEditTermActivity.EXTRA_END_DATE, term.getEnd());
-                intent.putExtra(AddEditTermActivity.EXTRA_TERM_COURSES,term.getTermCourses());
+                intent.putExtra(ViewTermDetailedActivity.EXTRA_TITLE, term.getTitle());
+                intent.putExtra(ViewTermDetailedActivity.EXTRA_DESCRIPTION, term.getDescription());
+                intent.putExtra(ViewTermDetailedActivity.EXTRA_ID, Integer.toString(term.getId()));
+                intent.putExtra(ViewTermDetailedActivity.EXTRA_START_DATE, term.getStart());
+                intent.putExtra(ViewTermDetailedActivity.EXTRA_END_DATE, term.getEnd());
+                intent.putExtra(ViewTermDetailedActivity.EXTRA_TERM_COURSES,term.getTermCourses());
                 startActivityForResult(intent, VIEW_TERM_DETAILED_REQUEST);
             }
         });

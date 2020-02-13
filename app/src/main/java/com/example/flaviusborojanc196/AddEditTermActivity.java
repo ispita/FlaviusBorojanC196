@@ -44,6 +44,7 @@ public class AddEditTermActivity extends AppCompatActivity {
     private EditText editTextDescription;
     private EditText editTextStartDate;
     private EditText editTextEndDate;
+    private String editTermId;
     private TextView coursesLabel;
     private CourseViewModel courseViewModel;
     private CourseViewModel addedCourseViewModel;
@@ -90,9 +91,11 @@ public class AddEditTermActivity extends AppCompatActivity {
             editTextStartDate.setText(intent.getStringExtra(EXTRA_START_DATE));
             editTextEndDate.setText(intent.getStringExtra(EXTRA_END_DATE));
             addedCourses.setText(intent.getStringExtra(EXTRA_TERM_COURSES));
+            editTermId = intent.getStringExtra(EXTRA_ID);
             String[] addedCoursesArray = (addedCourses.getText().toString().split(","));
             Collections.addAll(courseArray,addedCoursesArray);
-            Toast.makeText(this, courseArray.toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "EXTRA_ID  " + editTermId , Toast.LENGTH_SHORT).show();
+
         }
         else {
             setTitle("Add Term");
@@ -117,7 +120,7 @@ public class AddEditTermActivity extends AppCompatActivity {
 
                         addedCourses.append("\n" +courseArray.get(courseArray.size() - 1) + "\n");
                     } else {
-                        Toast.makeText(AddEditTermActivity.this, courseArray.toString(), Toast.LENGTH_SHORT).show();
+
                         courseArray.remove(course.getTitle());
                         addedCourses.setText("");
                         for (int j = 0; j < courseArray.size(); j++) {
@@ -157,8 +160,8 @@ public class AddEditTermActivity extends AppCompatActivity {
 
         data.putExtra(EXTRA_TERM_COURSES, termCourses);
 
-        int id = getIntent().getIntExtra(EXTRA_ID, -1);
-
+        int id = Integer.parseInt(editTermId);
+        Toast.makeText(this, "this is the ID " + id, Toast.LENGTH_SHORT).show();
         if (id != -1){
             data.putExtra(EXTRA_ID, id);
         }
