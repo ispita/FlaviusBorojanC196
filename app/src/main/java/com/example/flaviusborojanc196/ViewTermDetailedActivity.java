@@ -86,7 +86,7 @@ public class ViewTermDetailedActivity extends AppCompatActivity {
         });
         Intent intent = getIntent();
         if(intent.hasExtra(EXTRA_ID)){
-            setTitle("Edit Term");
+            setTitle("Term Detailed View");
             viewTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
             viewTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
             viewTextStartDate.setText(intent.getStringExtra(EXTRA_START_DATE));
@@ -96,20 +96,20 @@ public class ViewTermDetailedActivity extends AppCompatActivity {
             Toast.makeText(this, viewTextTermId.getText().toString(), Toast.LENGTH_SHORT).show();
 
         }
-        adapter.setOnItemClickListener(new TermAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Term term) {
-                Intent intent = new Intent (ViewTermDetailedActivity.this, AddEditTermActivity.class);
-                intent.putExtra(AddEditTermActivity.EXTRA_TITLE, term.getTitle());
-                intent.putExtra(AddEditTermActivity.EXTRA_DESCRIPTION, term.getDescription());
-                intent.putExtra(AddEditTermActivity.EXTRA_ID, Integer.toString(term.getId()));
-                Toast.makeText(ViewTermDetailedActivity.this, "this is detailed view extra_id  " + Integer.toString(term.getId()), Toast.LENGTH_SHORT).show();
-                intent.putExtra(AddEditTermActivity.EXTRA_START_DATE, term.getStart());
-                intent.putExtra(AddEditTermActivity.EXTRA_END_DATE, term.getEnd());
-                intent.putExtra(AddEditTermActivity.EXTRA_TERM_COURSES,term.getTermCourses());
-                startActivityForResult(intent, EDIT_TERM_REQUEST);
-            }
-        });
+//        adapter.setOnItemClickListener(new TermAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(Term term) {
+//                Intent intent = new Intent (ViewTermDetailedActivity.this, AddEditTermActivity.class);
+//                intent.putExtra(AddEditTermActivity.EXTRA_TITLE, term.getTitle());
+//                intent.putExtra(AddEditTermActivity.EXTRA_DESCRIPTION, term.getDescription());
+//                intent.putExtra(AddEditTermActivity.EXTRA_ID, Integer.toString(term.getId()));
+//                Toast.makeText(ViewTermDetailedActivity.this, "this is detailed view extra_id  " + Integer.toString(term.getId()), Toast.LENGTH_SHORT).show();
+//                intent.putExtra(AddEditTermActivity.EXTRA_START_DATE, term.getStart());
+//                intent.putExtra(AddEditTermActivity.EXTRA_END_DATE, term.getEnd());
+//                intent.putExtra(AddEditTermActivity.EXTRA_TERM_COURSES,term.getTermCourses());
+//                startActivityForResult(intent, EDIT_TERM_REQUEST);
+//            }
+//        });
 
     }
 
@@ -140,7 +140,8 @@ public class ViewTermDetailedActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
 
-            if(requestCode == EDIT_TERM_REQUEST && resultCode == RESULT_OK) {
+            if(resultCode == RESULT_OK) {
+                Toast.makeText(this, "Entering into RESULT_OK", Toast.LENGTH_SHORT).show();
             int id = data.getIntExtra(AddEditTermActivity.EXTRA_ID, -1);
             if(id == -1){
                 Toast.makeText(this, "Errors Encountered", Toast.LENGTH_SHORT).show();
@@ -150,10 +151,16 @@ public class ViewTermDetailedActivity extends AppCompatActivity {
             String start = data.getStringExtra(AddEditTermActivity.EXTRA_START_DATE);
             String end = data.getStringExtra(AddEditTermActivity.EXTRA_END_DATE);
             String termCourses = data.getStringExtra(AddEditTermActivity.EXTRA_TERM_COURSES);
-
+                viewTextTitle.setText(title);
+                viewTextDescription.setText(description);
+                viewTextStartDate.setText(start);
+                viewTextEndDate.setText(end);
+                viewTextTermCourses.setText(termCourses);
+                viewTextTermId.setText(Integer.toString(id));
             Term term = new Term(title,description,start,end,termCourses);
             term.setId(id);
             termViewModel.update(term);
+
 
         }
 
