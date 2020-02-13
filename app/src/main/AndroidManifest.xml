@@ -28,6 +28,8 @@
             android:parentActivityName=".MainActivity"/>
         <activity android:name=".AddEditCourseActivity"
             android:parentActivityName=".ViewCourseActivity"/>
+        <activity android:name=".ViewTermDetailedActivity"
+            android:parentActivityName=".ViewTermActivity"/>
     </application>
 
 </manifest>

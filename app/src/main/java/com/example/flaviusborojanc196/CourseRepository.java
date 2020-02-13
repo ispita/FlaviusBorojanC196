@@ -12,9 +12,10 @@ public class CourseRepository {
     private LiveData<List<Course>> allCourses;
 
     public CourseRepository(Application application){
-        CourseDatabase database = CourseDatabase.getInstance(application);
+        WGUDatabase database = WGUDatabase.getInstance(application);
         courseDao = database.courseDao();
         allCourses = courseDao.getAllCourses();
+
 
     }
     public void insert(Course course){
@@ -33,6 +34,7 @@ public class CourseRepository {
     public void deleteAllCourses(){
         new DeleteAllCourseAsyncTask(courseDao).execute();
     }
+
 
     public LiveData<List<Course>> getAllCourses() {
         return allCourses;

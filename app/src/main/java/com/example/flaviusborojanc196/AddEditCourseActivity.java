@@ -1,11 +1,13 @@
 package com.example.flaviusborojanc196;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,12 +24,30 @@ public class AddEditCourseActivity extends AppCompatActivity {
             "com.example.flaviusborojanc196.EXTRA_START_DATE";
     public static final String EXTRA_END_DATE=
             "com.example.flaviusborojanc196.EXTRA_END_DATE";
+    public static final String EXTRA_STATUS=
+            "com.example.flaviusborojanc196.EXTRA_STATUS";
+    public static final String EXTRA_MENTOR=
+            "com.example.flaviusborojanc196.EXTRA_MENTOR";
+    public static final String EXTRA_PHONE=
+            "com.example.flaviusborojanc196.EXTRA_PHONE";
+    public static final String EXTRA_EMAIL=
+            "com.example.flaviusborojanc196.EXTRA_EMAIL";
+    public static final String EXTRA_NOTE=
+            "com.example.flaviusborojanc196.EXTRA_NOTE";
+    public static final Integer EXTRA_COURSE_CARD_COLOR= 555555;
 
     private EditText editTextTitle;
     private EditText editTextDescription;
     private EditText editTextStartDate;
     private EditText editTextEndDate;
+    private EditText editTextStatus;
+    private EditText editTextMentor;
+    private EditText editTextPhone;
+    private EditText editTextEmail;
+    private EditText editTextNote;
 
+    private Integer courseGreen = Color.WHITE;
+    private Integer courseWhite = Color.GREEN;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +57,11 @@ public class AddEditCourseActivity extends AppCompatActivity {
         editTextDescription = findViewById(R.id.edit_description);
         editTextStartDate = findViewById(R.id.edit_course_start_date);
         editTextEndDate = findViewById(R.id.edit_course_end_date);
+        editTextStatus = findViewById(R.id.edit_course_status);
+        editTextMentor = findViewById(R.id.edit_course_mentor);
+        editTextPhone = findViewById(R.id.edit_course_mentor_phone);
+        editTextEmail = findViewById(R.id.edit_course_mentor_email);
+        editTextNote = findViewById(R.id.edit_course_note);
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
 
@@ -47,6 +72,11 @@ public class AddEditCourseActivity extends AppCompatActivity {
             editTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
             editTextStartDate.setText(intent.getStringExtra(EXTRA_START_DATE));
             editTextEndDate.setText(intent.getStringExtra(EXTRA_END_DATE));
+            editTextStatus.setText(intent.getStringExtra(EXTRA_STATUS));
+            editTextMentor.setText(intent.getStringExtra(EXTRA_MENTOR));
+            editTextPhone.setText(intent.getStringExtra(EXTRA_PHONE));
+            editTextEmail.setText(intent.getStringExtra(EXTRA_EMAIL));
+            editTextNote.setText(intent.getStringExtra(EXTRA_NOTE));
 
 
         }
@@ -59,6 +89,12 @@ public class AddEditCourseActivity extends AppCompatActivity {
         String description = editTextDescription.getText().toString();
         String start = editTextStartDate.getText().toString();
         String end = editTextEndDate.getText().toString();
+        String status = editTextStatus.getText().toString();
+        String mentor = editTextMentor.getText().toString();
+        String phone = editTextPhone.getText().toString();
+        String email = editTextEmail.getText().toString();
+        String note = editTextNote.getText().toString();
+
 
         if(title.trim().isEmpty() || description.trim().isEmpty()){
             Toast.makeText(this, "Please Insert a Description and a Title!", Toast.LENGTH_SHORT).show();
@@ -70,6 +106,13 @@ public class AddEditCourseActivity extends AppCompatActivity {
         data.putExtra(EXTRA_DESCRIPTION, description);
         data.putExtra(EXTRA_START_DATE, start);
         data.putExtra(EXTRA_END_DATE, end);
+        data.putExtra(EXTRA_STATUS, status);
+        data.putExtra(EXTRA_MENTOR, mentor);
+        data.putExtra(EXTRA_PHONE, phone);
+        data.putExtra(EXTRA_EMAIL, email);
+        data.putExtra(EXTRA_NOTE, note);
+
+
 
         int id = getIntent().getIntExtra(EXTRA_ID, -1);
 

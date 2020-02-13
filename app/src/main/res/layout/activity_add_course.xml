@@ -6,6 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".AddEditCourseActivity">
 
+   <ScrollView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_width="414dp"
         android:layout_height="735dp"
@@ -16,7 +19,7 @@
             android:id="@+id/edit_title"
             android:layout_width="398dp"
             android:layout_height="79dp"
-            android:layout_marginStart="5dp"
+
             android:ellipsize="end"
             android:hint="Course Title"
             android:inputType="text"
@@ -66,10 +69,62 @@
             android:inputType="date"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="220dp" />
+        <EditText
+            android:id="@+id/edit_course_status"
+            android:layout_width="395dp"
+            android:layout_height="68dp"
+            android:layout_below="@id/edit_course_end_date"
+            android:layout_marginTop="31dp"
+            android:calendarViewShown="false"
+            android:hint="Status"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="220dp" />
+        <EditText
+            android:id="@+id/edit_course_mentor"
+            android:layout_width="395dp"
+            android:layout_height="68dp"
+            android:layout_below="@id/edit_course_status"
+            android:layout_marginTop="31dp"
+            android:calendarViewShown="false"
+            android:hint="Mentor Name"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="220dp" />
+        <EditText
+            android:id="@+id/edit_course_mentor_phone"
+            android:layout_width="395dp"
+            android:layout_height="68dp"
+            android:layout_below="@id/edit_course_mentor"
+            android:layout_marginTop="31dp"
+            android:calendarViewShown="false"
+            android:hint="Mentor Phone #"
+            android:inputType="phone"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="220dp" />
+        <EditText
+            android:id="@+id/edit_course_mentor_email"
+            android:layout_width="395dp"
+            android:layout_height="68dp"
+            android:layout_below="@id/edit_course_mentor_phone"
+            android:layout_marginTop="31dp"
+            android:calendarViewShown="false"
+            android:hint="Mentor Email"
+            android:inputType="textEmailAddress"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="220dp" />
+        <EditText
+            android:id="@+id/edit_course_note"
+            android:layout_width="395dp"
+            android:layout_height="68dp"
+            android:layout_below="@id/edit_course_mentor_email"
+            android:layout_marginTop="31dp"
+            android:calendarViewShown="false"
+            android:hint="Note"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="220dp" />
 
 
     </RelativeLayout>
-
+   </ScrollView>
 
 
 

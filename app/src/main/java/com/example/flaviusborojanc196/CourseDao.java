@@ -29,4 +29,6 @@ public interface CourseDao {
     @Query("SELECT * FROM course_table ORDER BY id ASC")
     LiveData<List<Course>> getAllCourses();
 
+    @Query("SELECT * FROM course_table where id = :courseId ")
+    LiveData<List<Course>> getCourses(Integer courseId);
 }

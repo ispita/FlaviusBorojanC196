@@ -1,5 +1,6 @@
 package com.example.flaviusborojanc196;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +8,7 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.w3c.dom.Text;
@@ -35,6 +37,12 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseHold
         holder.textViewId.setText(String.valueOf(currentCourse.getId()));
         holder.datePickerStart.setText(String.valueOf(currentCourse.getStart()));
         holder.datePickerEnd.setText(String.valueOf(currentCourse.getEnd()));
+        holder.textViewStatus.setText(String.valueOf(currentCourse.getStatus()));
+        holder.textViewMentor.setText(String.valueOf(currentCourse.getMentor()));
+        holder.textViewPhone.setText(String.valueOf(currentCourse.getPhone()));
+        holder.textViewEmail.setText(String.valueOf(currentCourse.getEmail()));
+        holder.textViewNote.setText(String.valueOf(currentCourse.getNote()));
+        holder.courseCardView.setCardBackgroundColor(Color.WHITE);
 
     }
 
@@ -54,15 +62,29 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseHold
         private TextView textViewId;
         private TextView datePickerStart;
         private TextView datePickerEnd;
+        private TextView textViewStatus;
+        private TextView textViewMentor;
+        private TextView textViewPhone;
+        private TextView textViewEmail;
+        private TextView textViewNote;
+        private CardView courseCardView;
 
 
         public CourseHolder(@NonNull View itemView) {
             super(itemView);
-            textViewTitle = itemView.findViewById(R.id.text_view_title);
+            textViewTitle = itemView.findViewById(R.id.text_view_course_title);
             textViewDescription = itemView.findViewById(R.id.text_view_description);
             textViewId = itemView.findViewById(R.id.text_view_ID);
             datePickerStart = itemView.findViewById(R.id.text_course_start_date);
             datePickerEnd = itemView.findViewById(R.id.text_course_end_date);
+            courseCardView = itemView.findViewById(R.id.course_card);
+            textViewStatus = itemView.findViewById(R.id.text_course_status);
+            textViewMentor = itemView.findViewById(R.id.text_course_mentor);
+            textViewPhone = itemView.findViewById(R.id.text_course_mentor_phone);
+            textViewEmail = itemView.findViewById(R.id.text_course_mentor_email);
+            textViewNote = itemView.findViewById(R.id.text_course_notes);
+
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

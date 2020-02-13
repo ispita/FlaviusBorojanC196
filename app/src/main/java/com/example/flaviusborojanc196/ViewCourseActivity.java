@@ -81,6 +81,11 @@ public class ViewCourseActivity extends AppCompatActivity {
                 intent.putExtra(AddEditCourseActivity.EXTRA_ID, course.getId());
                 intent.putExtra(AddEditCourseActivity.EXTRA_START_DATE, course.getStart());
                 intent.putExtra(AddEditCourseActivity.EXTRA_END_DATE, course.getEnd());
+                intent.putExtra(AddEditCourseActivity.EXTRA_STATUS, course.getStatus());
+                intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR, course.getMentor());
+                intent.putExtra(AddEditCourseActivity.EXTRA_PHONE, course.getPhone());
+                intent.putExtra(AddEditCourseActivity.EXTRA_EMAIL, course.getEmail());
+                intent.putExtra(AddEditCourseActivity.EXTRA_NOTE, course.getNote());
                 startActivityForResult(intent, EDIT_COURSE_REQUEST);
             }
         });
@@ -119,8 +124,14 @@ public class ViewCourseActivity extends AppCompatActivity {
             String description = data.getStringExtra(AddEditCourseActivity.EXTRA_DESCRIPTION); //need non null default value for int
             String start = data.getStringExtra(AddEditCourseActivity.EXTRA_START_DATE);
             String end = data.getStringExtra(AddEditCourseActivity.EXTRA_END_DATE);
+            String status = data.getStringExtra(AddEditCourseActivity.EXTRA_STATUS);
+            String mentor = data.getStringExtra(AddEditCourseActivity.EXTRA_MENTOR);
+            String phone = data.getStringExtra(AddEditCourseActivity.EXTRA_PHONE);
+            String email = data.getStringExtra(AddEditCourseActivity.EXTRA_EMAIL);
+            String note = data.getStringExtra(AddEditCourseActivity.EXTRA_NOTE);
 
-            Course course = new Course(title,description,start,end);
+
+            Course course = new Course(title,description,start,end,status,mentor,phone,email,note);
             courseViewModel.insert(course);
 
             Toast.makeText(this, "Course Saved", Toast.LENGTH_SHORT).show();
@@ -134,8 +145,13 @@ public class ViewCourseActivity extends AppCompatActivity {
             String description = data.getStringExtra(AddEditCourseActivity.EXTRA_DESCRIPTION); //need non null default value for int
             String start = data.getStringExtra(AddEditCourseActivity.EXTRA_START_DATE);
             String end = data.getStringExtra(AddEditCourseActivity.EXTRA_END_DATE);
+            String status = data.getStringExtra(AddEditCourseActivity.EXTRA_STATUS);
+            String mentor = data.getStringExtra(AddEditCourseActivity.EXTRA_MENTOR);
+            String phone = data.getStringExtra(AddEditCourseActivity.EXTRA_PHONE);
+            String email = data.getStringExtra(AddEditCourseActivity.EXTRA_EMAIL);
+            String note = data.getStringExtra(AddEditCourseActivity.EXTRA_NOTE);
 
-            Course course = new Course(title,description,start,end);
+            Course course = new Course(title,description,start,end,status,mentor,phone,email,note);
             course.setId(id);
             courseViewModel.update(course);
 

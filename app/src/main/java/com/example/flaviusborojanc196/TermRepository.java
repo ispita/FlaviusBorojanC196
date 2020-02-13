@@ -12,7 +12,7 @@ public class TermRepository {
     private LiveData<List<Term>> allTerms;
 
     public TermRepository(Application application){
-        TermDatabase database = TermDatabase.getInstance(application);
+        WGUDatabase database = WGUDatabase.getInstance(application);
         termDao = database.termDao();
         allTerms = termDao.getAllTerms();
 

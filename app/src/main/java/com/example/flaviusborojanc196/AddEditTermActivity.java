@@ -3,12 +3,15 @@ package com.example.flaviusborojanc196;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -16,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -32,13 +36,20 @@ public class AddEditTermActivity extends AppCompatActivity {
             "com.example.flaviusborojanc196.EXTRA_START_DATE";
     public static final String EXTRA_END_DATE=
             "com.example.flaviusborojanc196.EXTRA_END_DATE";
+    public static final String EXTRA_TERM_COURSES=
+            "com.example.flaviusborojanc196.EXTRA_TERM_COURSES";
 
     private EditText editTextTitle;
     private EditText editTextDescription;
     private EditText editTextStartDate;
     private EditText editTextEndDate;
     private CourseViewModel courseViewModel;
-    private List<Integer> courseArray = new ArrayList<>();
+    private CourseViewModel addedCourseViewModel;
+   // private TextView courseTitle;
+    //private Integer courseCardColor;
+    private TextView addedCourses;
+   // private TextView addedCoursesId;
+    private List<String> courseArray = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +59,10 @@ public class AddEditTermActivity extends AppCompatActivity {
         editTextDescription = findViewById(R.id.edit_description);
         editTextStartDate = findViewById(R.id.edit_term_start_date);
         editTextEndDate = findViewById(R.id.edit_term_end_date);
+        addedCourses = findViewById(R.id.courses_added);
+      //  addedCoursesId = findViewById(R.id.courses_added);
+        //courseTitle = findViewById(R.id.text_view_course_title);
+
 
         RecyclerView recyclerView = findViewById(R.id.course_add_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -64,14 +79,6 @@ public class AddEditTermActivity extends AppCompatActivity {
             }
         });
 
-        adapter.setOnItemClickListener(new CourseAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Course course) {
-                courseArray.add(course.getId());
-
-            }
-        });
-
 
         Intent intent = getIntent();
         if(intent.hasExtra(EXTRA_ID)){
@@ -80,19 +87,61 @@ public class AddEditTermActivity extends AppCompatActivity {
             editTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
             editTextStartDate.setText(intent.getStringExtra(EXTRA_START_DATE));
             editTextEndDate.setText(intent.getStringExtra(EXTRA_END_DATE));
-
+            addedCourses.setText(intent.getStringExtra(EXTRA_TERM_COURSES));
 
         }
         else {
             setTitle("Add Term");
         }
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT |ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                courseViewModel.delete(adapter.getCourseAt(viewHolder.getAdapterPosition()));
+            }
+        }).attachToRecyclerView(recyclerView);
+
+        adapter.setOnItemClickListener(new CourseAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Course course) {
+
+                if (!courseArray.contains(course.getTitle())) {
+                    courseArray.add(course.getTitle());
+
+                    addedCourses.append("Course (To remove this course select it again):\n" + courseArray.get(courseArray.size() - 1) + "\n");
+                }
+                else {
+                    Toast.makeText(AddEditTermActivity.this, courseArray.toString(), Toast.LENGTH_SHORT).show();
+                    courseArray.remove(course.getTitle());
+                    addedCourses.setText("");
+                    for (int j = 0; j < courseArray.size(); j++) {
+                        addedCourses.append("Course (To remove this course select it again):\n" + courseArray.get(j) + "\n");
+                    }
+                }
+
+            }
+        });
+
     }
     private void saveTerm(){
         String title = editTextTitle.getText().toString();
         String description = editTextDescription.getText().toString();
         String start = editTextStartDate.getText().toString();
         String end = editTextEndDate.getText().toString();
-
+        addedCourses.setText("");
+        for(int j = 0; j < courseArray.size(); j++) {
+            if (j == courseArray.size() - 1){
+                addedCourses.append(courseArray.get(j));
+            }
+            else {
+                addedCourses.append(courseArray.get(j) + ",");
+            }
+        }
+        String termCourses = addedCourses.getText().toString();
         if(title.trim().isEmpty() || description.trim().isEmpty()){
             Toast.makeText(this, "Please Insert a Description and a Title!", Toast.LENGTH_SHORT).show();
             return;
@@ -103,6 +152,8 @@ public class AddEditTermActivity extends AppCompatActivity {
         data.putExtra(EXTRA_DESCRIPTION, description);
         data.putExtra(EXTRA_START_DATE, start);
         data.putExtra(EXTRA_END_DATE, end);
+
+        data.putExtra(EXTRA_TERM_COURSES, termCourses);
 
         int id = getIntent().getIntExtra(EXTRA_ID, -1);
 

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/course_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginEnd="8dp"
     android:layout_marginStart="8dp"
+
     android:layout_marginTop="8dp">
 
     <RelativeLayout
@@ -21,7 +23,7 @@
             android:text="1"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
         <TextView
-            android:id="@+id/text_view_title"
+            android:id="@+id/text_view_course_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Title"
@@ -35,7 +37,7 @@
             android:id="@+id/text_view_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/text_view_title"
+            android:layout_below="@+id/text_view_course_title"
             android:text="Description"/>
         <TextView
             android:id="@+id/text_course_start_date"
@@ -62,16 +64,22 @@
             android:layout_below="@id/text_course_status"
             android:text="Mentor"/>
         <TextView
-            android:id="@+id/text_course_assessment"
+            android:id="@+id/text_course_mentor_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/text_course_mentor"
-            android:text="Assessment"/>
+            android:text="Mentor Phone"/>
+        <TextView
+            android:id="@+id/text_course_mentor_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_course_mentor_phone"
+            android:text="Mentor Email"/>
         <TextView
             android:id="@+id/text_course_notes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/text_course_assessment"
+            android:layout_below="@id/text_course_mentor_email"
             android:text="Notes"/>
 
     </RelativeLayout>
