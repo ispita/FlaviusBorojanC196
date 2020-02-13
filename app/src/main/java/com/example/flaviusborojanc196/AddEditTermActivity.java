@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class AddEditTermActivity extends AppCompatActivity {
@@ -43,6 +44,7 @@ public class AddEditTermActivity extends AppCompatActivity {
     private EditText editTextDescription;
     private EditText editTextStartDate;
     private EditText editTextEndDate;
+    private TextView coursesLabel;
     private CourseViewModel courseViewModel;
     private CourseViewModel addedCourseViewModel;
    // private TextView courseTitle;
@@ -88,7 +90,9 @@ public class AddEditTermActivity extends AppCompatActivity {
             editTextStartDate.setText(intent.getStringExtra(EXTRA_START_DATE));
             editTextEndDate.setText(intent.getStringExtra(EXTRA_END_DATE));
             addedCourses.setText(intent.getStringExtra(EXTRA_TERM_COURSES));
-
+            String[] addedCoursesArray = (addedCourses.getText().toString().split(","));
+            Collections.addAll(courseArray,addedCoursesArray);
+            Toast.makeText(this, courseArray.toString(), Toast.LENGTH_SHORT).show();
         }
         else {
             setTitle("Add Term");
@@ -108,20 +112,18 @@ public class AddEditTermActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new CourseAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Course course) {
+                    if (!courseArray.contains(course.getTitle())) {
+                        courseArray.add(course.getTitle());
 
-                if (!courseArray.contains(course.getTitle())) {
-                    courseArray.add(course.getTitle());
-
-                    addedCourses.append("Course (To remove this course select it again):\n" + courseArray.get(courseArray.size() - 1) + "\n");
-                }
-                else {
-                    Toast.makeText(AddEditTermActivity.this, courseArray.toString(), Toast.LENGTH_SHORT).show();
-                    courseArray.remove(course.getTitle());
-                    addedCourses.setText("");
-                    for (int j = 0; j < courseArray.size(); j++) {
-                        addedCourses.append("Course (To remove this course select it again):\n" + courseArray.get(j) + "\n");
+                        addedCourses.append("\n" +courseArray.get(courseArray.size() - 1) + "\n");
+                    } else {
+                        Toast.makeText(AddEditTermActivity.this, courseArray.toString(), Toast.LENGTH_SHORT).show();
+                        courseArray.remove(course.getTitle());
+                        addedCourses.setText("");
+                        for (int j = 0; j < courseArray.size(); j++) {
+                            addedCourses.append("\n" + courseArray.get(j) + "\n");
+                        }
                     }
-                }
 
             }
         });

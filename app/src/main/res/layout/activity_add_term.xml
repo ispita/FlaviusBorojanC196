@@ -70,12 +70,18 @@
             android:inputType="date"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="220dp" />
-
+        <TextView
+            android:id="@+id/courses_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_term_end_date"
+            android:text="Courses\nSelect a course to add it, select it again to remove it:"/>
         <TextView
             android:id="@+id/courses_added"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/edit_term_end_date"/>
+            android:layout_below="@id/edit_term_end_date"
+            android:layout_marginTop="31dp"/>
 
 
         <androidx.recyclerview.widget.RecyclerView

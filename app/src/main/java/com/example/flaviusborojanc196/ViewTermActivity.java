@@ -79,7 +79,7 @@ public class ViewTermActivity extends AppCompatActivity {
                 Intent intent = new Intent (ViewTermActivity.this, ViewTermDetailedActivity.class);
                 intent.putExtra(AddEditTermActivity.EXTRA_TITLE, term.getTitle());
                 intent.putExtra(AddEditTermActivity.EXTRA_DESCRIPTION, term.getDescription());
-                intent.putExtra(AddEditTermActivity.EXTRA_ID, term.getId());
+                intent.putExtra(ViewTermDetailedActivity.EXTRA_ID, term.getId());
                 intent.putExtra(AddEditTermActivity.EXTRA_START_DATE, term.getStart());
                 intent.putExtra(AddEditTermActivity.EXTRA_END_DATE, term.getEnd());
                 intent.putExtra(AddEditTermActivity.EXTRA_TERM_COURSES,term.getTermCourses());

@@ -66,6 +66,7 @@ public class ViewTermDetailedActivity extends AppCompatActivity {
                 intent.putExtra(AddEditTermActivity.EXTRA_TITLE, viewTextTitle.getText().toString());
                 intent.putExtra(AddEditTermActivity.EXTRA_DESCRIPTION, viewTextDescription.getText().toString());
                 intent.putExtra(AddEditTermActivity.EXTRA_ID, viewTextTermId.getText().toString());
+                Toast.makeText(ViewTermDetailedActivity.this, viewTextTermId.getText().toString(), Toast.LENGTH_SHORT).show();
                 intent.putExtra(AddEditTermActivity.EXTRA_START_DATE, viewTextStartDate.getText().toString());
                 intent.putExtra(AddEditTermActivity.EXTRA_END_DATE, viewTextEndDate.getText().toString());
                 intent.putExtra(AddEditTermActivity.EXTRA_TERM_COURSES, viewTextTermCourses.getText().toString());
@@ -92,6 +93,7 @@ public class ViewTermDetailedActivity extends AppCompatActivity {
             viewTextEndDate.setText(intent.getStringExtra(EXTRA_END_DATE));
             viewTextTermCourses.setText(intent.getStringExtra(EXTRA_TERM_COURSES));
             viewTextTermId.setText(intent.getStringExtra(EXTRA_ID));
+            Toast.makeText(this, viewTextTermId.getText().toString(), Toast.LENGTH_SHORT).show();
 
         }
         adapter.setOnItemClickListener(new TermAdapter.OnItemClickListener() {
