@@ -21,19 +21,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Courses\nSelect a course to add it, select it again to remove it:"/>
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/courses_added"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/courses_label"
-        android:layout_marginTop="31dp"/>
-
+        android:layout_marginTop="31dp"
+        tools:listitem="@layout/course_item"/>
+        <TextView
+            android:id="@+id/available_courses_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/courses_added"
+            android:text="Courses\nSelect a course to add it, select it again to remove it:"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/course_add_recycler_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/courses_added"
+        android:layout_below="@id/available_courses_label"
         android:layout_marginTop="31dp"
         tools:listitem="@layout/course_item"/>
 

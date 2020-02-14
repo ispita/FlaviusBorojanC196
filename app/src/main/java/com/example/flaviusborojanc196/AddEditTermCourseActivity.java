@@ -36,7 +36,8 @@ public class AddEditTermCourseActivity extends AppCompatActivity {
 
 
     private CourseViewModel courseViewModel;
-    private TextView addedCourses;
+    private CourseViewModel courseViewModelB;
+    private RecyclerView addedCourses;
     private int termId;
     private List<String> courseArray = new ArrayList<>();
     private List<Integer> courseArrayId = new ArrayList<>();
@@ -47,9 +48,11 @@ public class AddEditTermCourseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_term_courses);
 
+        Intent intent = getIntent();
+        setTitle("Add/Remove Term Courses");
+        termId = Integer.parseInt(intent.getStringExtra(EXTRA_ID));
 
 
-        addedCourses = findViewById(R.id.courses_added);
 
 
         RecyclerView recyclerView = findViewById(R.id.course_add_recycler_view);
@@ -60,21 +63,34 @@ public class AddEditTermCourseActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         courseViewModel = ViewModelProviders.of(this).get(CourseViewModel.class);
-        courseViewModel.getAllCourses().observe(this,new Observer<List<Course>>(){
+        courseViewModel.getAvailableCourses().observe(this,new Observer<List<Course>>(){
             @Override
             public void onChanged(@Nullable List<Course> courses){
                 adapter.setCourses(courses);
             }
         });
 
+        addedCourses = findViewById(R.id.courses_added);
+        addedCourses.setLayoutManager(new LinearLayoutManager(this));
+        addedCourses.setHasFixedSize(true);
 
-            Intent intent = getIntent();
-            setTitle("Add/Remove Term Courses");
-            termId = Integer.parseInt(intent.getStringExtra(EXTRA_ID));
-            addedCourses.setText(intent.getStringExtra(EXTRA_TERM_COURSES));
-               Toast.makeText(this, "testing open " + termId, Toast.LENGTH_SHORT).show();
-            String[] addedCoursesArray = (addedCourses.getText().toString().split(","));
-            Collections.addAll(courseArray,addedCoursesArray);
+        final CourseAdapter adapterCurrent = new CourseAdapter();
+        addedCourses.setAdapter(adapterCurrent);
+
+        courseViewModelB = ViewModelProviders.of(this).get(CourseViewModel.class);
+        courseViewModelB.getCurrentCourses().observe(this,new Observer<List<Course>>(){
+            @Override
+            public void onChanged(@Nullable List<Course> courses){
+                adapterCurrent.setCourses(courses);
+            }
+        });
+
+
+
+//            addedCourses.setText(intent.getStringExtra(EXTRA_TERM_COURSES));
+//               Toast.makeText(this, "testing open " + termId, Toast.LENGTH_SHORT).show();
+//            String[] addedCoursesArray = (addedCourses.getText().toString().split(","));
+//            Collections.addAll(courseArray,addedCoursesArray);
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT |ItemTouchHelper.RIGHT) {
             @Override
@@ -97,14 +113,14 @@ public class AddEditTermCourseActivity extends AppCompatActivity {
                     TermCourses addTermCourses = new TermCourses(termId,course.getId());
                     courseViewModel.insertTermCourses(addTermCourses);
 
-                    addedCourses.append("\n" +courseArray.get(courseArray.size() - 1) + "\n");
+//                    addedCourses.append("\n" +courseArray.get(courseArray.size() - 1) + "\n");
                 } else {
                     courseArrayId.remove(course.getId());
                     courseArray.remove(course.getTitle());
-                    addedCourses.setText("");
-                    for (int j = 0; j < courseArray.size(); j++) {
-                        addedCourses.append("\n" + courseArray.get(j) + "\n");
-                    }
+//                    addedCourses.setText("");
+//                    for (int j = 0; j < courseArray.size(); j++) {
+//                        addedCourses.append("\n" + courseArray.get(j) + "\n");
+//                    }
                 }
 
             }
@@ -113,20 +129,20 @@ public class AddEditTermCourseActivity extends AppCompatActivity {
     }
     private void saveTermCourses(){
 
-        addedCourses.setText("");
-        for(int j = 0; j < courseArray.size(); j++) {
-            if (j == courseArray.size() - 1){
-                addedCourses.append(courseArray.get(j));
-            }
-            else {
-                addedCourses.append(courseArray.get(j) + ",");
-            }
-        }
-        String termCourses = addedCourses.getText().toString();
+//        addedCourses.setText("");
+//        for(int j = 0; j < courseArray.size(); j++) {
+//            if (j == courseArray.size() - 1){
+//                addedCourses.append(courseArray.get(j));
+//            }
+//            else {
+//                addedCourses.append(courseArray.get(j) + ",");
+//            }
+//        }
+//        String termCourses = addedCourses.getText().toString();
 
 
         Intent data = new Intent();
-        data.putExtra(EXTRA_TERM_COURSES, termCourses);
+//        data.putExtra(EXTRA_TERM_COURSES, termCourses);
         int id = termId;
         Toast.makeText(this, "this is the ID " + id, Toast.LENGTH_SHORT).show();
         if (id != -1){

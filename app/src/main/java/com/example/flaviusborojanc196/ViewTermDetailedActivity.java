@@ -64,6 +64,21 @@ public class ViewTermDetailedActivity extends AppCompatActivity {
         viewTextEndDate = findViewById(R.id.view_term_end_date);
         viewTextTermCourses = findViewById(R.id.view_courses);
         viewTextTermId = findViewById(R.id.view_term_id);
+
+
+        Intent intent = getIntent();
+        if(intent.hasExtra(EXTRA_ID)){
+            setTitle("Term Detailed View");
+            viewTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
+            viewTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
+            viewTextStartDate.setText(intent.getStringExtra(EXTRA_START_DATE));
+            viewTextEndDate.setText(intent.getStringExtra(EXTRA_END_DATE));
+            //   viewTextTermCourses.setText(intent.getStringExtra(EXTRA_TERM_COURSES));
+            viewTextTermId.setText(intent.getStringExtra(EXTRA_ID));
+            Toast.makeText(this, viewTextTermId.getText().toString(), Toast.LENGTH_SHORT).show();
+
+        }
+
         FloatingActionButton buttonEditTerm = findViewById(R.id.button_edit_term);
         buttonEditTerm.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -124,18 +139,7 @@ public class ViewTermDetailedActivity extends AppCompatActivity {
 //       }
 
 
-        Intent intent = getIntent();
-        if(intent.hasExtra(EXTRA_ID)){
-            setTitle("Term Detailed View");
-            viewTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
-            viewTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
-            viewTextStartDate.setText(intent.getStringExtra(EXTRA_START_DATE));
-            viewTextEndDate.setText(intent.getStringExtra(EXTRA_END_DATE));
-         //   viewTextTermCourses.setText(intent.getStringExtra(EXTRA_TERM_COURSES));
-            viewTextTermId.setText(intent.getStringExtra(EXTRA_ID));
-            Toast.makeText(this, viewTextTermId.getText().toString(), Toast.LENGTH_SHORT).show();
 
-        }
 //        adapter.setOnItemClickListener(new TermAdapter.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(Term term) {
