@@ -10,16 +10,25 @@ import androidx.lifecycle.LiveData;
 public class CourseRepository {
     private CourseDao courseDao;
     private LiveData<List<Course>> allCourses;
+    private LiveData<List<Course>> availableCourses;
+    private LiveData<List<Course>> currentCourses;
+    public static int termId;
 
     public CourseRepository(Application application){
         WGUDatabase database = WGUDatabase.getInstance(application);
         courseDao = database.courseDao();
         allCourses = courseDao.getAllCourses();
+        availableCourses = courseDao.getAvailableCourses(termId);
+        currentCourses = courseDao.getCurrentCourses(termId);
 
 
     }
     public void insert(Course course){
         new InsertCourseAsyncTask(courseDao).execute(course);
+
+    }
+    public void insertTermCourses(TermCourses termCourse){
+        new InsertTermCoursesAsyncTask(courseDao).execute(termCourse);
 
     }
 
@@ -31,6 +40,10 @@ public class CourseRepository {
         new DeleteCourseAsyncTask(courseDao).execute(course);
     }
 
+    public void deleteTermCourses(TermCourses termCourse){
+        new DeleteTermCoursesAsyncTask(courseDao).execute(termCourse);
+    }
+
     public void deleteAllCourses(){
         new DeleteAllCourseAsyncTask(courseDao).execute();
     }
@@ -38,6 +51,14 @@ public class CourseRepository {
 
     public LiveData<List<Course>> getAllCourses() {
         return allCourses;
+    }
+
+    public LiveData<List<Course>> getAvailableCourses() {
+        return availableCourses;
+    }
+
+    public LiveData<List<Course>> getCurrentCourses() {
+        return currentCourses;
     }
 
     private static class InsertCourseAsyncTask extends AsyncTask<Course, Void, Void>{
@@ -50,6 +71,20 @@ public class CourseRepository {
         @Override
         protected Void doInBackground(Course... courses){
             courseDao.insert(courses[0]);
+            return null;
+        }
+    }
+
+    private static class InsertTermCoursesAsyncTask extends AsyncTask<TermCourses, Void, Void>{
+        private CourseDao courseDao;
+
+        private InsertTermCoursesAsyncTask(CourseDao courseDao){
+            this.courseDao = courseDao;
+        }
+
+        @Override
+        protected Void doInBackground(TermCourses... termCs){
+            courseDao.insertTermCourses(termCs[0]);
             return null;
         }
     }
@@ -67,6 +102,21 @@ public class CourseRepository {
             return null;
         }
     }
+
+    private static class DeleteTermCoursesAsyncTask extends AsyncTask<TermCourses, Void, Void>{
+        private CourseDao courseDao;
+
+        private DeleteTermCoursesAsyncTask(CourseDao courseDao){
+            this.courseDao = courseDao;
+        }
+
+        @Override
+        protected Void doInBackground(TermCourses... termCs){
+            courseDao.deleteTermCourses(termCs[0]);
+            return null;
+        }
+    }
+
 
     private static class DeleteAllCourseAsyncTask extends AsyncTask<Void, Void, Void>{
         private CourseDao courseDao;

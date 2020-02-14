@@ -13,6 +13,7 @@ import static androidx.room.ForeignKey.CASCADE;
 public class Term {
 
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name="tID")
     private int id;
 
     private String title;
@@ -23,27 +24,26 @@ public class Term {
 
     private String end;
 
-    private String termCourses;
+//    private String termCourses;
 
 
 
-    public Term(String title, String description, String start, String end, String termCourses) {
+    public Term(String title, String description, String start, String end) {
         this.title = title;
         this.description = description;
         this.start = start;
         this.end = end;
-        this.termCourses = termCourses;
 
     }
 
 
-    public String getTermCourses() {
-        return termCourses;
-    }
-
-    public void setTermCourses(String termCourses) {
-        this.termCourses = termCourses;
-    }
+//    public String getTermCourses() {
+//        return termCourses;
+//    }
+//
+//    public void setTermCourses(String termCourses) {
+//        this.termCourses = termCourses;
+//    }
 
     public void setId(int id) {
         this.id = id;

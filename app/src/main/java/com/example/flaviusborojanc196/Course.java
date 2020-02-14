@@ -14,6 +14,7 @@ public class Course {
 
 
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name="cID")
     private int id;
 
     private String title;

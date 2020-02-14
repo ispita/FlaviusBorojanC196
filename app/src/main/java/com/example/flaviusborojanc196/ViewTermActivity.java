@@ -82,7 +82,7 @@ public class ViewTermActivity extends AppCompatActivity {
                 intent.putExtra(ViewTermDetailedActivity.EXTRA_ID, Integer.toString(term.getId()));
                 intent.putExtra(ViewTermDetailedActivity.EXTRA_START_DATE, term.getStart());
                 intent.putExtra(ViewTermDetailedActivity.EXTRA_END_DATE, term.getEnd());
-                intent.putExtra(ViewTermDetailedActivity.EXTRA_TERM_COURSES,term.getTermCourses());
+              //  intent.putExtra(ViewTermDetailedActivity.EXTRA_TERM_COURSES,term.getTermCourses());
                 startActivityForResult(intent, VIEW_TERM_DETAILED_REQUEST);
             }
         });
@@ -121,9 +121,9 @@ public class ViewTermActivity extends AppCompatActivity {
             String description = data.getStringExtra(AddEditTermActivity.EXTRA_DESCRIPTION); //need non null default value for int
             String start = data.getStringExtra(AddEditTermActivity.EXTRA_START_DATE);
             String end = data.getStringExtra(AddEditTermActivity.EXTRA_END_DATE);
-            String termCourses = data.getStringExtra(AddEditTermActivity.EXTRA_TERM_COURSES);
+//            String termCourses = data.getStringExtra(AddEditTermActivity.EXTRA_TERM_COURSES);
 
-            Term term = new Term(title,description,start,end,termCourses);
+            Term term = new Term(title,description,start,end);
             termViewModel.insert(term);
 
             Toast.makeText(this, "Term Saved", Toast.LENGTH_SHORT).show();
@@ -137,9 +137,9 @@ public class ViewTermActivity extends AppCompatActivity {
             String description = data.getStringExtra(AddEditTermActivity.EXTRA_DESCRIPTION); //need non null default value for int
             String start = data.getStringExtra(AddEditTermActivity.EXTRA_START_DATE);
             String end = data.getStringExtra(AddEditTermActivity.EXTRA_END_DATE);
-            String termCourses = data.getStringExtra(AddEditTermActivity.EXTRA_TERM_COURSES);
+//            String termCourses = data.getStringExtra(AddEditTermActivity.EXTRA_TERM_COURSES);
 
-            Term term = new Term(title,description,start,end,termCourses);
+            Term term = new Term(title,description,start,end);
             term.setId(id);
             termViewModel.update(term);
 

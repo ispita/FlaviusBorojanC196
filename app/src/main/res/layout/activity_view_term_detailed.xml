@@ -16,6 +16,26 @@
             android:padding="8dp"
             tools:layout_viewor_absoluteX="0dp">
 
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/button_edit_term"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="75dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/view_title"
+                android:src="@drawable/ic_edit" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/button_add_term_course"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/button_edit_term"
+                android:src="@drawable/ic_course_add" />
+
             <TextView
                 android:id="@+id/view_title"
                 android:layout_width="406dp"
@@ -82,22 +102,14 @@
                 android:layout_height="wrap_content"
                 android:text="Courses:"
                 android:layout_below="@+id/view_term_end_date"/>
-            <TextView
+
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/view_courses"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="31dp"
-                android:layout_below="@id/view_term_end_date"/>
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/button_edit_term"
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@+id/view_courses"
-                android:src="@drawable/ic_edit" />
+                android:layout_below="@id/view_term_end_date"
+                tools:listitem="@layout/course_item"/>
 
 
         </RelativeLayout>

@@ -9,7 +9,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {Term.class, Course.class}, version = 1, exportSchema = false)
+@Database(entities = {Term.class, Course.class, TermCourses.class}, version = 1, exportSchema = false)
 public abstract class WGUDatabase extends RoomDatabase {
 
     private static WGUDatabase instance;
@@ -45,10 +45,10 @@ public abstract class WGUDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids){
-            termDao.insert(new Term("Title1", "Description1", "02/11/2020", "03/31/2020", "1"));
-            termDao.insert(new Term("Title2", "Description2", "02/11/2020", "03/31/2020", "2"));
-            termDao.insert(new Term("Title3", "Description3", "02/11/2020", "03/31/2020", "3"));
-            termDao.insert(new Term("Title4", "Description4", "02/11/2020", "03/31/2020", "4"));
+            termDao.insert(new Term("Title1", "Description1", "02/11/2020", "03/31/2020"));
+            termDao.insert(new Term("Title2", "Description2", "02/11/2020", "03/31/2020"));
+            termDao.insert(new Term("Title3", "Description3", "02/11/2020", "03/31/2020"));
+            termDao.insert(new Term("Title4", "Description4", "02/11/2020", "03/31/2020"));
             courseDao.insert(new Course("Title1", "Description1", "02/11/2020", "03/31/2020","plan to take", "timmy","777-333-4444","email@email.com","optional min 1"));
             courseDao.insert(new Course("Title2", "Description2", "02/11/2020", "03/31/2020","plan to take", "timmy","777-333-4444","email@email.com","optional min 1"));
             courseDao.insert(new Course("Title3", "Description3", "02/11/2020", "03/31/2020","plan to take", "timmy","777-333-4444","email@email.com","optional min 1"));

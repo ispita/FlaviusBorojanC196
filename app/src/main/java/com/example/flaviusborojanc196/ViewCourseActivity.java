@@ -71,7 +71,7 @@ public class ViewCourseActivity extends AppCompatActivity {
                 courseViewModel.delete(adapter.getCourseAt(viewHolder.getAdapterPosition()));
             }
         }).attachToRecyclerView(recyclerView);
-
+        Toast.makeText(this, "Testing adapter count" + adapter.getItemCount(), Toast.LENGTH_SHORT).show();
         adapter.setOnItemClickListener(new CourseAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Course course) {

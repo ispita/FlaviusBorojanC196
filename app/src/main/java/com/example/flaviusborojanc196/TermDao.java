@@ -26,7 +26,14 @@ public interface TermDao {
     @Query("DELETE FROM term_table")
     void deleteAllTerms();
 
-    @Query("SELECT * FROM term_table ORDER BY id ASC")
+    @Query("SELECT * FROM term_table ORDER BY tID ASC")
     LiveData<List<Term>> getAllTerms();
+
+    @Insert
+    void insertTermCourses (TermCourses termCourses);
+
+    @Update
+    void updateTermCourses(TermCourses termCourses);
+
 
 }

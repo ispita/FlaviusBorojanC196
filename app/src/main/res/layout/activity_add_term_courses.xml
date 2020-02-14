@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+    <!-- Here you put the rest of your current view-->
+
+    <RelativeLayout
+        android:layout_width="414dp"
+        android:layout_height="735dp"
+        android:padding="8dp"
+        tools:layout_editor_absoluteX="0dp">
+
+    <TextView
+        android:id="@+id/courses_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Courses\nSelect a course to add it, select it again to remove it:"/>
+    <TextView
+        android:id="@+id/courses_added"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/courses_label"
+        android:layout_marginTop="31dp"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/course_add_recycler_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/courses_added"
+        android:layout_marginTop="31dp"
+        tools:listitem="@layout/course_item"/>
+
+    </RelativeLayout>
+    </ScrollView>
+</LinearLayout>

@@ -37,17 +37,18 @@ public class AddEditTermActivity extends AppCompatActivity {
             "com.example.flaviusborojanc196.EXTRA_START_DATE";
     public static final String EXTRA_END_DATE=
             "com.example.flaviusborojanc196.EXTRA_END_DATE";
-    public static final String EXTRA_TERM_COURSES=
-            "com.example.flaviusborojanc196.EXTRA_TERM_COURSES";
+//    public static final String EXTRA_TERM_COURSES=
+//            "com.example.flaviusborojanc196.EXTRA_TERM_COURSES";
 
     private EditText editTextTitle;
     private EditText editTextDescription;
     private EditText editTextStartDate;
     private EditText editTextEndDate;
     private String editTermId;
-    private TextView coursesLabel;
-    private CourseViewModel courseViewModel;
-    private CourseViewModel addedCourseViewModel;
+    private Boolean editTerm = false;
+//    private TextView coursesLabel;
+//    private CourseViewModel courseViewModel;
+//    private CourseViewModel addedCourseViewModel;
    // private TextView courseTitle;
     //private Integer courseCardColor;
     private TextView addedCourses;
@@ -67,20 +68,20 @@ public class AddEditTermActivity extends AppCompatActivity {
         //courseTitle = findViewById(R.id.text_view_course_title);
 
 
-        RecyclerView recyclerView = findViewById(R.id.course_add_recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
-
-        final CourseAdapter adapter = new CourseAdapter();
-        recyclerView.setAdapter(adapter);
-
-        courseViewModel = ViewModelProviders.of(this).get(CourseViewModel.class);
-        courseViewModel.getAllCourses().observe(this,new Observer<List<Course>>(){
-            @Override
-            public void onChanged(@Nullable List<Course> courses){
-                adapter.setCourses(courses);
-            }
-        });
+//        RecyclerView recyclerView = findViewById(R.id.course_add_recycler_view);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView.setHasFixedSize(true);
+//
+//        final CourseAdapter adapter = new CourseAdapter();
+//        recyclerView.setAdapter(adapter);
+//
+//        courseViewModel = ViewModelProviders.of(this).get(CourseViewModel.class);
+//        courseViewModel.getAllCourses().observe(this,new Observer<List<Course>>(){
+//            @Override
+//            public void onChanged(@Nullable List<Course> courses){
+//                adapter.setCourses(courses);
+//            }
+//        });
 
 
         Intent intent = getIntent();
@@ -90,46 +91,47 @@ public class AddEditTermActivity extends AppCompatActivity {
             editTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
             editTextStartDate.setText(intent.getStringExtra(EXTRA_START_DATE));
             editTextEndDate.setText(intent.getStringExtra(EXTRA_END_DATE));
-            addedCourses.setText(intent.getStringExtra(EXTRA_TERM_COURSES));
+//            addedCourses.setText(intent.getStringExtra(EXTRA_TERM_COURSES));
             editTermId = intent.getStringExtra(EXTRA_ID);
-            String[] addedCoursesArray = (addedCourses.getText().toString().split(","));
-            Collections.addAll(courseArray,addedCoursesArray);
-            Toast.makeText(this, "EXTRA_ID  " + editTermId , Toast.LENGTH_SHORT).show();
+            editTerm = true;
+//            String[] addedCoursesArray = (addedCourses.getText().toString().split(","));
+//            Collections.addAll(courseArray,addedCoursesArray);
+//            Toast.makeText(this, "EXTRA_ID  " + editTermId , Toast.LENGTH_SHORT).show();
 
         }
         else {
             setTitle("Add Term");
         }
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT |ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                courseViewModel.delete(adapter.getCourseAt(viewHolder.getAdapterPosition()));
-            }
-        }).attachToRecyclerView(recyclerView);
-
-        adapter.setOnItemClickListener(new CourseAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Course course) {
-                    if (!courseArray.contains(course.getTitle())) {
-                        courseArray.add(course.getTitle());
-
-                        addedCourses.append("\n" +courseArray.get(courseArray.size() - 1) + "\n");
-                    } else {
-
-                        courseArray.remove(course.getTitle());
-                        addedCourses.setText("");
-                        for (int j = 0; j < courseArray.size(); j++) {
-                            addedCourses.append("\n" + courseArray.get(j) + "\n");
-                        }
-                    }
-
-            }
-        });
+//        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT |ItemTouchHelper.RIGHT) {
+//            @Override
+//            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+//                return false;
+//            }
+//
+//            @Override
+//            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+//                courseViewModel.delete(adapter.getCourseAt(viewHolder.getAdapterPosition()));
+//            }
+//        }).attachToRecyclerView(recyclerView);
+//
+//        adapter.setOnItemClickListener(new CourseAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(Course course) {
+//                    if (!courseArray.contains(course.getTitle())) {
+//                        courseArray.add(course.getTitle());
+//
+//                        addedCourses.append("\n" +courseArray.get(courseArray.size() - 1) + "\n");
+//                    } else {
+//
+//                        courseArray.remove(course.getTitle());
+//                        addedCourses.setText("");
+//                        for (int j = 0; j < courseArray.size(); j++) {
+//                            addedCourses.append("\n" + courseArray.get(j) + "\n");
+//                        }
+//                    }
+//
+//            }
+//        });
 
     }
     private void saveTerm(){
@@ -137,16 +139,16 @@ public class AddEditTermActivity extends AppCompatActivity {
         String description = editTextDescription.getText().toString();
         String start = editTextStartDate.getText().toString();
         String end = editTextEndDate.getText().toString();
-        addedCourses.setText("");
-        for(int j = 0; j < courseArray.size(); j++) {
-            if (j == courseArray.size() - 1){
-                addedCourses.append(courseArray.get(j));
-            }
-            else {
-                addedCourses.append(courseArray.get(j) + ",");
-            }
-        }
-        String termCourses = addedCourses.getText().toString();
+//        addedCourses.setText("");
+//        for(int j = 0; j < courseArray.size(); j++) {
+//            if (j == courseArray.size() - 1){
+//                addedCourses.append(courseArray.get(j));
+//            }
+//            else {
+//                addedCourses.append(courseArray.get(j) + ",");
+//            }
+//        }
+//        String termCourses = addedCourses.getText().toString();
         if(title.trim().isEmpty() || description.trim().isEmpty()){
             Toast.makeText(this, "Please Insert a Description and a Title!", Toast.LENGTH_SHORT).show();
             return;
@@ -157,10 +159,14 @@ public class AddEditTermActivity extends AppCompatActivity {
         data.putExtra(EXTRA_DESCRIPTION, description);
         data.putExtra(EXTRA_START_DATE, start);
         data.putExtra(EXTRA_END_DATE, end);
-
-        data.putExtra(EXTRA_TERM_COURSES, termCourses);
-
-        int id = Integer.parseInt(editTermId);
+        int id = -1;
+       // data.putExtra(EXTRA_TERM_COURSES, termCourses);
+        if (!editTerm) {
+             id = getIntent().getIntExtra(EXTRA_ID, -1);
+        }
+        else if (editTerm) {
+            id = Integer.parseInt(editTermId);
+        }
         Toast.makeText(this, "this is the ID " + id, Toast.LENGTH_SHORT).show();
         if (id != -1){
             data.putExtra(EXTRA_ID, id);

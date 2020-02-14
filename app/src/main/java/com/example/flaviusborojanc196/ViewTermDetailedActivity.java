@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -34,19 +35,24 @@ public class ViewTermDetailedActivity extends AppCompatActivity {
             "com.example.flaviusborojanc196.EXTRA_START_DATE";
     public static final String EXTRA_END_DATE=
             "com.example.flaviusborojanc196.EXTRA_END_DATE";
-    public static final String EXTRA_TERM_COURSES=
-            "com.example.flaviusborojanc196.EXTRA_TERM_COURSES";
 
 
-//    private TermViewModel termViewModel;
+
     private TextView viewTextTitle;
     private TextView viewTextDescription;
     private TextView viewTextStartDate;
     private TextView viewTextEndDate;
-    private TextView viewTextTermCourses;
     private TextView viewTextTermId;
+    private RecyclerView viewTextTermCourses;
     private TermViewModel termViewModel;
+    private CourseViewModel courseViewMode1;
+    private List<Course> coursesList;
+
+    public static final int ADD_TERM_REQUEST = 1;
     public static final int EDIT_TERM_REQUEST = 2;
+    public static final int VIEW_TERM_DETAILED_REQUEST = 3;
+    public static final int ADD_COURSE_REQUEST = 4;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,10 +75,22 @@ public class ViewTermDetailedActivity extends AppCompatActivity {
                 Toast.makeText(ViewTermDetailedActivity.this, viewTextTermId.getText().toString(), Toast.LENGTH_SHORT).show();
                 intent.putExtra(AddEditTermActivity.EXTRA_START_DATE, viewTextStartDate.getText().toString());
                 intent.putExtra(AddEditTermActivity.EXTRA_END_DATE, viewTextEndDate.getText().toString());
-                intent.putExtra(AddEditTermActivity.EXTRA_TERM_COURSES, viewTextTermCourses.getText().toString());
+             //   intent.putExtra(AddEditTermActivity.EXTRA_TERM_COURSES, viewTextTermCourses.getText().toString());
                 startActivityForResult(intent,EDIT_TERM_REQUEST);
             }
         });
+
+        FloatingActionButton buttonTermCourseEdit = findViewById(R.id.button_add_term_course);
+        buttonTermCourseEdit.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ViewTermDetailedActivity.this, AddEditTermCourseActivity.class);
+                intent.putExtra(AddEditTermActivity.EXTRA_ID, viewTextTermId.getText().toString());
+                Toast.makeText(ViewTermDetailedActivity.this, viewTextTermId.getText().toString(), Toast.LENGTH_SHORT).show();
+                startActivityForResult(intent,ADD_COURSE_REQUEST);
+            }
+        });
+
 
 
         final TermAdapter adapter = new TermAdapter();
@@ -84,6 +102,28 @@ public class ViewTermDetailedActivity extends AppCompatActivity {
                 adapter.setTerms(terms);
             }
         });
+
+        RecyclerView recyclerView = findViewById(R.id.view_courses);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+        final CourseAdapter adapterC = new CourseAdapter();
+        recyclerView.setAdapter(adapterC);
+        CourseRepository.termId = Integer.parseInt(viewTextTermId.getText().toString());
+        courseViewMode1 = ViewModelProviders.of(this).get(CourseViewModel.class);
+        courseViewMode1.getCurrentCourses().observe(this,new Observer<List<Course>>(){
+            @Override
+            public void onChanged(@Nullable List<Course> courses){
+                adapterC.setCourses(courses);
+            }
+        });
+
+//        Toast.makeText(this, "Before the for loop " + courseViewMode1.getAllCourses().getValue(), Toast.LENGTH_SHORT).show();
+//       for (int i = 0; i < adapterC.getItemCount(); i++){
+//           Toast.makeText(this, "Entering for loop " + adapterC.getItemCount(), Toast.LENGTH_SHORT).show();
+//           viewTextTermCourses.setText(adapterC.getCourseAt(i).getTitle());
+//       }
+
+
         Intent intent = getIntent();
         if(intent.hasExtra(EXTRA_ID)){
             setTitle("Term Detailed View");
@@ -91,7 +131,7 @@ public class ViewTermDetailedActivity extends AppCompatActivity {
             viewTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
             viewTextStartDate.setText(intent.getStringExtra(EXTRA_START_DATE));
             viewTextEndDate.setText(intent.getStringExtra(EXTRA_END_DATE));
-            viewTextTermCourses.setText(intent.getStringExtra(EXTRA_TERM_COURSES));
+         //   viewTextTermCourses.setText(intent.getStringExtra(EXTRA_TERM_COURSES));
             viewTextTermId.setText(intent.getStringExtra(EXTRA_ID));
             Toast.makeText(this, viewTextTermId.getText().toString(), Toast.LENGTH_SHORT).show();
 
@@ -140,7 +180,7 @@ public class ViewTermDetailedActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
 
-            if(resultCode == RESULT_OK) {
+            if(requestCode == EDIT_TERM_REQUEST && resultCode == RESULT_OK) {
                 Toast.makeText(this, "Entering into RESULT_OK", Toast.LENGTH_SHORT).show();
             int id = data.getIntExtra(AddEditTermActivity.EXTRA_ID, -1);
             if(id == -1){
@@ -150,19 +190,26 @@ public class ViewTermDetailedActivity extends AppCompatActivity {
             String description = data.getStringExtra(AddEditTermActivity.EXTRA_DESCRIPTION); //need non null default value for int
             String start = data.getStringExtra(AddEditTermActivity.EXTRA_START_DATE);
             String end = data.getStringExtra(AddEditTermActivity.EXTRA_END_DATE);
-            String termCourses = data.getStringExtra(AddEditTermActivity.EXTRA_TERM_COURSES);
                 viewTextTitle.setText(title);
                 viewTextDescription.setText(description);
                 viewTextStartDate.setText(start);
                 viewTextEndDate.setText(end);
-                viewTextTermCourses.setText(termCourses);
                 viewTextTermId.setText(Integer.toString(id));
-            Term term = new Term(title,description,start,end,termCourses);
+            Term term = new Term(title,description,start,end);
             term.setId(id);
             termViewModel.update(term);
-
-
         }
+            else if(requestCode == ADD_COURSE_REQUEST && resultCode == RESULT_OK) {
+                Toast.makeText(this, "Entering into RESULT_OK", Toast.LENGTH_SHORT).show();
+                int id = data.getIntExtra(AddEditTermActivity.EXTRA_ID, -1);
+                if(id == -1){
+                    Toast.makeText(this, "Errors Encountered", Toast.LENGTH_SHORT).show();
+                }
+
+
+                viewTextTermId.setText(Integer.toString(id));
+
+            }
 
     }
 
