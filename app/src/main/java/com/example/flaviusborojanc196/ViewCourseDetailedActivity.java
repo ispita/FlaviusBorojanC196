@@ -54,6 +54,7 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
     private AssessmentViewModel assessmentViewMode1;
     private List<Course> coursesList;
 
+
     public static final int ADD_COURSE_REQUEST = 1;
     public static final int EDIT_COURSE_REQUEST = 2;
     public static final int VIEW_COURSE_DETAILED_REQUEST = 3;
@@ -124,7 +125,7 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
             }
         });
 
-        RecyclerView recyclerView = findViewById(R.id.view_courses);
+        RecyclerView recyclerView = findViewById(R.id.view_assessments);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         final AssessmentAdapter adapterC = new AssessmentAdapter();
