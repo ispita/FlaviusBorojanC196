@@ -23,6 +23,7 @@ import java.util.List;
 public class ViewCourseActivity extends AppCompatActivity {
     public static final int ADD_COURSE_REQUEST = 1;
     public static final int EDIT_COURSE_REQUEST = 2;
+    public static final int VIEW_COURSE_DETAILED_REQUEST = 3;
 
 
     private CourseViewModel courseViewModel;
@@ -71,22 +72,22 @@ public class ViewCourseActivity extends AppCompatActivity {
                 courseViewModel.delete(adapter.getCourseAt(viewHolder.getAdapterPosition()));
             }
         }).attachToRecyclerView(recyclerView);
-        Toast.makeText(this, "Testing adapter count" + adapter.getItemCount(), Toast.LENGTH_SHORT).show();
+
         adapter.setOnItemClickListener(new CourseAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Course course) {
-                Intent intent = new Intent (ViewCourseActivity.this, AddEditCourseActivity.class);
-                intent.putExtra(AddEditCourseActivity.EXTRA_TITLE, course.getTitle());
-                intent.putExtra(AddEditCourseActivity.EXTRA_DESCRIPTION, course.getDescription());
-                intent.putExtra(AddEditCourseActivity.EXTRA_ID, course.getId());
-                intent.putExtra(AddEditCourseActivity.EXTRA_START_DATE, course.getStart());
-                intent.putExtra(AddEditCourseActivity.EXTRA_END_DATE, course.getEnd());
-                intent.putExtra(AddEditCourseActivity.EXTRA_STATUS, course.getStatus());
-                intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR, course.getMentor());
-                intent.putExtra(AddEditCourseActivity.EXTRA_PHONE, course.getPhone());
-                intent.putExtra(AddEditCourseActivity.EXTRA_EMAIL, course.getEmail());
-                intent.putExtra(AddEditCourseActivity.EXTRA_NOTE, course.getNote());
-                startActivityForResult(intent, EDIT_COURSE_REQUEST);
+                Intent intent = new Intent (ViewCourseActivity.this, ViewCourseDetailedActivity.class);
+                intent.putExtra(ViewCourseDetailedActivity.EXTRA_TITLE, course.getTitle());
+                intent.putExtra(ViewCourseDetailedActivity.EXTRA_DESCRIPTION, course.getDescription());
+                intent.putExtra(ViewCourseDetailedActivity.EXTRA_ID, Integer.toString(course.getId()));
+                intent.putExtra(ViewCourseDetailedActivity.EXTRA_START_DATE, course.getStart());
+                intent.putExtra(ViewCourseDetailedActivity.EXTRA_END_DATE, course.getEnd());
+                intent.putExtra(ViewCourseDetailedActivity.EXTRA_STATUS, course.getStatus());
+                intent.putExtra(ViewCourseDetailedActivity.EXTRA_MENTOR, course.getMentor());
+                intent.putExtra(ViewCourseDetailedActivity.EXTRA_PHONE, course.getPhone());
+                intent.putExtra(ViewCourseDetailedActivity.EXTRA_EMAIL, course.getEmail());
+                intent.putExtra(ViewCourseDetailedActivity.EXTRA_NOTE, course.getNote());
+                startActivityForResult(intent, VIEW_COURSE_DETAILED_REQUEST);
             }
         });
 

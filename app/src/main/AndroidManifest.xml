@@ -31,8 +31,12 @@
             android:parentActivityName=".ViewTermDetailedActivity"/>
         <activity android:name=".ViewTermDetailedActivity"
             android:parentActivityName=".ViewTermActivity"/>
+        <activity android:name=".ViewCourseDetailedActivity"
+            android:parentActivityName=".ViewCourseActivity"/>
         <activity android:name=".AddEditTermCourseActivity"
             android:parentActivityName=".ViewTermDetailedActivity"/>
+        <activity android:name=".AddEditCourseAssessmentActivity"
+            android:parentActivityName=".ViewCourseDetailedActivity"/>
 
 
     </application>

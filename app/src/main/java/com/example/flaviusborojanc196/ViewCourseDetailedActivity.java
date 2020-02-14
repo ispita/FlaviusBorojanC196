@@ -31,6 +31,16 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
             "com.example.flaviusborojanc196.EXTRA_START_DATE";
     public static final String EXTRA_END_DATE=
             "com.example.flaviusborojanc196.EXTRA_END_DATE";
+    public static final String EXTRA_STATUS=
+            "com.example.flaviusborojanc196.EXTRA_STATUS";
+    public static final String EXTRA_MENTOR=
+            "com.example.flaviusborojanc196.EXTRA_MENTOR";
+    public static final String EXTRA_PHONE=
+            "com.example.flaviusborojanc196.EXTRA_PHONE";
+    public static final String EXTRA_EMAIL=
+            "com.example.flaviusborojanc196.EXTRA_EMAIL";
+    public static final String EXTRA_NOTE=
+            "com.example.flaviusborojanc196.EXTRA_NOTE";
 
 
 
@@ -44,10 +54,10 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
     private AssessmentViewModel assessmentViewMode1;
     private List<Course> coursesList;
 
-    public static final int ADD_TERM_REQUEST = 1;
-    public static final int EDIT_TERM_REQUEST = 2;
-    public static final int VIEW_TERM_DETAILED_REQUEST = 3;
-    public static final int ADD_COURSE_REQUEST = 4;
+    public static final int ADD_COURSE_REQUEST = 1;
+    public static final int EDIT_COURSE_REQUEST = 2;
+    public static final int VIEW_COURSE_DETAILED_REQUEST = 3;
+    public static final int ADD_ASSESSMENT_REQUEST = 4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +97,7 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
                 intent.putExtra(AddEditCourseActivity.EXTRA_START_DATE, viewTextStartDate.getText().toString());
                 intent.putExtra(AddEditCourseActivity.EXTRA_END_DATE, viewTextEndDate.getText().toString());
              //   intent.putExtra(AddEditCourseActivity.EXTRA_TERM_COURSES, viewTextCourseAssessments.getText().toString());
-                startActivityForResult(intent,EDIT_TERM_REQUEST);
+                startActivityForResult(intent,EDIT_COURSE_REQUEST);
             }
         });
 
@@ -119,7 +129,7 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         final AssessmentAdapter adapterC = new AssessmentAdapter();
         recyclerView.setAdapter(adapterC);
-        AssessmentRepository.courseId = Integer.parseInt(viewTextCourseId.getText().toString());
+       // AssessmentRepository.courseId = Integer.parseInt(viewTextCourseId.getText().toString());
         assessmentViewMode1 = ViewModelProviders.of(this).get(AssessmentViewModel.class);
         assessmentViewMode1.getCurrentAssessments().observe(this,new Observer<List<Assessment>>(){
             @Override
@@ -180,7 +190,7 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
 
-            if(requestCode == EDIT_TERM_REQUEST && resultCode == RESULT_OK) {
+            if(requestCode == EDIT_COURSE_REQUEST && resultCode == RESULT_OK) {
                 Toast.makeText(this, "Entering into RESULT_OK", Toast.LENGTH_SHORT).show();
             int id = data.getIntExtra(AddEditCourseActivity.EXTRA_ID, -1);
             if(id == -1){
