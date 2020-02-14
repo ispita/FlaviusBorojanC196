@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+    <!-- Here you put the rest of your current view-->
+
+    <RelativeLayout
+        android:layout_width="414dp"
+        android:layout_height="735dp"
+        android:padding="8dp"
+        tools:layout_editor_absoluteX="0dp">
+
+    <TextView
+        android:id="@+id/assessments_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Assessments\nSelect a assessment to add it, select it again to remove it:"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/assessments_added"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/assessments_label"
+        android:layout_marginTop="31dp"
+        tools:listitem="@layout/assessment_item"/>
+        <TextView
+            android:id="@+id/available_assessments_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/assessments_added"
+            android:text="Assessments\nSelect a assessment to add it, select it again to remove it:"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/assessment_add_recycler_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/available_assessments_label"
+        android:layout_marginTop="31dp"
+        tools:listitem="@layout/assessment_item"/>
+
+    </RelativeLayout>
+    </ScrollView>
+</LinearLayout>

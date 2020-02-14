@@ -12,14 +12,14 @@ public class AssessmentRepository {
     private LiveData<List<Assessment>> allAssessments;
     private LiveData<List<Assessment>> availableAssessments;
     private LiveData<List<Assessment>> currentAssessments;
-    public static int termId;
+    public static int courseId;
 
     public AssessmentRepository(Application application){
         WGUDatabase database = WGUDatabase.getInstance(application);
         assessmentDao = database.assessmentDao();
         allAssessments = assessmentDao.getAllAssessments();
-        availableAssessments = assessmentDao.getAvailableAssessments(termId);
-        currentAssessments = assessmentDao.getCurrentAssessments(termId);
+        availableAssessments = assessmentDao.getAvailableAssessments(courseId);
+        currentAssessments = assessmentDao.getCurrentAssessments(courseId);
 
 
     }
