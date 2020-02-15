@@ -22,13 +22,16 @@
         </activity>
         <activity android:name=".ViewTermActivity"
             android:parentActivityName=".MainActivity"/>
-
         <activity android:name=".ViewCourseActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".ViewAssessmentActivity"
             android:parentActivityName=".MainActivity"/>
         <activity android:name=".AddEditCourseActivity"
             android:parentActivityName=".ViewCourseActivity"/>
         <activity android:name=".AddEditTermActivity"
             android:parentActivityName=".ViewTermDetailedActivity"/>
+        <activity android:name=".AddEditAssessmentActivity"
+            android:parentActivityName=".ViewAssessmentActivity"/>
         <activity android:name=".ViewTermDetailedActivity"
             android:parentActivityName=".ViewTermActivity"/>
         <activity android:name=".ViewCourseDetailedActivity"

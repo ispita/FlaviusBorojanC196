@@ -27,6 +27,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     public static final int ADD_TERM_REQUEST = 1;
     public static final int ADD_COURSE_REQUEST = 1;
+    public static final int ADD_ASSESSMENT_REQUEST = 1;
 
 
 
@@ -52,6 +53,16 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,ViewCourseActivity.class);
                 startActivityForResult(intent,ADD_COURSE_REQUEST);
+            }
+        });
+
+
+        Button buttonViewAssessment = findViewById(R.id.view_assessment_button);
+        buttonViewAssessment.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,ViewAssessmentActivity.class);
+                startActivityForResult(intent,ADD_ASSESSMENT_REQUEST);
             }
         });
 

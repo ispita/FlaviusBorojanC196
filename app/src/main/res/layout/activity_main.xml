@@ -38,6 +38,13 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/view_term_button"
             android:text="View Course" />
+        <Button
+            android:id="@+id/view_assessment_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_course_button"
+            android:text="View Assessment" />
+
 
     </RelativeLayout>
 
