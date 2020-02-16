@@ -25,8 +25,9 @@ public interface AssessmentDao {
     @Delete
     void delete(Assessment assessment);
 
-    @Delete
-    void deleteCourseAssessments(CourseAssessments termAssessments);
+
+    @Query ("DELETE FROM courseassessments_table where assessmentId= :assessmentId and courseId = :courseId")
+    void  deleteCourseAssessments(int assessmentId, int courseId);
 
     @Query("DELETE FROM assessment_table")
     void deleteAllAssessments();
@@ -34,10 +35,10 @@ public interface AssessmentDao {
     @Query("SELECT * FROM assessment_table ORDER BY aID ASC")
     LiveData<List<Assessment>> getAllAssessments();
 
-    @Query("SELECT * FROM assessment_table where aID not in (select assessmentId from courseassessments_table where assessmentId= :assessmentId)")
-    LiveData<List<Assessment>> getAvailableAssessments(int assessmentId);
+    @Query("SELECT * FROM assessment_table where aID not in (select assessmentId from courseassessments_table where courseId= :courseId)")
+    LiveData<List<Assessment>> getAvailableAssessments(int courseId);
 
-    @Query("SELECT * FROM assessment_table where aID in (select assessmentId from courseassessments_table where assessmentId = :assessmentId)")
-    LiveData<List<Assessment>> getCurrentAssessments(int assessmentId);
+    @Query("SELECT * FROM assessment_table where aID in (select assessmentId from courseassessments_table where courseId = :courseId)")
+    LiveData<List<Assessment>> getCurrentAssessments(int courseId);
 
 }

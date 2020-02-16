@@ -30,7 +30,7 @@ public class CourseAssessments {
 
 
 
-    public CourseAssessments(int assessmentId, int courseId) {
+    public CourseAssessments(int courseId, int assessmentId) {
         this.assessmentId = assessmentId;
         this.courseId = courseId;
 
@@ -43,7 +43,6 @@ public class CourseAssessments {
     public int getCaid() {
         return caid;
     }
-
 
     public int getAssessmentId() {
         return assessmentId;

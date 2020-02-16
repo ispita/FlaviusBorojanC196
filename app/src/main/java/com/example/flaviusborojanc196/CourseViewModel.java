@@ -41,8 +41,8 @@ public class CourseViewModel extends AndroidViewModel {
         repository.insertTermCourses(termCourses);
     }
 
-    public void deleteTermCourses(TermCourses termCourses) {
-        repository.deleteTermCourses(termCourses);
+    public void deleteTermCourses() {
+        repository.deleteTermCourses();
     }
 
 

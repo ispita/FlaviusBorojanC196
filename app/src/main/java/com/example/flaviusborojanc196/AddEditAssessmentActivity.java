@@ -37,8 +37,8 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
             "com.example.flaviusborojanc196.EXTRA_START_DATE";
     public static final String EXTRA_END_DATE=
             "com.example.flaviusborojanc196.EXTRA_END_DATE";
-//    public static final String EXTRA_TERM_COURSES=
-//            "com.example.flaviusborojanc196.EXTRA_TERM_COURSES";
+//    public static final String EXTRA_ASSESSMENT_COURSES=
+//            "com.example.flaviusborojanc196.EXTRA_ASSESSMENT_COURSES";
 
     private EditText editTextTitle;
     private EditText editTextDescription;
@@ -73,7 +73,7 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
             editTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
             editTextStartDate.setText(intent.getStringExtra(EXTRA_START_DATE));
             editTextEndDate.setText(intent.getStringExtra(EXTRA_END_DATE));
-//            addedCourses.setText(intent.getStringExtra(EXTRA_TERM_COURSES));
+//            addedCourses.setText(intent.getStringExtra(EXTRA_ASSESSMENT_COURSES));
             editAssessmentId = intent.getStringExtra(EXTRA_ID);
             editAssessment = true;
 //            String[] addedCoursesArray = (addedCourses.getText().toString().split(","));
@@ -113,7 +113,7 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
         data.putExtra(EXTRA_START_DATE, start);
         data.putExtra(EXTRA_END_DATE, end);
         int id = -1;
-        // data.putExtra(EXTRA_TERM_COURSES, assessmentCourses);
+        // data.putExtra(EXTRA_ASSESSMENT_COURSES, assessmentCourses);
         if (!editAssessment) {
             id = getIntent().getIntExtra(EXTRA_ID, -1);
         }

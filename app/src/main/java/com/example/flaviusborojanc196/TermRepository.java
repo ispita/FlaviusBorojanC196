@@ -34,7 +34,7 @@ public class TermRepository {
         new DeleteAllTermAsyncTask(termDao).execute();
     }
 
-    public void insertTermCourses(TermCourses termCourses){ new InsertTermCoursesAsyncTask(termDao).execute(termCourses);}
+//    public void insertTermCourses(TermCourses termCourses){ new InsertTermCoursesAsyncTask(termDao).execute(termCourses);}
 
     public void updateTermCourses(TermCourses termCourses){
         new UpdateTermCoursesAsyncTask(termDao).execute(termCourses);
@@ -58,19 +58,19 @@ public class TermRepository {
         }
     }
 
-    private static class InsertTermCoursesAsyncTask extends AsyncTask<TermCourses, Void, Void>{
-        private TermDao termDao;
-
-        private InsertTermCoursesAsyncTask(TermDao termDao){
-            this.termDao = termDao;
-        }
-
-        @Override
-        protected Void doInBackground(TermCourses... termCs){
-            termDao.insertTermCourses(termCs[0]);
-            return null;
-        }
-    }
+//    private static class InsertTermCoursesAsyncTask extends AsyncTask<TermCourses, Void, Void>{
+//        private TermDao termDao;
+//
+//        private InsertTermCoursesAsyncTask(TermDao termDao){
+//            this.termDao = termDao;
+//        }
+//
+//        @Override
+//        protected Void doInBackground(TermCourses... termCs){
+//            termDao.insertTermCourses(termCs[0]);
+//            return null;
+//        }
+//    }
 
 
     private static class DeleteTermAsyncTask extends AsyncTask<Term, Void, Void>{

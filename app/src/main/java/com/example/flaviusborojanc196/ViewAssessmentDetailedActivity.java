@@ -44,9 +44,9 @@ public class ViewAssessmentDetailedActivity extends AppCompatActivity {
     private CourseViewModel courseViewMode1;
     private List<Course> coursesList;
 
-    public static final int ADD_TERM_REQUEST = 1;
-    public static final int EDIT_TERM_REQUEST = 2;
-    public static final int VIEW_TERM_DETAILED_REQUEST = 3;
+    public static final int ADD_ASSESSMENT_REQUEST = 1;
+    public static final int EDIT_ASSESSMENT_REQUEST = 2;
+    public static final int VIEW_ASSESSMENT_DETAILED_REQUEST = 3;
     public static final int ADD_COURSE_REQUEST = 4;
 
     @Override
@@ -69,7 +69,7 @@ public class ViewAssessmentDetailedActivity extends AppCompatActivity {
             viewTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
             viewTextStartDate.setText(intent.getStringExtra(EXTRA_START_DATE));
             viewTextEndDate.setText(intent.getStringExtra(EXTRA_END_DATE));
-            //   viewTextAssessmentCourses.setText(intent.getStringExtra(EXTRA_TERM_COURSES));
+            //   viewTextAssessmentCourses.setText(intent.getStringExtra(EXTRA_ASSESSMENT_COURSES));
             viewTextAssessmentId.setText(intent.getStringExtra(EXTRA_ID));
             Toast.makeText(this, viewTextAssessmentId.getText().toString(), Toast.LENGTH_SHORT).show();
 
@@ -86,8 +86,8 @@ public class ViewAssessmentDetailedActivity extends AppCompatActivity {
                 Toast.makeText(ViewAssessmentDetailedActivity.this, viewTextAssessmentId.getText().toString(), Toast.LENGTH_SHORT).show();
                 intent.putExtra(AddEditAssessmentActivity.EXTRA_START_DATE, viewTextStartDate.getText().toString());
                 intent.putExtra(AddEditAssessmentActivity.EXTRA_END_DATE, viewTextEndDate.getText().toString());
-             //   intent.putExtra(AddEditAssessmentActivity.EXTRA_TERM_COURSES, viewTextAssessmentCourses.getText().toString());
-                startActivityForResult(intent,EDIT_TERM_REQUEST);
+             //   intent.putExtra(AddEditAssessmentActivity.EXTRA_ASSESSMENT_COURSES, viewTextAssessmentCourses.getText().toString());
+                startActivityForResult(intent,EDIT_ASSESSMENT_REQUEST);
             }
         });
 
@@ -114,42 +114,7 @@ public class ViewAssessmentDetailedActivity extends AppCompatActivity {
             }
         });
 
-//        RecyclerView recyclerView = findViewById(R.id.view_courses);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        recyclerView.setHasFixedSize(true);
-//        final CourseAdapter adapterC = new CourseAdapter();
-//        recyclerView.setAdapter(adapterC);
-//        CourseRepository.assessmentId = Integer.parseInt(viewTextAssessmentId.getText().toString());
-//        courseViewMode1 = ViewModelProviders.of(this).get(CourseViewModel.class);
-//        courseViewMode1.getCurrentCourses().observe(this,new Observer<List<Course>>(){
-//            @Override
-//            public void onChanged(@Nullable List<Course> courses){
-//                adapterC.setCourses(courses);
-//            }
-//        });
 
-//        Toast.makeText(this, "Before the for loop " + courseViewMode1.getAllCourses().getValue(), Toast.LENGTH_SHORT).show();
-//       for (int i = 0; i < adapterC.getItemCount(); i++){
-//           Toast.makeText(this, "Entering for loop " + adapterC.getItemCount(), Toast.LENGTH_SHORT).show();
-//           viewTextAssessmentCourses.setText(adapterC.getCourseAt(i).getTitle());
-//       }
-
-
-
-//        adapter.setOnItemClickListener(new AssessmentAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(Assessment assessment) {
-//                Intent intent = new Intent (ViewAssessmentDetailedActivity.this, AddEditAssessmentActivity.class);
-//                intent.putExtra(AddEditAssessmentActivity.EXTRA_TITLE, assessment.getTitle());
-//                intent.putExtra(AddEditAssessmentActivity.EXTRA_DESCRIPTION, assessment.getDescription());
-//                intent.putExtra(AddEditAssessmentActivity.EXTRA_ID, Integer.toString(assessment.getId()));
-//                Toast.makeText(ViewAssessmentDetailedActivity.this, "this is detailed view extra_id  " + Integer.toString(assessment.getId()), Toast.LENGTH_SHORT).show();
-//                intent.putExtra(AddEditAssessmentActivity.EXTRA_START_DATE, assessment.getStart());
-//                intent.putExtra(AddEditAssessmentActivity.EXTRA_END_DATE, assessment.getEnd());
-//                intent.putExtra(AddEditAssessmentActivity.EXTRA_TERM_COURSES,assessment.getAssessmentCourses());
-//                startActivityForResult(intent, EDIT_TERM_REQUEST);
-//            }
-//        });
 
     }
 
@@ -180,7 +145,7 @@ public class ViewAssessmentDetailedActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
 
-            if(requestCode == EDIT_TERM_REQUEST && resultCode == RESULT_OK) {
+            if(requestCode == EDIT_ASSESSMENT_REQUEST && resultCode == RESULT_OK) {
                 Toast.makeText(this, "Entering into RESULT_OK", Toast.LENGTH_SHORT).show();
             int id = data.getIntExtra(AddEditAssessmentActivity.EXTRA_ID, -1);
             if(id == -1){
@@ -199,17 +164,7 @@ public class ViewAssessmentDetailedActivity extends AppCompatActivity {
             assessment.setId(id);
             assessmentViewModel.update(assessment);
         }
-            else if(requestCode == ADD_COURSE_REQUEST && resultCode == RESULT_OK) {
-                Toast.makeText(this, "Entering into RESULT_OK", Toast.LENGTH_SHORT).show();
-                int id = data.getIntExtra(AddEditAssessmentActivity.EXTRA_ID, -1);
-                if(id == -1){
-                    Toast.makeText(this, "Errors Encountered", Toast.LENGTH_SHORT).show();
-                }
 
-
-                viewTextAssessmentId.setText(Integer.toString(id));
-
-            }
 
     }
 

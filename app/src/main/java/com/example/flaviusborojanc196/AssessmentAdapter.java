@@ -34,7 +34,6 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
         holder.datePickerStart.setText(String.valueOf(currentAssessment.getStart()));
         holder.datePickerEnd.setText(String.valueOf(currentAssessment.getEnd()));
 
-
     }
 
     @Override
@@ -62,8 +61,6 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
             textViewId = itemView.findViewById(R.id.text_view_ID);
             datePickerStart = itemView.findViewById(R.id.text_assessment_start_date);
             datePickerEnd = itemView.findViewById(R.id.text_assessment_end_date);
-
-
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

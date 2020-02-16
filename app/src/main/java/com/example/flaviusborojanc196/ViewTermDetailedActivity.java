@@ -185,7 +185,6 @@ public class ViewTermDetailedActivity extends AppCompatActivity {
 
 
             if(requestCode == EDIT_TERM_REQUEST && resultCode == RESULT_OK) {
-                Toast.makeText(this, "Entering into RESULT_OK", Toast.LENGTH_SHORT).show();
             int id = data.getIntExtra(AddEditTermActivity.EXTRA_ID, -1);
             if(id == -1){
                 Toast.makeText(this, "Errors Encountered", Toast.LENGTH_SHORT).show();
@@ -204,7 +203,6 @@ public class ViewTermDetailedActivity extends AppCompatActivity {
             termViewModel.update(term);
         }
             else if(requestCode == ADD_COURSE_REQUEST && resultCode == RESULT_OK) {
-                Toast.makeText(this, "Entering into RESULT_OK", Toast.LENGTH_SHORT).show();
                 int id = data.getIntExtra(AddEditTermActivity.EXTRA_ID, -1);
                 if(id == -1){
                     Toast.makeText(this, "Errors Encountered", Toast.LENGTH_SHORT).show();

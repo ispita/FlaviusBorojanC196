@@ -20,7 +20,7 @@
         android:id="@+id/courses_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Courses\nSelect a course to add it, select it again to remove it:"/>
+        android:text="Added Courses\nSelect an added course to remove it:"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/courses_added"
         android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/courses_added"
-            android:text="Courses\nSelect a course to add it, select it again to remove it:"/>
+            android:text="Available Courses\nSelect an available course to add it:"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/course_add_recycler_view"

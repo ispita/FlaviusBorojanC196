@@ -41,8 +41,8 @@ public class AssessmentViewModel extends AndroidViewModel {
         repository.insertCourseAssessments(courseAssessments);
     }
 
-    public void deleteCourseAssessments(CourseAssessments courseAssessments) {
-        repository.deleteCourseAssessments(courseAssessments);
+    public void deleteCourseAssessments() {
+        repository.deleteCourseAssessments();
     }
 
 

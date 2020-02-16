@@ -13,6 +13,7 @@ public class CourseRepository {
     private LiveData<List<Course>> availableCourses;
     private LiveData<List<Course>> currentCourses;
     public static int termId;
+    public static int courseId;
 
     public CourseRepository(Application application){
         WGUDatabase database = WGUDatabase.getInstance(application);
@@ -40,8 +41,8 @@ public class CourseRepository {
         new DeleteCourseAsyncTask(courseDao).execute(course);
     }
 
-    public void deleteTermCourses(TermCourses termCourse){
-        new DeleteTermCoursesAsyncTask(courseDao).execute(termCourse);
+    public void deleteTermCourses(){
+        new DeleteTermCoursesAsyncTask(courseDao).execute();
     }
 
     public void deleteAllCourses(){
@@ -103,7 +104,7 @@ public class CourseRepository {
         }
     }
 
-    private static class DeleteTermCoursesAsyncTask extends AsyncTask<TermCourses, Void, Void>{
+    private static class DeleteTermCoursesAsyncTask extends AsyncTask<Void, Void, Void>{
         private CourseDao courseDao;
 
         private DeleteTermCoursesAsyncTask(CourseDao courseDao){
@@ -111,8 +112,8 @@ public class CourseRepository {
         }
 
         @Override
-        protected Void doInBackground(TermCourses... termCs){
-            courseDao.deleteTermCourses(termCs[0]);
+        protected Void doInBackground(Void... voids){
+            courseDao.deleteTermCourses(courseId,termId);
             return null;
         }
     }

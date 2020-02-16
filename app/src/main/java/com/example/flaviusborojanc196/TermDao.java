@@ -29,8 +29,8 @@ public interface TermDao {
     @Query("SELECT * FROM term_table ORDER BY tID ASC")
     LiveData<List<Term>> getAllTerms();
 
-    @Insert
-    void insertTermCourses (TermCourses termCourses);
+//    @Insert
+//    void insertTermCourses (TermCourses termCourses);
 
     @Update
     void updateTermCourses(TermCourses termCourses);

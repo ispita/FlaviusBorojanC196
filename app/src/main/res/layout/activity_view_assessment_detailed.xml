@@ -26,16 +26,6 @@
                 android:layout_below="@+id/view_title"
                 android:src="@drawable/ic_edit" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/button_add_assessment_course"
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@+id/button_edit_assessment"
-                android:src="@drawable/ic_course_add" />
-
             <TextView
                 android:id="@+id/view_title"
                 android:layout_width="406dp"
@@ -58,9 +48,10 @@
                 android:layout_width="396dp"
                 android:layout_height="109dp"
                 android:layout_below="@id/view_title"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="11dp"
                 android:hint="Assessment Description"
                 android:inputType="textMultiLine" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -97,19 +88,6 @@
                 android:inputType="date"
                 tools:layout_viewor_absoluteX="0dp"
                 tools:layout_viewor_absoluteY="220dp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Courses:"
-                android:layout_below="@+id/view_assessment_end_date"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/view_courses"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="31dp"
-                android:layout_below="@id/view_assessment_end_date"
-                tools:listitem="@layout/course_item"/>
 
 
         </RelativeLayout>

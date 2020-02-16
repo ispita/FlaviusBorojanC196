@@ -33,9 +33,9 @@ public class TermViewModel extends AndroidViewModel {
         repository.updateTermCourses(termCourses);
     }
 
-    public void insertTermCourses(TermCourses termCourses) {
-        repository.insertTermCourses(termCourses);
-    }
+//    public void insertTermCourses(TermCourses termCourses) {
+//        repository.insertTermCourses(termCourses);
+//    }
 
     public void delete(Term term) {
         repository.delete(term);

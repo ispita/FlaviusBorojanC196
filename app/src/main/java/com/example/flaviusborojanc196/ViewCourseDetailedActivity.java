@@ -69,7 +69,7 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
         viewTextDescription = findViewById(R.id.view_description);
         viewTextStartDate = findViewById(R.id.view_course_start_date);
         viewTextEndDate = findViewById(R.id.view_course_end_date);
-        viewTextCourseAssessments = findViewById(R.id.view_courses);
+        viewTextCourseAssessments = findViewById(R.id.view_assessments);
         viewTextCourseId = findViewById(R.id.view_course_id);
 
 
@@ -102,14 +102,14 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton buttonCourseCourseEdit = findViewById(R.id.button_add_course_assessment);
-        buttonCourseCourseEdit.setOnClickListener(new View.OnClickListener(){
+        FloatingActionButton buttonCourseAssessmentEdit = findViewById(R.id.button_add_course_assessment);
+        buttonCourseAssessmentEdit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ViewCourseDetailedActivity.this, AddEditCourseAssessmentActivity.class);
                 intent.putExtra(AddEditCourseActivity.EXTRA_ID, viewTextCourseId.getText().toString());
                 Toast.makeText(ViewCourseDetailedActivity.this, viewTextCourseId.getText().toString(), Toast.LENGTH_SHORT).show();
-                startActivityForResult(intent,ADD_COURSE_REQUEST);
+                startActivityForResult(intent,ADD_ASSESSMENT_REQUEST);
             }
         });
 
@@ -139,28 +139,7 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
             }
         });
 
-//        Toast.makeText(this, "Before the for loop " + courseViewMode1.getAllAssessments().getValue(), Toast.LENGTH_SHORT).show();
-//       for (int i = 0; i < adapterC.getItemCount(); i++){
-//           Toast.makeText(this, "Entering for loop " + adapterC.getItemCount(), Toast.LENGTH_SHORT).show();
-//           viewTextCourseAssessments.setText(adapterC.getCourseAt(i).getTitle());
-//       }
 
-
-
-//        adapter.setOnItemClickListener(new CourseAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(Course course) {
-//                Intent intent = new Intent (ViewCourseDetailedActivity.this, AddEditCourseActivity.class);
-//                intent.putExtra(AddEditCourseActivity.EXTRA_TITLE, course.getTitle());
-//                intent.putExtra(AddEditCourseActivity.EXTRA_DESCRIPTION, course.getDescription());
-//                intent.putExtra(AddEditCourseActivity.EXTRA_ID, Integer.toString(course.getId()));
-//                Toast.makeText(ViewCourseDetailedActivity.this, "this is detailed view extra_id  " + Integer.toString(course.getId()), Toast.LENGTH_SHORT).show();
-//                intent.putExtra(AddEditCourseActivity.EXTRA_START_DATE, course.getStart());
-//                intent.putExtra(AddEditCourseActivity.EXTRA_END_DATE, course.getEnd());
-//                intent.putExtra(AddEditCourseActivity.EXTRA_TERM_COURSES,course.getCourseAssessments());
-//                startActivityForResult(intent, EDIT_TERM_REQUEST);
-//            }
-//        });
 
     }
 

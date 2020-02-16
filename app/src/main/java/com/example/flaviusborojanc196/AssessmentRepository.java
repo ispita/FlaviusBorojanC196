@@ -13,6 +13,7 @@ public class AssessmentRepository {
     private LiveData<List<Assessment>> availableAssessments;
     private LiveData<List<Assessment>> currentAssessments;
     public static int courseId;
+    public static int assessmentId;
 
     public AssessmentRepository(Application application){
         WGUDatabase database = WGUDatabase.getInstance(application);
@@ -27,8 +28,8 @@ public class AssessmentRepository {
         new InsertAssessmentAsyncTask(assessmentDao).execute(assessment);
 
     }
-    public void insertCourseAssessments(CourseAssessments termAssessment){
-        new InsertCourseAssessmentsAsyncTask(assessmentDao).execute(termAssessment);
+    public void insertCourseAssessments(CourseAssessments courseAssessments){
+        new InsertCourseAssessmentsAsyncTask(assessmentDao).execute(courseAssessments);
 
     }
 
@@ -40,8 +41,8 @@ public class AssessmentRepository {
         new DeleteAssessmentAsyncTask(assessmentDao).execute(assessment);
     }
 
-    public void deleteCourseAssessments(CourseAssessments termAssessment){
-        new DeleteCourseAssessmentsAsyncTask(assessmentDao).execute(termAssessment);
+    public void deleteCourseAssessments(){
+        new DeleteCourseAssessmentsAsyncTask(assessmentDao).execute();
     }
 
     public void deleteAllAssessments(){
@@ -83,8 +84,8 @@ public class AssessmentRepository {
         }
 
         @Override
-        protected Void doInBackground(CourseAssessments... termCs){
-            assessmentDao.insertCourseAssessments(termCs[0]);
+        protected Void doInBackground(CourseAssessments... courseAs){
+            assessmentDao.insertCourseAssessments(courseAs[0]);
             return null;
         }
     }
@@ -103,7 +104,7 @@ public class AssessmentRepository {
         }
     }
 
-    private static class DeleteCourseAssessmentsAsyncTask extends AsyncTask<CourseAssessments, Void, Void>{
+    private static class DeleteCourseAssessmentsAsyncTask extends AsyncTask<Void, Void, Void>{
         private AssessmentDao assessmentDao;
 
         private DeleteCourseAssessmentsAsyncTask(AssessmentDao assessmentDao){
@@ -111,8 +112,8 @@ public class AssessmentRepository {
         }
 
         @Override
-        protected Void doInBackground(CourseAssessments... termCs){
-            assessmentDao.deleteCourseAssessments(termCs[0]);
+        protected Void doInBackground(Void... voids){
+            assessmentDao.deleteCourseAssessments(assessmentId,courseId);
             return null;
         }
     }

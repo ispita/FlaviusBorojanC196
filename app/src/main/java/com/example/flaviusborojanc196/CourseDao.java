@@ -25,11 +25,12 @@ public interface CourseDao {
     @Delete
     void delete(Course course);
 
-    @Delete
-    void deleteTermCourses(TermCourses termCourses);
 
     @Query("DELETE FROM course_table")
     void deleteAllCourses();
+
+    @Query ("DELETE FROM termcourse_table where courseId = :courseId and termId = :termId")
+    void  deleteTermCourses(int courseId, int termId);
 
     @Query("SELECT * FROM course_table ORDER BY cID ASC")
     LiveData<List<Course>> getAllCourses();
