@@ -41,6 +41,7 @@ public class AddEditCourseAssessmentActivity extends AppCompatActivity {
 
 
 
+
         RecyclerView recyclerView = findViewById(R.id.assessment_add_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
@@ -64,7 +65,7 @@ public class AddEditCourseAssessmentActivity extends AppCompatActivity {
         addedAssessments.setAdapter(adapterCurrent);
 
         assessmentViewModelB = ViewModelProviders.of(this).get(AssessmentViewModel.class);
-        assessmentViewModelB.getAvailableAssessments().observe(this,new Observer<List<Assessment>>(){
+        assessmentViewModelB.getCurrentAssessments().observe(this,new Observer<List<Assessment>>(){
             @Override
             public void onChanged(@Nullable List<Assessment> assessments){
                 adapterCurrent.setAssessments(assessments);
@@ -88,7 +89,6 @@ public class AddEditCourseAssessmentActivity extends AppCompatActivity {
             @Override
             public void onItemClick(Assessment assessment) {
                 CourseAssessments addCourseAssessments = new CourseAssessments(courseId,assessment.getId());
-                Toast.makeText(AddEditCourseAssessmentActivity.this, "Assessment data :  " + addCourseAssessments.getCourseId() + "and the assessment ID: " + addCourseAssessments.getAssessmentId(), Toast.LENGTH_SHORT).show();
                 assessmentViewModel.insertCourseAssessments(addCourseAssessments);
             }
         });
@@ -96,8 +96,6 @@ public class AddEditCourseAssessmentActivity extends AppCompatActivity {
         adapterCurrent.setOnItemClickListener(new AssessmentAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Assessment assessment) {
-                Toast.makeText(AddEditCourseAssessmentActivity.this, "testing click listenere", Toast.LENGTH_SHORT).show();
-
                 AssessmentRepository.courseId = courseId;
                 AssessmentRepository.assessmentId = assessment.getId();
                 assessmentViewModelB.deleteCourseAssessments();

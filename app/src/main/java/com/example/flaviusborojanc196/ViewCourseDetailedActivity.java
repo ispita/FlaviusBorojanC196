@@ -130,7 +130,7 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         final AssessmentAdapter adapterC = new AssessmentAdapter();
         recyclerView.setAdapter(adapterC);
-       // AssessmentRepository.courseId = Integer.parseInt(viewTextCourseId.getText().toString());
+        AssessmentRepository.courseId = Integer.parseInt(viewTextCourseId.getText().toString());
         assessmentViewMode1 = ViewModelProviders.of(this).get(AssessmentViewModel.class);
         assessmentViewMode1.getCurrentAssessments().observe(this,new Observer<List<Assessment>>(){
             @Override
