@@ -36,6 +36,8 @@
             android:parentActivityName=".ViewTermActivity"/>
         <activity android:name=".ViewCourseDetailedActivity"
             android:parentActivityName=".ViewCourseActivity"/>
+        <activity android:name=".ViewAssessmentDetailedActivity"
+            android:parentActivityName=".ViewAssessmentActivity"/>
         <activity android:name=".AddEditTermCourseActivity"
             android:parentActivityName=".ViewTermDetailedActivity"/>
         <activity android:name=".AddEditCourseAssessmentActivity"

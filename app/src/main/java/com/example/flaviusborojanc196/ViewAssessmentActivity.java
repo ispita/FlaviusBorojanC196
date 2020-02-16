@@ -73,23 +73,18 @@ public class ViewAssessmentActivity extends AppCompatActivity {
             }
         }).attachToRecyclerView(recyclerView);
 
-//        adapter.setOnItemClickListener(new AssessmentAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(Assessment assessment) {
-//                Intent intent = new Intent (ViewAssessmentActivity.this, ViewAssessmentDetailedActivity.class);
-//                intent.putExtra(ViewAssessmentDetailedActivity.EXTRA_TITLE, assessment.getTitle());
-//                intent.putExtra(ViewAssessmentDetailedActivity.EXTRA_DESCRIPTION, assessment.getDescription());
-//                intent.putExtra(ViewAssessmentDetailedActivity.EXTRA_ID, Integer.toString(assessment.getId()));
-//                intent.putExtra(ViewAssessmentDetailedActivity.EXTRA_START_DATE, assessment.getStart());
-//                intent.putExtra(ViewAssessmentDetailedActivity.EXTRA_END_DATE, assessment.getEnd());
-//                intent.putExtra(ViewAssessmentDetailedActivity.EXTRA_STATUS, assessment.getStatus());
-//                intent.putExtra(ViewAssessmentDetailedActivity.EXTRA_MENTOR, assessment.getMentor());
-//                intent.putExtra(ViewAssessmentDetailedActivity.EXTRA_PHONE, assessment.getPhone());
-//                intent.putExtra(ViewAssessmentDetailedActivity.EXTRA_EMAIL, assessment.getEmail());
-//                intent.putExtra(ViewAssessmentDetailedActivity.EXTRA_NOTE, assessment.getNote());
-//                startActivityForResult(intent, VIEW_ASSESSMENT_DETAILED_REQUEST);
-//            }
-//        });
+        adapter.setOnItemClickListener(new AssessmentAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Assessment assessment) {
+                Intent intent = new Intent (ViewAssessmentActivity.this, ViewAssessmentDetailedActivity.class);
+                intent.putExtra(ViewAssessmentDetailedActivity.EXTRA_TITLE, assessment.getTitle());
+                intent.putExtra(ViewAssessmentDetailedActivity.EXTRA_DESCRIPTION, assessment.getDescription());
+                intent.putExtra(ViewAssessmentDetailedActivity.EXTRA_ID, Integer.toString(assessment.getId()));
+                intent.putExtra(ViewAssessmentDetailedActivity.EXTRA_START_DATE, assessment.getStart());
+                intent.putExtra(ViewAssessmentDetailedActivity.EXTRA_END_DATE, assessment.getEnd());
+                startActivityForResult(intent, VIEW_ASSESSMENT_DETAILED_REQUEST);
+            }
+        });
 
 
     }
@@ -125,15 +120,10 @@ public class ViewAssessmentActivity extends AppCompatActivity {
             String description = data.getStringExtra(AddEditAssessmentActivity.EXTRA_DESCRIPTION); //need non null default value for int
             String start = data.getStringExtra(AddEditAssessmentActivity.EXTRA_START_DATE);
             String end = data.getStringExtra(AddEditAssessmentActivity.EXTRA_END_DATE);
-            String status = data.getStringExtra(AddEditAssessmentActivity.EXTRA_STATUS);
-            String mentor = data.getStringExtra(AddEditAssessmentActivity.EXTRA_MENTOR);
-            String phone = data.getStringExtra(AddEditAssessmentActivity.EXTRA_PHONE);
-            String email = data.getStringExtra(AddEditAssessmentActivity.EXTRA_EMAIL);
-            String note = data.getStringExtra(AddEditAssessmentActivity.EXTRA_NOTE);
 
 
-//            Assessment assessment = new Assessment(title,description,start,end,status,mentor,phone,email,note);
-//            assessmentViewModel.insert(assessment);
+           Assessment assessment = new Assessment(title,description,start,end);
+           assessmentViewModel.insert(assessment);
 
             Toast.makeText(this, "Assessment Saved", Toast.LENGTH_SHORT).show();
         }
@@ -146,11 +136,7 @@ public class ViewAssessmentActivity extends AppCompatActivity {
             String description = data.getStringExtra(AddEditAssessmentActivity.EXTRA_DESCRIPTION); //need non null default value for int
             String start = data.getStringExtra(AddEditAssessmentActivity.EXTRA_START_DATE);
             String end = data.getStringExtra(AddEditAssessmentActivity.EXTRA_END_DATE);
-            String status = data.getStringExtra(AddEditAssessmentActivity.EXTRA_STATUS);
-            String mentor = data.getStringExtra(AddEditAssessmentActivity.EXTRA_MENTOR);
-            String phone = data.getStringExtra(AddEditAssessmentActivity.EXTRA_PHONE);
-            String email = data.getStringExtra(AddEditAssessmentActivity.EXTRA_EMAIL);
-            String note = data.getStringExtra(AddEditAssessmentActivity.EXTRA_NOTE);
+
 
 //            Assessment assessment = new Assessment(title,description,start,end,status,mentor,phone,email,note);
 //            assessment.setId(id);
