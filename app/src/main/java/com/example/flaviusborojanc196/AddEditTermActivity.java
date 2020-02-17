@@ -22,6 +22,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -56,7 +58,7 @@ public class AddEditTermActivity extends AppCompatActivity {
     private int endYear;
     private int endMonth;
     private int endDay;
-    private List<Integer> months = new ArrayList<>();
+
 
 
     @Override
@@ -69,10 +71,8 @@ public class AddEditTermActivity extends AppCompatActivity {
         editTextStartDate = findViewById(R.id.edit_term_start_date);
         editTextEndDate = findViewById(R.id.edit_term_end_date);
         addedCourses = findViewById(R.id.courses_added);
-        for (int i = 0; i < 12; i++) {
-            months.add(i,i + 1);
-        }
 
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
         Intent intent = getIntent();
         if(intent.hasExtra(EXTRA_ID)){
             setTitle("Edit Term");
@@ -101,7 +101,7 @@ public class AddEditTermActivity extends AppCompatActivity {
         }
 
     }
-    private void saveTerm(){
+    private void saveTerm() throws ParseException {
         String title = editTextTitle.getText().toString();
         String description = editTextDescription.getText().toString();
         int startMonth = editTextStartDate.getMonth() + 1;
@@ -112,15 +112,11 @@ public class AddEditTermActivity extends AppCompatActivity {
             Toast.makeText(this, "Please Fill out all of the fields!", Toast.LENGTH_SHORT).show();
             return;
         }
-//        if (!start.trim().isEmpty() || !end.trim().isEmpty()){
-//            if (!start.startsWith("0")){
-//                start = "0" + start;
-//            }
-//            if (!months.contains(Integer.parseInt(start.substring(0,1)))){
-//                Toast.makeText(this, "Enter a valid month, 1 through 12", Toast.LENGTH_SHORT).show();
-//                return;
-//            }
-//        }
+        SimpleDateFormat format = new SimpleDateFormat("MM/d/yyyy");
+        if (format.parse(end).before(format.parse(start)) || end.equals(start)) {
+            Toast.makeText(this, "End date must be AFTER the start date!", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         Intent data = new Intent();
         data.putExtra(EXTRA_TITLE, title);
@@ -154,7 +150,11 @@ public class AddEditTermActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.save_term:
-                saveTerm();
+                try {
+                    saveTerm();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

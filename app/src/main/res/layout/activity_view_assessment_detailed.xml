@@ -66,31 +66,13 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/view_description"
                 android:labelFor="@+id/view_assessment_end_date"
-                android:text="Start Date:"/>
-
-            <TextView
-                android:id="@+id/view_assessment_start_date"
-                android:layout_width="395dp"
-                android:layout_height="68dp"
-                android:layout_below="@id/view_description"
-                android:layout_marginTop="31dp"
-                android:calendarViewShown="false"
-                android:hint="MM/YYYY"
-                android:inputType="date"
-                tools:layout_viewor_absoluteX="0dp"
-                tools:layout_viewor_absoluteY="220dp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/view_assessment_start_date"
-                android:labelFor="@+id/view_assessment_end_date"
-                android:text="End Date:"/>
+                android:text="Due Date:"/>
 
             <TextView
                 android:id="@+id/view_assessment_end_date"
                 android:layout_width="395dp"
                 android:layout_height="68dp"
-                android:layout_below="@id/view_assessment_start_date"
+                android:layout_below="@id/view_description"
                 android:layout_marginTop="31dp"
                 android:calendarViewShown="false"
                 android:hint="MM/YYYY"

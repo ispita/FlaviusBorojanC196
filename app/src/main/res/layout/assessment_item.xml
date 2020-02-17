@@ -40,17 +40,11 @@
             android:layout_below="@+id/text_view_assessment_title"
             android:text="Description"/>
         <TextView
-            android:id="@+id/text_assessment_start_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/text_view_description"
-            android:text="Start Date"/>
-        <TextView
             android:id="@+id/text_assessment_end_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/text_assessment_start_date"
-            android:text="End Date"/>
+            android:layout_below="@id/text_view_description"
+            android:text="Due Date"/>
 
 
     </RelativeLayout>

@@ -3,6 +3,7 @@ package com.example.flaviusborojanc196;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,6 +14,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddEditCourseActivity extends AppCompatActivity {
     public static final String EXTRA_ID =
@@ -56,9 +62,7 @@ public class AddEditCourseActivity extends AppCompatActivity {
     private int endYear;
     private int endMonth;
     private int endDay;
-
-    private Integer courseGreen = Color.WHITE;
-    private Integer courseWhite = Color.GREEN;
+    private List<String> emailTLD = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +77,10 @@ public class AddEditCourseActivity extends AppCompatActivity {
         editTextPhone = findViewById(R.id.edit_course_mentor_phone);
         editTextEmail = findViewById(R.id.edit_course_mentor_email);
         editTextNote = findViewById(R.id.edit_course_note);
+        emailTLD.add("com");
+        emailTLD.add("net");
+        emailTLD.add("edu");
+        emailTLD.add("org");
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
 
@@ -106,7 +114,7 @@ public class AddEditCourseActivity extends AppCompatActivity {
             setTitle("Add Course");
         }
     }
-    private void saveCourse(){
+    private void saveCourse() throws ParseException {
         String title = editTextTitle.getText().toString();
         String description = editTextDescription.getText().toString();
         int startMonth = editTextStartDate.getMonth() + 1;
@@ -120,8 +128,17 @@ public class AddEditCourseActivity extends AppCompatActivity {
         String note = editTextNote.getText().toString();
 
 
-        if(title.trim().isEmpty() || description.trim().isEmpty()){
-            Toast.makeText(this, "Please Insert a Description and a Title!", Toast.LENGTH_SHORT).show();
+        if(title.trim().isEmpty() || description.trim().isEmpty() || status.isEmpty() || mentor.isEmpty() || phone.isEmpty() || email.isEmpty()){
+            Toast.makeText(this, "Please fill out ALL required fields!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        SimpleDateFormat format = new SimpleDateFormat("MM/d/yyyy");
+        if (format.parse(end).before(format.parse(start)) || end.equals(start)) {
+            Toast.makeText(this, "End date must be AFTER the start date!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            Toast.makeText(this, "Email is not valid. Please enter a valid email.", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -158,7 +175,11 @@ public class AddEditCourseActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.save_term:
-                saveCourse();
+                try {
+                    saveCourse();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

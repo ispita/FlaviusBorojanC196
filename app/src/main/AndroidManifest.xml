@@ -29,7 +29,7 @@
         <activity android:name=".AddEditCourseActivity"
             android:parentActivityName=".ViewCourseActivity"/>
         <activity android:name=".AddEditTermActivity"
-            android:parentActivityName=".ViewTermDetailedActivity"/>
+            android:parentActivityName=".ViewTermActivity"/>
         <activity android:name=".AddEditAssessmentActivity"
             android:parentActivityName=".ViewAssessmentActivity"/>
         <activity android:name=".ViewTermDetailedActivity"

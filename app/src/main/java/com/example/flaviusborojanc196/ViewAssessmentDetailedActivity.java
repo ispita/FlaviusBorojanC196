@@ -36,7 +36,6 @@ public class ViewAssessmentDetailedActivity extends AppCompatActivity {
 
     private TextView viewTextTitle;
     private TextView viewTextDescription;
-    private TextView viewTextStartDate;
     private TextView viewTextEndDate;
     private TextView viewTextAssessmentId;
     private RecyclerView viewTextAssessmentCourses;
@@ -56,7 +55,6 @@ public class ViewAssessmentDetailedActivity extends AppCompatActivity {
 
         viewTextTitle = findViewById(R.id.view_title);
         viewTextDescription = findViewById(R.id.view_description);
-        viewTextStartDate = findViewById(R.id.view_assessment_start_date);
         viewTextEndDate = findViewById(R.id.view_assessment_end_date);
         viewTextAssessmentCourses = findViewById(R.id.view_courses);
         viewTextAssessmentId = findViewById(R.id.view_assessment_id);
@@ -67,7 +65,6 @@ public class ViewAssessmentDetailedActivity extends AppCompatActivity {
             setTitle("Assessment Detailed View");
             viewTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
             viewTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
-            viewTextStartDate.setText(intent.getStringExtra(EXTRA_START_DATE));
             viewTextEndDate.setText(intent.getStringExtra(EXTRA_END_DATE));
             //   viewTextAssessmentCourses.setText(intent.getStringExtra(EXTRA_ASSESSMENT_COURSES));
             viewTextAssessmentId.setText(intent.getStringExtra(EXTRA_ID));
@@ -84,7 +81,6 @@ public class ViewAssessmentDetailedActivity extends AppCompatActivity {
                 intent.putExtra(AddEditAssessmentActivity.EXTRA_DESCRIPTION, viewTextDescription.getText().toString());
                 intent.putExtra(AddEditAssessmentActivity.EXTRA_ID, viewTextAssessmentId.getText().toString());
                 Toast.makeText(ViewAssessmentDetailedActivity.this, viewTextAssessmentId.getText().toString(), Toast.LENGTH_SHORT).show();
-                intent.putExtra(AddEditAssessmentActivity.EXTRA_START_DATE, viewTextStartDate.getText().toString());
                 intent.putExtra(AddEditAssessmentActivity.EXTRA_END_DATE, viewTextEndDate.getText().toString());
                 startActivityForResult(intent,EDIT_ASSESSMENT_REQUEST);
             }
@@ -159,7 +155,6 @@ public class ViewAssessmentDetailedActivity extends AppCompatActivity {
             String end = data.getStringExtra(AddEditAssessmentActivity.EXTRA_END_DATE);
                 viewTextTitle.setText(title);
                 viewTextDescription.setText(description);
-                viewTextStartDate.setText(start);
                 viewTextEndDate.setText(end);
                 viewTextAssessmentId.setText(Integer.toString(id));
             Assessment assessment = new Assessment(title,description,start,end);

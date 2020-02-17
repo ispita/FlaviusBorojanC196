@@ -106,6 +106,12 @@
                 android:inputType="date"
                 tools:layout_viewor_absoluteX="0dp"
                 tools:layout_viewor_absoluteY="220dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view_course_end_date"
+                android:labelFor="@+id/view_course_status"
+                android:text="Course Status:"/>
 
             <TextView
                 android:id="@+id/view_course_status"
@@ -117,6 +123,13 @@
                 tools:layout_viewor_absoluteX="0dp"
                 tools:layout_viewor_absoluteY="220dp" />
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view_course_status"
+                android:labelFor="@+id/view_course_mentor"
+                android:text="Course Mentor:"/>
+
+            <TextView
                 android:id="@+id/view_course_mentor"
                 android:layout_width="395dp"
                 android:layout_height="68dp"
@@ -125,6 +138,13 @@
                 android:calendarViewShown="false"
                 tools:layout_viewor_absoluteX="0dp"
                 tools:layout_viewor_absoluteY="220dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view_course_mentor"
+                android:labelFor="@+id/view_course_mentor_phone"
+                android:text="Mentor Phone:"/>
+
             <TextView
                 android:id="@+id/view_course_mentor_phone"
                 android:layout_width="395dp"
@@ -135,6 +155,13 @@
                 tools:layout_viewor_absoluteX="0dp"
                 tools:layout_viewor_absoluteY="220dp" />
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view_course_mentor_phone"
+                android:labelFor="@+id/view_course_mentor_email"
+                android:text="Mentor Email:"/>
+
+            <TextView
                 android:id="@+id/view_course_mentor_email"
                 android:layout_width="395dp"
                 android:layout_height="68dp"
@@ -143,6 +170,13 @@
                 android:calendarViewShown="false"
                 tools:layout_viewor_absoluteX="0dp"
                 tools:layout_viewor_absoluteY="220dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view_course_mentor_email"
+                android:labelFor="@+id/view_course_note"
+                android:text="Course Notes (OPTIONAL):"/>
+
             <TextView
                 android:id="@+id/view_course_note"
                 android:layout_width="395dp"
