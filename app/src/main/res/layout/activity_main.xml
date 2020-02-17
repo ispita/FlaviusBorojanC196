@@ -45,6 +45,33 @@
             android:layout_below="@+id/view_course_button"
             android:text="View Assessment" />
 
+        <EditText
+            android:id="@+id/edit_text_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_assessment_button"
+            android:hint="Title" />
+
+        <EditText
+            android:id="@+id/edit_text_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edit_text_title"
+            android:hint="Message" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edit_text_message"
+            android:onClick="sendOnChannel1"
+            android:text="Send on Channel 1" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_course_button"
+            android:onClick="sendOnChannel2"
+            android:text="Send on Channel 2" />
 
     </RelativeLayout>
 
