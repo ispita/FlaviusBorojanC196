@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.Toast;
@@ -38,13 +39,23 @@ public class AddEditCourseActivity extends AppCompatActivity {
 
     private EditText editTextTitle;
     private EditText editTextDescription;
-    private EditText editTextStartDate;
-    private EditText editTextEndDate;
+    private DatePicker editTextStartDate;
+    private DatePicker editTextEndDate;
     private EditText editTextStatus;
     private EditText editTextMentor;
     private EditText editTextPhone;
     private EditText editTextEmail;
     private EditText editTextNote;
+    private int startSep;
+    private int startSep2;
+    private int endSep;
+    private int endSep2;
+    private int startYear;
+    private int  startMonth;
+    private int startDay;
+    private int endYear;
+    private int endMonth;
+    private int endDay;
 
     private Integer courseGreen = Color.WHITE;
     private Integer courseWhite = Color.GREEN;
@@ -70,8 +81,19 @@ public class AddEditCourseActivity extends AppCompatActivity {
             setTitle("Edit Course");
             editTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
             editTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
-            editTextStartDate.setText(intent.getStringExtra(EXTRA_START_DATE));
-            editTextEndDate.setText(intent.getStringExtra(EXTRA_END_DATE));
+            startSep = intent.getStringExtra(EXTRA_START_DATE).indexOf("/");
+            startSep2 = intent.getStringExtra(EXTRA_START_DATE).indexOf("/", intent.getStringExtra(EXTRA_START_DATE).indexOf("/") + 1);
+            startMonth = Integer.parseInt(intent.getStringExtra(EXTRA_START_DATE).substring(0, startSep));
+            startDay = Integer.parseInt(intent.getStringExtra(EXTRA_START_DATE).substring(startSep + 1, startSep2));
+            startYear = Integer.parseInt(intent.getStringExtra(EXTRA_START_DATE).substring(startSep2 + 1, startSep2 + 5));
+//            Toast.makeText(this, startMonth + "/" + startDay + "/" + startYear, Toast.LENGTH_SHORT).show();
+            endSep = intent.getStringExtra(EXTRA_END_DATE).indexOf("/");
+            endSep2 = intent.getStringExtra(EXTRA_END_DATE).indexOf("/", intent.getStringExtra(EXTRA_END_DATE).indexOf("/") + 1);
+            endMonth = Integer.parseInt(intent.getStringExtra(EXTRA_END_DATE).substring(0, endSep));
+            endDay = Integer.parseInt(intent.getStringExtra(EXTRA_END_DATE).substring(endSep + 1, endSep2));
+            endYear = Integer.parseInt(intent.getStringExtra(EXTRA_END_DATE).substring(endSep2 + 1, endSep2 + 5));
+            editTextStartDate.updateDate(startYear,startMonth - 1,startDay);
+            editTextEndDate.updateDate(endYear,endMonth - 1,endDay);
             editTextStatus.setText(intent.getStringExtra(EXTRA_STATUS));
             editTextMentor.setText(intent.getStringExtra(EXTRA_MENTOR));
             editTextPhone.setText(intent.getStringExtra(EXTRA_PHONE));
@@ -87,8 +109,10 @@ public class AddEditCourseActivity extends AppCompatActivity {
     private void saveCourse(){
         String title = editTextTitle.getText().toString();
         String description = editTextDescription.getText().toString();
-        String start = editTextStartDate.getText().toString();
-        String end = editTextEndDate.getText().toString();
+        int startMonth = editTextStartDate.getMonth() + 1;
+        int endMonth = editTextEndDate.getMonth() + 1;
+        String start = startMonth + "/" + editTextStartDate.getDayOfMonth() + "/" + editTextStartDate.getYear();
+        String end = endMonth + "/" + editTextEndDate.getDayOfMonth() + "/" + editTextEndDate.getYear();
         String status = editTextStatus.getText().toString();
         String mentor = editTextMentor.getText().toString();
         String phone = editTextPhone.getText().toString();

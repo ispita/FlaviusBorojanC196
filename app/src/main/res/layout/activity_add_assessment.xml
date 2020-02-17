@@ -52,15 +52,14 @@
             android:labelFor="@+id/edit_assessment_end_date"
             android:text="Start Date"/>
 
-        <EditText
+        <DatePicker
             android:id="@+id/edit_assessment_start_date"
-            android:layout_width="395dp"
-            android:layout_height="68dp"
+            android:layout_width="393dp"
+            android:layout_height="88dp"
             android:layout_below="@id/edit_description"
             android:layout_marginTop="31dp"
+            android:datePickerMode="spinner"
             android:calendarViewShown="false"
-            android:hint="MM/YYYY"
-            android:inputType="date"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="220dp" />
         <TextView
@@ -70,15 +69,14 @@
             android:labelFor="@+id/edit_assessment_end_date"
             android:text="End Date"/>
 
-        <EditText
+        <DatePicker
             android:id="@+id/edit_assessment_end_date"
-            android:layout_width="395dp"
-            android:layout_height="68dp"
+            android:layout_width="393dp"
+            android:layout_height="88dp"
             android:layout_below="@id/edit_assessment_start_date"
             android:layout_marginTop="31dp"
+            android:datePickerMode="spinner"
             android:calendarViewShown="false"
-            android:hint="MM/YYYY"
-            android:inputType="date"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="220dp" />
 

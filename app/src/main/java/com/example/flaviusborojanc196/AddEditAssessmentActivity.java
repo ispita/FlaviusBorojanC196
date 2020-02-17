@@ -46,17 +46,22 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
     private EditText editTextTitle;
     private RadioGroup editTextDescription;
     private RadioButton textDescription;
-    private EditText editTextStartDate;
-    private EditText editTextEndDate;
+    private DatePicker editTextStartDate;
+    private DatePicker editTextEndDate;
     private String editAssessmentId;
     private Boolean editAssessment = false;
-    //    private TextView coursesLabel;
-//    private CourseViewModel courseViewModel;
-//    private CourseViewModel addedCourseViewModel;
-    // private TextView courseTitle;
-    //private Integer courseCardColor;
+    private int startSep;
+    private int startSep2;
+    private int endSep;
+    private int endSep2;
+    private int startYear;
+    private int  startMonth;
+    private int startDay;
+    private int endYear;
+    private int endMonth;
+    private int endDay;
     private TextView addedCourses;
-    // private TextView addedCoursesId;
+
     private List<String> courseArray = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,10 +79,19 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
         if(intent.hasExtra(EXTRA_ID)){
             setTitle("Edit Assessment");
             editTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
-//            editTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
-            editTextStartDate.setText(intent.getStringExtra(EXTRA_START_DATE));
-            editTextEndDate.setText(intent.getStringExtra(EXTRA_END_DATE));
-//            addedCourses.setText(intent.getStringExtra(EXTRA_ASSESSMENT_COURSES));
+            startSep = intent.getStringExtra(EXTRA_START_DATE).indexOf("/");
+            startSep2 = intent.getStringExtra(EXTRA_START_DATE).indexOf("/", intent.getStringExtra(EXTRA_START_DATE).indexOf("/") + 1);
+            startMonth = Integer.parseInt(intent.getStringExtra(EXTRA_START_DATE).substring(0, startSep));
+            startDay = Integer.parseInt(intent.getStringExtra(EXTRA_START_DATE).substring(startSep + 1, startSep2));
+            startYear = Integer.parseInt(intent.getStringExtra(EXTRA_START_DATE).substring(startSep2 + 1, startSep2 + 5));
+//            Toast.makeText(this, startMonth + "/" + startDay + "/" + startYear, Toast.LENGTH_SHORT).show();
+            endSep = intent.getStringExtra(EXTRA_END_DATE).indexOf("/");
+            endSep2 = intent.getStringExtra(EXTRA_END_DATE).indexOf("/", intent.getStringExtra(EXTRA_END_DATE).indexOf("/") + 1);
+            endMonth = Integer.parseInt(intent.getStringExtra(EXTRA_END_DATE).substring(0, endSep));
+            endDay = Integer.parseInt(intent.getStringExtra(EXTRA_END_DATE).substring(endSep + 1, endSep2));
+            endYear = Integer.parseInt(intent.getStringExtra(EXTRA_END_DATE).substring(endSep2 + 1, endSep2 + 5));
+            editTextStartDate.updateDate(startYear,startMonth - 1,startDay);
+            editTextEndDate.updateDate(endYear,endMonth - 1,endDay);
             editAssessmentId = intent.getStringExtra(EXTRA_ID);
             editAssessment = true;
 //            String[] addedCoursesArray = (addedCourses.getText().toString().split(","));
@@ -97,18 +111,11 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
         textDescription = findViewById(radioGroup);
         String title = editTextTitle.getText().toString();
         String description = textDescription.getText().toString();
-        String start = editTextStartDate.getText().toString();
-        String end = editTextEndDate.getText().toString();
-//        addedCourses.setText("");
-//        for(int j = 0; j < courseArray.size(); j++) {
-//            if (j == courseArray.size() - 1){
-//                addedCourses.append(courseArray.get(j));
-//            }
-//            else {
-//                addedCourses.append(courseArray.get(j) + ",");
-//            }
-//        }
-//        String assessmentCourses = addedCourses.getText().toString();
+        int startMonth = editTextStartDate.getMonth() + 1;
+        int endMonth = editTextEndDate.getMonth() + 1;
+        String start = startMonth + "/" + editTextStartDate.getDayOfMonth() + "/" + editTextStartDate.getYear();
+        String end = endMonth + "/" + editTextEndDate.getDayOfMonth() + "/" + editTextEndDate.getYear();
+
         if(title.trim().isEmpty() || description.trim().isEmpty()){
             Toast.makeText(this, "Please Insert a Description and a Title!", Toast.LENGTH_SHORT).show();
             return;
