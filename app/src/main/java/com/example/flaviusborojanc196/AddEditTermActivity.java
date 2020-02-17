@@ -37,23 +37,28 @@ public class AddEditTermActivity extends AppCompatActivity {
             "com.example.flaviusborojanc196.EXTRA_START_DATE";
     public static final String EXTRA_END_DATE=
             "com.example.flaviusborojanc196.EXTRA_END_DATE";
-//    public static final String EXTRA_TERM_COURSES=
-//            "com.example.flaviusborojanc196.EXTRA_TERM_COURSES";
+
 
     private EditText editTextTitle;
     private EditText editTextDescription;
-    private EditText editTextStartDate;
-    private EditText editTextEndDate;
+    private DatePicker editTextStartDate;
+    private DatePicker editTextEndDate;
     private String editTermId;
     private Boolean editTerm = false;
-//    private TextView coursesLabel;
-//    private CourseViewModel courseViewModel;
-//    private CourseViewModel addedCourseViewModel;
-   // private TextView courseTitle;
-    //private Integer courseCardColor;
     private TextView addedCourses;
-   // private TextView addedCoursesId;
-    private List<String> courseArray = new ArrayList<>();
+    private int startSep;
+    private int startSep2;
+    private int endSep;
+    private int endSep2;
+    private int startYear;
+    private int  startMonth;
+    private int startDay;
+    private int endYear;
+    private int endMonth;
+    private int endDay;
+    private List<Integer> months = new ArrayList<>();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,95 +69,58 @@ public class AddEditTermActivity extends AppCompatActivity {
         editTextStartDate = findViewById(R.id.edit_term_start_date);
         editTextEndDate = findViewById(R.id.edit_term_end_date);
         addedCourses = findViewById(R.id.courses_added);
-      //  addedCoursesId = findViewById(R.id.courses_added);
-        //courseTitle = findViewById(R.id.text_view_course_title);
-
-
-//        RecyclerView recyclerView = findViewById(R.id.course_add_recycler_view);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        recyclerView.setHasFixedSize(true);
-//
-//        final CourseAdapter adapter = new CourseAdapter();
-//        recyclerView.setAdapter(adapter);
-//
-//        courseViewModel = ViewModelProviders.of(this).get(CourseViewModel.class);
-//        courseViewModel.getAllCourses().observe(this,new Observer<List<Course>>(){
-//            @Override
-//            public void onChanged(@Nullable List<Course> courses){
-//                adapter.setCourses(courses);
-//            }
-//        });
-
+        for (int i = 0; i < 12; i++) {
+            months.add(i,i + 1);
+        }
 
         Intent intent = getIntent();
         if(intent.hasExtra(EXTRA_ID)){
             setTitle("Edit Term");
             editTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
             editTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
-            editTextStartDate.setText(intent.getStringExtra(EXTRA_START_DATE));
-            editTextEndDate.setText(intent.getStringExtra(EXTRA_END_DATE));
-//            addedCourses.setText(intent.getStringExtra(EXTRA_TERM_COURSES));
+            startSep = intent.getStringExtra(EXTRA_START_DATE).indexOf("/");
+            startSep2 = intent.getStringExtra(EXTRA_START_DATE).indexOf("/", intent.getStringExtra(EXTRA_START_DATE).indexOf("/") + 1);
+            startMonth = Integer.parseInt(intent.getStringExtra(EXTRA_START_DATE).substring(0, startSep));
+            startDay = Integer.parseInt(intent.getStringExtra(EXTRA_START_DATE).substring(startSep + 1, startSep2));
+            startYear = Integer.parseInt(intent.getStringExtra(EXTRA_START_DATE).substring(startSep2 + 1, startSep2 + 5));
+//            Toast.makeText(this, startMonth + "/" + startDay + "/" + startYear, Toast.LENGTH_SHORT).show();
+            endSep = intent.getStringExtra(EXTRA_END_DATE).indexOf("/");
+            endSep2 = intent.getStringExtra(EXTRA_END_DATE).indexOf("/", intent.getStringExtra(EXTRA_END_DATE).indexOf("/") + 1);
+            endMonth = Integer.parseInt(intent.getStringExtra(EXTRA_END_DATE).substring(0, endSep));
+            endDay = Integer.parseInt(intent.getStringExtra(EXTRA_END_DATE).substring(endSep + 1, endSep2));
+            endYear = Integer.parseInt(intent.getStringExtra(EXTRA_END_DATE).substring(endSep2 + 1, endSep2 + 5));
+            editTextStartDate.updateDate(startYear,startMonth - 1,startDay);
+            editTextEndDate.updateDate(endYear,endMonth - 1,endDay);
             editTermId = intent.getStringExtra(EXTRA_ID);
             editTerm = true;
-//            String[] addedCoursesArray = (addedCourses.getText().toString().split(","));
-//            Collections.addAll(courseArray,addedCoursesArray);
-//            Toast.makeText(this, "EXTRA_ID  " + editTermId , Toast.LENGTH_SHORT).show();
+
 
         }
         else {
             setTitle("Add Term");
         }
-//        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT |ItemTouchHelper.RIGHT) {
-//            @Override
-//            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-//                return false;
-//            }
-//
-//            @Override
-//            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-//                courseViewModel.delete(adapter.getCourseAt(viewHolder.getAdapterPosition()));
-//            }
-//        }).attachToRecyclerView(recyclerView);
-//
-//        adapter.setOnItemClickListener(new CourseAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(Course course) {
-//                    if (!courseArray.contains(course.getTitle())) {
-//                        courseArray.add(course.getTitle());
-//
-//                        addedCourses.append("\n" +courseArray.get(courseArray.size() - 1) + "\n");
-//                    } else {
-//
-//                        courseArray.remove(course.getTitle());
-//                        addedCourses.setText("");
-//                        for (int j = 0; j < courseArray.size(); j++) {
-//                            addedCourses.append("\n" + courseArray.get(j) + "\n");
-//                        }
-//                    }
-//
-//            }
-//        });
 
     }
     private void saveTerm(){
         String title = editTextTitle.getText().toString();
         String description = editTextDescription.getText().toString();
-        String start = editTextStartDate.getText().toString();
-        String end = editTextEndDate.getText().toString();
-//        addedCourses.setText("");
-//        for(int j = 0; j < courseArray.size(); j++) {
-//            if (j == courseArray.size() - 1){
-//                addedCourses.append(courseArray.get(j));
-//            }
-//            else {
-//                addedCourses.append(courseArray.get(j) + ",");
-//            }
-//        }
-//        String termCourses = addedCourses.getText().toString();
-        if(title.trim().isEmpty() || description.trim().isEmpty()){
-            Toast.makeText(this, "Please Insert a Description and a Title!", Toast.LENGTH_SHORT).show();
+        int startMonth = editTextStartDate.getMonth() + 1;
+        int endMonth = editTextEndDate.getMonth() + 1;
+        String start = startMonth + "/" + editTextStartDate.getDayOfMonth() + "/" + editTextStartDate.getYear();
+        String end = endMonth + "/" + editTextEndDate.getDayOfMonth() + "/" + editTextEndDate.getYear();
+        if(title.trim().isEmpty() || description.trim().isEmpty() || start.trim().isEmpty() || end.trim().isEmpty()){
+            Toast.makeText(this, "Please Fill out all of the fields!", Toast.LENGTH_SHORT).show();
             return;
         }
+//        if (!start.trim().isEmpty() || !end.trim().isEmpty()){
+//            if (!start.startsWith("0")){
+//                start = "0" + start;
+//            }
+//            if (!months.contains(Integer.parseInt(start.substring(0,1)))){
+//                Toast.makeText(this, "Enter a valid month, 1 through 12", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//        }
 
         Intent data = new Intent();
         data.putExtra(EXTRA_TITLE, title);

@@ -26,14 +26,25 @@
             android:inputType="text"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
-        <EditText
+        <RadioGroup
             android:id="@+id/edit_description"
             android:layout_width="396dp"
             android:layout_height="109dp"
             android:layout_below="@id/edit_title"
             android:layout_marginTop="13dp"
             android:hint="Assessment Description"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine" >
+            <RadioButton
+                android:id="@+id/PA"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Performance Assessment"/>
+            <RadioButton
+                android:id="@+id/OA"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Objective Assessment"/>
+        </RadioGroup>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

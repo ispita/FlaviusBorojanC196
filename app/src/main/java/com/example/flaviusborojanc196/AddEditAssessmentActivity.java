@@ -17,8 +17,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +44,8 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
 //            "com.example.flaviusborojanc196.EXTRA_ASSESSMENT_COURSES";
 
     private EditText editTextTitle;
-    private EditText editTextDescription;
+    private RadioGroup editTextDescription;
+    private RadioButton textDescription;
     private EditText editTextStartDate;
     private EditText editTextEndDate;
     private String editAssessmentId;
@@ -70,7 +74,7 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
         if(intent.hasExtra(EXTRA_ID)){
             setTitle("Edit Assessment");
             editTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
-            editTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
+//            editTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
             editTextStartDate.setText(intent.getStringExtra(EXTRA_START_DATE));
             editTextEndDate.setText(intent.getStringExtra(EXTRA_END_DATE));
 //            addedCourses.setText(intent.getStringExtra(EXTRA_ASSESSMENT_COURSES));
@@ -87,9 +91,12 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
 
 
     }
+
     private void saveAssessment(){
+        int radioGroup = editTextDescription.getCheckedRadioButtonId();
+        textDescription = findViewById(radioGroup);
         String title = editTextTitle.getText().toString();
-        String description = editTextDescription.getText().toString();
+        String description = textDescription.getText().toString();
         String start = editTextStartDate.getText().toString();
         String end = editTextEndDate.getText().toString();
 //        addedCourses.setText("");

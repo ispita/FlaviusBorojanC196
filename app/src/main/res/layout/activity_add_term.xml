@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".AddEditTermActivity">
     <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
         <!-- Here you put the rest of your current view-->
@@ -39,17 +38,16 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/edit_description"
             android:labelFor="@+id/edit_term_end_date"
-            android:text="Start Date"/>
+            android:text="Start Date (MM/DD/YYYY)"/>
 
-        <EditText
+        <DatePicker
             android:id="@+id/edit_term_start_date"
-            android:layout_width="395dp"
-            android:layout_height="68dp"
+            android:layout_width="393dp"
+            android:layout_height="88dp"
             android:layout_below="@id/edit_description"
             android:layout_marginTop="31dp"
+            android:datePickerMode="spinner"
             android:calendarViewShown="false"
-            android:hint="MM/YYYY"
-            android:inputType="date"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="220dp" />
         <TextView
@@ -57,17 +55,16 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/edit_term_start_date"
             android:labelFor="@+id/edit_term_end_date"
-            android:text="End Date"/>
+            android:text="End Date (MM/DD/YYYY)"/>
 
-        <EditText
+        <DatePicker
             android:id="@+id/edit_term_end_date"
-            android:layout_width="395dp"
-            android:layout_height="68dp"
+            android:layout_width="393dp"
+            android:layout_height="88dp"
             android:layout_below="@id/edit_term_start_date"
             android:layout_marginTop="31dp"
+            android:datePickerMode="spinner"
             android:calendarViewShown="false"
-            android:hint="MM/YYYY"
-            android:inputType="date"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="220dp" />
 
