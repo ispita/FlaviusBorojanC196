@@ -26,6 +26,15 @@
                 android:layout_below="@+id/view_title"
                 android:src="@drawable/ic_edit" />
 
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/button_delete_assessment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/button_edit_assessment"
+                android:src="@drawable/ic_delete" />
+
             <TextView
                 android:id="@+id/view_title"
                 android:layout_width="406dp"

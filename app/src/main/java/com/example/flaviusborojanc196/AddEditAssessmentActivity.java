@@ -25,9 +25,13 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class AddEditAssessmentActivity extends AppCompatActivity {
     public static final String EXTRA_ID =
@@ -55,12 +59,13 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
     private int endSep;
     private int endSep2;
     private int startYear;
-    private int  startMonth;
+    private int startMonth;
     private int startDay;
     private int endYear;
     private int endMonth;
     private int endDay;
     private TextView addedCourses;
+
 
     private List<String> courseArray = new ArrayList<>();
     @Override
@@ -106,20 +111,30 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
 
     }
 
-    private void saveAssessment(){
+    private void saveAssessment() throws ParseException {
         int radioGroup = editTextDescription.getCheckedRadioButtonId();
         textDescription = findViewById(radioGroup);
+
         String title = editTextTitle.getText().toString();
+        if (textDescription == null){
+            Toast.makeText(this, "Please choose an assessment type.", Toast.LENGTH_SHORT).show();
+            return;
+        }
         String description = textDescription.getText().toString();
         int startMonth = editTextStartDate.getMonth() + 1;
         int endMonth = editTextEndDate.getMonth() + 1;
         String start = startMonth + "/" + editTextStartDate.getDayOfMonth() + "/" + editTextStartDate.getYear();
         String end = endMonth + "/" + editTextEndDate.getDayOfMonth() + "/" + editTextEndDate.getYear();
-
+        SimpleDateFormat format = new SimpleDateFormat("MM/d/yyyy");
         if(title.trim().isEmpty() || description.trim().isEmpty()){
             Toast.makeText(this, "Please Insert a Description and a Title!", Toast.LENGTH_SHORT).show();
             return;
         }
+            if (format.parse(end).before(format.parse(start)) || end.equals(start)) {
+                Toast.makeText(this, "End date must be AFTER the start date!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
 
         Intent data = new Intent();
         data.putExtra(EXTRA_TITLE, title);
@@ -127,7 +142,6 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
         data.putExtra(EXTRA_START_DATE, start);
         data.putExtra(EXTRA_END_DATE, end);
         int id = -1;
-        // data.putExtra(EXTRA_ASSESSMENT_COURSES, assessmentCourses);
         if (!editAssessment) {
             id = getIntent().getIntExtra(EXTRA_ID, -1);
         }
@@ -153,7 +167,11 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.save_term:
-                saveAssessment();
+                try {
+                    saveAssessment();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

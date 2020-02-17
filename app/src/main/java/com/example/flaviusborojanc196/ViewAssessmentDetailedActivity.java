@@ -86,21 +86,9 @@ public class ViewAssessmentDetailedActivity extends AppCompatActivity {
                 Toast.makeText(ViewAssessmentDetailedActivity.this, viewTextAssessmentId.getText().toString(), Toast.LENGTH_SHORT).show();
                 intent.putExtra(AddEditAssessmentActivity.EXTRA_START_DATE, viewTextStartDate.getText().toString());
                 intent.putExtra(AddEditAssessmentActivity.EXTRA_END_DATE, viewTextEndDate.getText().toString());
-             //   intent.putExtra(AddEditAssessmentActivity.EXTRA_ASSESSMENT_COURSES, viewTextAssessmentCourses.getText().toString());
                 startActivityForResult(intent,EDIT_ASSESSMENT_REQUEST);
             }
         });
-
-//        FloatingActionButton buttonAssessmentCourseEdit = findViewById(R.id.button_add_assessment_course);
-//        buttonAssessmentCourseEdit.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(ViewAssessmentDetailedActivity.this, AddEditAssessmentCourseActivity.class);
-//                intent.putExtra(AddEditAssessmentActivity.EXTRA_ID, viewTextAssessmentId.getText().toString());
-//                Toast.makeText(ViewAssessmentDetailedActivity.this, viewTextAssessmentId.getText().toString(), Toast.LENGTH_SHORT).show();
-//                startActivityForResult(intent,ADD_COURSE_REQUEST);
-//            }
-//        });
 
 
 
@@ -114,7 +102,21 @@ public class ViewAssessmentDetailedActivity extends AppCompatActivity {
             }
         });
 
+        FloatingActionButton buttonDeleteAssessment = findViewById(R.id.button_delete_assessment);
+        buttonDeleteAssessment.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                for (int i = 0; i < adapter.getItemCount(); i++) {
+                    Intent intent = new Intent(ViewAssessmentDetailedActivity.this, ViewAssessmentActivity.class);
+                    if (Integer.parseInt(viewTextAssessmentId.getText().toString()) == adapter.getAssessmentAt(i).getId()) {
+                        assessmentViewModel.delete(adapter.getAssessmentAt(i));
+                        startActivity(intent);
+                    }
 
+                }
+
+            }
+        });
 
     }
 

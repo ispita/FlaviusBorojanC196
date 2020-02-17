@@ -49,6 +49,11 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
     private TextView viewTextStartDate;
     private TextView viewTextEndDate;
     private TextView viewTextCourseId;
+    private TextView viewTextStatus;
+    private TextView viewTextMentor;
+    private TextView viewTextPhone;
+    private TextView viewTextEmail;
+    private TextView viewTextNote;
     private RecyclerView viewTextCourseAssessments;
     private CourseViewModel courseViewModel;
     private AssessmentViewModel assessmentViewMode1;
@@ -71,6 +76,11 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
         viewTextEndDate = findViewById(R.id.view_course_end_date);
         viewTextCourseAssessments = findViewById(R.id.view_assessments);
         viewTextCourseId = findViewById(R.id.view_course_id);
+        viewTextStatus = findViewById(R.id.view_course_status);
+        viewTextMentor = findViewById(R.id.view_course_mentor);
+        viewTextPhone = findViewById(R.id.view_course_mentor_phone);
+        viewTextEmail = findViewById(R.id.view_course_mentor_email);
+        viewTextNote = findViewById(R.id.view_course_note);
 
 
         Intent intent = getIntent();
@@ -80,8 +90,12 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
             viewTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
             viewTextStartDate.setText(intent.getStringExtra(EXTRA_START_DATE));
             viewTextEndDate.setText(intent.getStringExtra(EXTRA_END_DATE));
-            //   viewTextCourseAssessments.setText(intent.getStringExtra(EXTRA_TERM_COURSES));
             viewTextCourseId.setText(intent.getStringExtra(EXTRA_ID));
+            viewTextStatus.setText(intent.getStringExtra(EXTRA_STATUS));
+            viewTextMentor.setText(intent.getStringExtra(EXTRA_MENTOR));
+            viewTextPhone.setText(intent.getStringExtra(EXTRA_PHONE));
+            viewTextEmail.setText(intent.getStringExtra(EXTRA_EMAIL));
+            viewTextNote.setText(intent.getStringExtra(EXTRA_NOTE));
             Toast.makeText(this, viewTextCourseId.getText().toString(), Toast.LENGTH_SHORT).show();
 
         }
@@ -94,11 +108,14 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
                 intent.putExtra(AddEditCourseActivity.EXTRA_TITLE, viewTextTitle.getText().toString());
                 intent.putExtra(AddEditCourseActivity.EXTRA_DESCRIPTION, viewTextDescription.getText().toString());
                 intent.putExtra(AddEditCourseActivity.EXTRA_ID, viewTextCourseId.getText().toString());
-                Toast.makeText(ViewCourseDetailedActivity.this, viewTextCourseId.getText().toString(), Toast.LENGTH_SHORT).show();
                 intent.putExtra(AddEditCourseActivity.EXTRA_START_DATE, viewTextStartDate.getText().toString());
                 intent.putExtra(AddEditCourseActivity.EXTRA_END_DATE, viewTextEndDate.getText().toString());
-             //   intent.putExtra(AddEditCourseActivity.EXTRA_TERM_COURSES, viewTextCourseAssessments.getText().toString());
-                startActivityForResult(intent,EDIT_COURSE_REQUEST);
+                intent.putExtra(AddEditCourseActivity.EXTRA_STATUS, viewTextStatus.getText().toString());
+                intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR, viewTextMentor.getText().toString());
+                intent.putExtra(AddEditCourseActivity.EXTRA_PHONE, viewTextPhone.getText().toString());
+                intent.putExtra(AddEditCourseActivity.EXTRA_EMAIL, viewTextEmail.getText().toString());
+                intent.putExtra(AddEditCourseActivity.EXTRA_NOTE, viewTextNote.getText().toString());
+                        startActivityForResult(intent,EDIT_COURSE_REQUEST);
             }
         });
 
@@ -140,7 +157,21 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
         });
 
 
+        FloatingActionButton buttonDeleteCourse = findViewById(R.id.button_delete_course);
+        buttonDeleteCourse.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                    for (int i = 0; i < adapter.getItemCount(); i++) {
+                        Intent intent = new Intent(ViewCourseDetailedActivity.this, ViewCourseActivity.class);
+                        if (Integer.parseInt(viewTextCourseId.getText().toString()) == adapter.getCourseAt(i).getId()) {
+                            courseViewModel.delete(adapter.getCourseAt(i));
+                            startActivity(intent);
+                        }
 
+                    }
+
+            }
+        });
     }
 
     @Override
@@ -180,14 +211,21 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
             String description = data.getStringExtra(AddEditCourseActivity.EXTRA_DESCRIPTION); //need non null default value for int
             String start = data.getStringExtra(AddEditCourseActivity.EXTRA_START_DATE);
             String end = data.getStringExtra(AddEditCourseActivity.EXTRA_END_DATE);
+            String status = data.getStringExtra(AddEditCourseActivity.EXTRA_STATUS);
+            String mentor = data.getStringExtra(AddEditCourseActivity.EXTRA_MENTOR);
+            String phone = data.getStringExtra(AddEditCourseActivity.EXTRA_PHONE);
+            String email = data.getStringExtra(AddEditCourseActivity.EXTRA_EMAIL);
+            String note = data.getStringExtra(AddEditCourseActivity.EXTRA_NOTE);
                 viewTextTitle.setText(title);
                 viewTextDescription.setText(description);
                 viewTextStartDate.setText(start);
                 viewTextEndDate.setText(end);
                 viewTextCourseId.setText(Integer.toString(id));
-//            Course course = new Course(title,description,start,end);
-//            course.setId(id);
-//            courseViewModel.update(course);
+                viewTextStatus.setText(status);
+                viewTextMentor.setText(mentor);
+                viewTextPhone.setText(phone);
+                viewTextEmail.setText(email);
+                viewTextNote.setText(note);
         }
             else if(requestCode == ADD_COURSE_REQUEST && resultCode == RESULT_OK) {
                 Toast.makeText(this, "Entering into RESULT_OK", Toast.LENGTH_SHORT).show();

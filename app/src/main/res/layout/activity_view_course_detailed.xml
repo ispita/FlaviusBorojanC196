@@ -36,6 +36,16 @@
                 android:layout_below="@+id/button_edit_course"
                 android:src="@drawable/ic_course_add" />
 
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/button_delete_course"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/button_add_course_assessment"
+                android:src="@drawable/ic_delete" />
+
             <TextView
                 android:id="@+id/view_title"
                 android:layout_width="406dp"
@@ -85,7 +95,6 @@
                 android:layout_below="@id/view_course_start_date"
                 android:labelFor="@+id/view_course_end_date"
                 android:text="End Date:"/>
-
             <TextView
                 android:id="@+id/view_course_end_date"
                 android:layout_width="395dp"
@@ -97,18 +106,64 @@
                 android:inputType="date"
                 tools:layout_viewor_absoluteX="0dp"
                 tools:layout_viewor_absoluteY="220dp" />
+
+            <TextView
+                android:id="@+id/view_course_status"
+                android:layout_width="395dp"
+                android:layout_height="68dp"
+                android:layout_below="@id/view_course_end_date"
+                android:layout_marginTop="31dp"
+                android:calendarViewShown="false"
+                tools:layout_viewor_absoluteX="0dp"
+                tools:layout_viewor_absoluteY="220dp" />
+            <TextView
+                android:id="@+id/view_course_mentor"
+                android:layout_width="395dp"
+                android:layout_height="68dp"
+                android:layout_below="@id/view_course_status"
+                android:layout_marginTop="31dp"
+                android:calendarViewShown="false"
+                tools:layout_viewor_absoluteX="0dp"
+                tools:layout_viewor_absoluteY="220dp" />
+            <TextView
+                android:id="@+id/view_course_mentor_phone"
+                android:layout_width="395dp"
+                android:layout_height="68dp"
+                android:layout_below="@id/view_course_mentor"
+                android:layout_marginTop="31dp"
+                android:calendarViewShown="false"
+                tools:layout_viewor_absoluteX="0dp"
+                tools:layout_viewor_absoluteY="220dp" />
+            <TextView
+                android:id="@+id/view_course_mentor_email"
+                android:layout_width="395dp"
+                android:layout_height="68dp"
+                android:layout_below="@id/view_course_mentor_phone"
+                android:layout_marginTop="31dp"
+                android:calendarViewShown="false"
+                tools:layout_viewor_absoluteX="0dp"
+                tools:layout_viewor_absoluteY="220dp" />
+            <TextView
+                android:id="@+id/view_course_note"
+                android:layout_width="395dp"
+                android:layout_height="68dp"
+                android:layout_below="@id/view_course_mentor_email"
+                android:layout_marginTop="31dp"
+                android:calendarViewShown="false"
+                tools:layout_viewor_absoluteX="0dp"
+                tools:layout_viewor_absoluteY="220dp" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Assessments:"
-                android:layout_below="@+id/view_course_end_date"/>
+                android:layout_below="@+id/view_course_note"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/view_assessments"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="31dp"
-                android:layout_below="@id/view_course_end_date"
+                android:layout_below="@id/view_course_note"
                 tools:listitem="@layout/course_item"/>
 
 
