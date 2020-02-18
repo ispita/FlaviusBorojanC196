@@ -22,6 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -182,22 +184,44 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
         buttonRemindCourse.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                SimpleDateFormat format = new SimpleDateFormat("MM/d/yyyy");
                 Toast.makeText(ViewCourseDetailedActivity.this, "Alarm set for this course!", Toast.LENGTH_SHORT).show();
                 AlarmManager alarm = (AlarmManager) ViewCourseDetailedActivity.this.getSystemService(Context.ALARM_SERVICE);
+                AlarmManager alarm2 = (AlarmManager) ViewCourseDetailedActivity.this.getSystemService(Context.ALARM_SERVICE);
+                final int requestCodeInt = (int) System.currentTimeMillis();
                 DateBroadcast notification = new DateBroadcast();
                 IntentFilter intentFilter = new IntentFilter("ALARM_ACTION");
                 registerReceiver(notification, intentFilter);
                 Intent intent = new Intent( ViewCourseDetailedActivity.this, DateBroadcast.class);
                 intent.putExtra("title", "Course " + viewTextTitle.getText() + " Starting Today!");
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(ViewCourseDetailedActivity.this, 0, intent, 0);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(ViewCourseDetailedActivity.this, requestCodeInt, intent, 0);
+                Intent intent2 = new Intent( ViewCourseDetailedActivity.this, DateBroadcast.class);
+                intent2.putExtra("title", "Course " + viewTextTitle.getText() + " Ends Today!");
+                PendingIntent pendingIntent2 = PendingIntent.getBroadcast(ViewCourseDetailedActivity.this, requestCodeInt+1, intent2, 0);
                 Calendar cal = Calendar.getInstance();
-                cal.add(Calendar.DAY_OF_MONTH, 1);
+                try {
+                    cal.setTime(format.parse(viewTextStartDate.getText().toString()));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 cal.set(Calendar.HOUR_OF_DAY, 0);
                 cal.set(Calendar.MINUTE, 0);
                 cal.set(Calendar.SECOND, 15);
                 cal.set(Calendar.MILLISECOND, 0);
                 long alertDate = cal.getTimeInMillis();
+                Calendar calEnd = Calendar.getInstance();
+                try {
+                    calEnd.setTime(format.parse(viewTextEndDate.getText().toString()));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                calEnd.set(Calendar.HOUR_OF_DAY, 0);
+                calEnd.set(Calendar.MINUTE, 0);
+                calEnd.set(Calendar.SECOND, 15);
+                calEnd.set(Calendar.MILLISECOND, 0);
+                long alertDateEnd = calEnd.getTimeInMillis();
                 alarm.setExact(AlarmManager.RTC_WAKEUP, alertDate, pendingIntent);
+                alarm2.setExact(AlarmManager.RTC_WAKEUP, alertDateEnd, pendingIntent2);
                 unregisterReceiver(notification);
 
                 }

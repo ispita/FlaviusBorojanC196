@@ -128,12 +128,13 @@ public class ViewAssessmentDetailedActivity extends AppCompatActivity {
                 SimpleDateFormat format = new SimpleDateFormat("MM/d/yyyy");
                 Toast.makeText(ViewAssessmentDetailedActivity.this, "Alarm set for this assessment!", Toast.LENGTH_SHORT).show();
                 AlarmManager alarm = (AlarmManager) ViewAssessmentDetailedActivity.this.getSystemService(Context.ALARM_SERVICE);
+                final int requestCodeInt = (int) System.currentTimeMillis();
                 DateBroadcast notification = new DateBroadcast();
                 IntentFilter intentFilter = new IntentFilter("ALARM_ACTION");
                 registerReceiver(notification, intentFilter);
                 Intent intent = new Intent( ViewAssessmentDetailedActivity.this, DateBroadcast.class);
                 intent.putExtra("title", "Assessment " + viewTextTitle.getText() + " Starting Today!");
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(ViewAssessmentDetailedActivity.this, 0, intent, 0);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(ViewAssessmentDetailedActivity.this, requestCodeInt, intent, 0);
                 Calendar cal = Calendar.getInstance();
                 try {
                     cal.setTime(format.parse(viewTextEndDate.getText().toString()));
