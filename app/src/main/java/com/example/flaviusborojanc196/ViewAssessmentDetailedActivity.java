@@ -157,7 +157,7 @@ public class ViewAssessmentDetailedActivity extends AppCompatActivity {
                 viewTextDescription.setText(description);
                 viewTextEndDate.setText(end);
                 viewTextAssessmentId.setText(Integer.toString(id));
-            Assessment assessment = new Assessment(title,description,start,end);
+            Assessment assessment = new Assessment(title,description,end);
             assessment.setId(id);
             assessmentViewModel.update(assessment);
         }

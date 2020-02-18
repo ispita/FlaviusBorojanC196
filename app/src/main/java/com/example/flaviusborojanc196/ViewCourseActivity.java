@@ -61,6 +61,16 @@ public class ViewCourseActivity extends AppCompatActivity {
             }
         });
 
+
+//        courseViewModel.getAllCourses().observe(this,new Observer<List<Course>>(){
+//            @Override
+//            public void onChanged(@Nullable List<Course> courses){
+//                for(int i = 0; i < courses.size(); i++) {
+//                    MainActivity.courseDateList.add(courses.get(i).getStart());
+//                }
+//            }
+//        });
+
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT |ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {

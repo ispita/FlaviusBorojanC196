@@ -17,17 +17,15 @@ public class Assessment {
 
     private String description;
 
-    private String start;
 
     private String end;
 
 
 
 
-    public Assessment(String title, String description, String start, String end) {
+    public Assessment(String title, String description, String end) {
         this.title = title;
         this.description = description;
-        this.start = start;
         this.end = end;
 
 
@@ -52,9 +50,6 @@ public class Assessment {
         return description;
     }
 
-    public String getStart() {
-        return start;
-    }
 
     public String getEnd() {
         return end;

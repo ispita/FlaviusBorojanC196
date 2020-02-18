@@ -1,7 +1,11 @@
 package com.example.flaviusborojanc196;
 
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -171,6 +175,24 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
                     }
 
             }
+        });
+
+        FloatingActionButton buttonRemindCourse = findViewById(R.id.button_reminder_course);
+        buttonRemindCourse.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ViewCourseDetailedActivity.this, "this is today" + viewTextStartDate.getText(), Toast.LENGTH_SHORT).show();
+                AlarmManager alarm = (AlarmManager) ViewCourseDetailedActivity.this.getSystemService(Context.ALARM_SERVICE);
+                DateBroadcast notification = new DateBroadcast();
+                IntentFilter intentFilter = new IntentFilter("ALARM_ACTION");
+                registerReceiver(notification, intentFilter);
+                Intent intent = new Intent( ViewCourseDetailedActivity.this, DateBroadcast.class);
+                intent.putExtra("title", "Course Starting Today! DIFFERENTIALCIOUTDR");
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(ViewCourseDetailedActivity.this, 0, intent, 0);
+                alarm.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + Toast.LENGTH_SHORT, pendingIntent);
+                unregisterReceiver(notification);
+
+                }
         });
     }
 

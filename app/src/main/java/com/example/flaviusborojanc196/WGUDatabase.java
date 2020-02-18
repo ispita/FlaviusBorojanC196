@@ -9,7 +9,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {Term.class, Course.class, TermCourses.class, Assessment.class, CourseAssessments.class}, version = 1, exportSchema = false)
+@Database(entities = {Term.class, Course.class, TermCourses.class, Assessment.class, CourseAssessments.class}, version = 2, exportSchema = false)
 public abstract class WGUDatabase extends RoomDatabase {
 
     private static WGUDatabase instance;

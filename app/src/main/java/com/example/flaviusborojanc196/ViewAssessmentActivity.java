@@ -80,7 +80,6 @@ public class ViewAssessmentActivity extends AppCompatActivity {
                 intent.putExtra(ViewAssessmentDetailedActivity.EXTRA_TITLE, assessment.getTitle());
                 intent.putExtra(ViewAssessmentDetailedActivity.EXTRA_DESCRIPTION, assessment.getDescription());
                 intent.putExtra(ViewAssessmentDetailedActivity.EXTRA_ID, Integer.toString(assessment.getId()));
-                intent.putExtra(ViewAssessmentDetailedActivity.EXTRA_START_DATE, assessment.getStart());
                 intent.putExtra(ViewAssessmentDetailedActivity.EXTRA_END_DATE, assessment.getEnd());
                 startActivityForResult(intent, VIEW_ASSESSMENT_DETAILED_REQUEST);
             }
@@ -122,7 +121,7 @@ public class ViewAssessmentActivity extends AppCompatActivity {
             String end = data.getStringExtra(AddEditAssessmentActivity.EXTRA_END_DATE);
 
 
-           Assessment assessment = new Assessment(title,description,start,end);
+           Assessment assessment = new Assessment(title,description,end);
            assessmentViewModel.insert(assessment);
 
             Toast.makeText(this, "Assessment Saved", Toast.LENGTH_SHORT).show();
