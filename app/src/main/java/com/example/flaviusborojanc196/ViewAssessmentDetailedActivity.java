@@ -1,7 +1,11 @@
 package com.example.flaviusborojanc196;
 
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +22,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 public class ViewAssessmentDetailedActivity extends AppCompatActivity {
@@ -110,6 +117,36 @@ public class ViewAssessmentDetailedActivity extends AppCompatActivity {
                     }
 
                 }
+
+            }
+        });
+
+        FloatingActionButton buttonRemindAssessment = findViewById(R.id.button_reminder_assessment);
+        buttonRemindAssessment.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                SimpleDateFormat format = new SimpleDateFormat("MM/d/yyyy");
+                Toast.makeText(ViewAssessmentDetailedActivity.this, "Alarm set for this assessment!", Toast.LENGTH_SHORT).show();
+                AlarmManager alarm = (AlarmManager) ViewAssessmentDetailedActivity.this.getSystemService(Context.ALARM_SERVICE);
+                DateBroadcast notification = new DateBroadcast();
+                IntentFilter intentFilter = new IntentFilter("ALARM_ACTION");
+                registerReceiver(notification, intentFilter);
+                Intent intent = new Intent( ViewAssessmentDetailedActivity.this, DateBroadcast.class);
+                intent.putExtra("title", "Assessment " + viewTextTitle.getText() + " Starting Today!");
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(ViewAssessmentDetailedActivity.this, 0, intent, 0);
+                Calendar cal = Calendar.getInstance();
+                try {
+                    cal.setTime(format.parse(viewTextEndDate.getText().toString()));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                cal.set(Calendar.HOUR_OF_DAY, 0);
+                cal.set(Calendar.MINUTE, 0);
+                cal.set(Calendar.SECOND, 15);
+                cal.set(Calendar.MILLISECOND, 0);
+                long alertDate = cal.getTimeInMillis();
+                alarm.setExact(AlarmManager.RTC_WAKEUP, alertDate, pendingIntent);
+                unregisterReceiver(notification);
 
             }
         });

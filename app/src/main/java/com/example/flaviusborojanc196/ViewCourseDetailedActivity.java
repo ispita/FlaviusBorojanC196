@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class ViewCourseDetailedActivity extends AppCompatActivity {
@@ -189,7 +190,14 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
                 Intent intent = new Intent( ViewCourseDetailedActivity.this, DateBroadcast.class);
                 intent.putExtra("title", "Course " + viewTextTitle.getText() + " Starting Today!");
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(ViewCourseDetailedActivity.this, 0, intent, 0);
-                alarm.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + Toast.LENGTH_SHORT, pendingIntent);
+                Calendar cal = Calendar.getInstance();
+                cal.add(Calendar.DAY_OF_MONTH, 1);
+                cal.set(Calendar.HOUR_OF_DAY, 0);
+                cal.set(Calendar.MINUTE, 0);
+                cal.set(Calendar.SECOND, 15);
+                cal.set(Calendar.MILLISECOND, 0);
+                long alertDate = cal.getTimeInMillis();
+                alarm.setExact(AlarmManager.RTC_WAKEUP, alertDate, pendingIntent);
                 unregisterReceiver(notification);
 
                 }
