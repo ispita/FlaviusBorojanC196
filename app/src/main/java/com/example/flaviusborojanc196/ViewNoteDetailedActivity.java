@@ -45,6 +45,7 @@ public class ViewNoteDetailedActivity extends AppCompatActivity {
     private TextView viewTextNoteId;
     private RecyclerView viewTextNoteCourses;
     private NoteViewModel noteViewModel;
+    private NoteViewModel noteViewModelCurrent;
     private CourseViewModel courseViewMode1;
     private List<Course> coursesList;
 
@@ -91,6 +92,7 @@ public class ViewNoteDetailedActivity extends AppCompatActivity {
 
 
         final NoteAdapter adapter = new NoteAdapter();
+        final NoteAdapter adapterCurrent = new NoteAdapter();
 
         noteViewModel = ViewModelProviders.of(this).get(NoteViewModel.class);
         noteViewModel.getAllNotes().observe(this,new Observer<List<Note>>(){
@@ -100,19 +102,33 @@ public class ViewNoteDetailedActivity extends AppCompatActivity {
             }
         });
 
+        noteViewModelCurrent = ViewModelProviders.of(this).get(NoteViewModel.class);
+        noteViewModelCurrent.getCurrentNotes().observe(this,new Observer<List<Note>>(){
+            @Override
+            public void onChanged(@Nullable List<Note> notes){
+                adapterCurrent.setNotes(notes);
+            }
+        });
+
+
         FloatingActionButton buttonDeleteNote = findViewById(R.id.button_delete_note);
         buttonDeleteNote.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                for (int i = 0; i < adapter.getItemCount(); i++) {
-                    Intent intent = new Intent(ViewNoteDetailedActivity.this, ViewCourseDetailedActivity.class);
-                    if (Integer.parseInt(viewTextNoteId.getText().toString()) == adapter.getNoteAt(i).getId()) {
-                        noteViewModel.delete(adapter.getNoteAt(i));
-                        startActivity(intent);
+                if (adapterCurrent.getItemCount() != 1) {
+                    for (int i = 0; i < adapter.getItemCount(); i++) {
+                        Intent intent = new Intent(ViewNoteDetailedActivity.this, ViewCourseActivity.class);
+                        if (Integer.parseInt(viewTextNoteId.getText().toString()) == adapter.getNoteAt(i).getId()) {
+                            noteViewModel.delete(adapter.getNoteAt(i));
+                            startActivity(intent);
+                        }
+
                     }
-
                 }
-
+                else{
+                    Toast.makeText(ViewNoteDetailedActivity.this, "You must have at least 1 note.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
         });
 

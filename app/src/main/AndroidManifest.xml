@@ -48,7 +48,7 @@
         <activity android:name=".AddEditCourseAssessmentActivity"
             android:parentActivityName=".ViewCourseDetailedActivity"/>
         <activity android:name=".AddEditNoteActivity"
-            android:parentActivityName=".ViewNoteDetailedActivity"/>
+            android:parentActivityName=".ViewCourseActivity"/>
 
 
 
