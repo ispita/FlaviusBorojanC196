@@ -34,6 +34,15 @@
                 android:layout_alignParentEnd="true"
                 android:layout_below="@+id/button_edit_note"
                 android:src="@drawable/ic_delete" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/button_share_note"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="sendNote"
+                android:layout_marginTop="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/button_delete_note"
+                android:src="@drawable/ic_send" />
             <TextView
                 android:id="@+id/view_title"
                 android:layout_width="406dp"

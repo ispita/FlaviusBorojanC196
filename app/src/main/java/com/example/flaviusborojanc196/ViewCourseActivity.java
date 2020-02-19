@@ -72,28 +72,6 @@ public class ViewCourseActivity extends AppCompatActivity {
 
 
 
-
-//        courseViewModel.getAllCourses().observe(this,new Observer<List<Course>>(){
-//            @Override
-//            public void onChanged(@Nullable List<Course> courses){
-//                for(int i = 0; i < courses.size(); i++) {
-//                    MainActivity.courseDateList.add(courses.get(i).getStart());
-//                }
-//            }
-//        });
-
-//        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT |ItemTouchHelper.RIGHT) {
-//            @Override
-//            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-//                return false;
-//            }
-//
-//            @Override
-//            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-//                courseViewModel.delete(adapter.getCourseAt(viewHolder.getAdapterPosition()));
-//            }
-//        }).attachToRecyclerView(recyclerView);
-
         adapter.setOnItemClickListener(new CourseAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Course course) {
@@ -153,14 +131,9 @@ public class ViewCourseActivity extends AppCompatActivity {
 
             Course course = new Course(title,description,start,end,status,mentor,phone,email);
             courseViewModel.insert(course);
-//            List<Course> allCourses = courseViewModel.getAllCourses().getValue();
-//            Course latestCourse = allCourses.get(allCourses.size());
-//            Toast.makeText(this, latestCourse.getTitle(), Toast.LENGTH_SHORT).show();
-//            Note noteRequired = new Note(CourseRepository.courseId,"Note","Note Description");
-//            Toast.makeText(this, "the course ID exists:  " + CourseRepository.courseId, Toast.LENGTH_SHORT).show();
             noteViewModel.newCourseNoteInsert();
 
-//            Toast.makeText(this, "Course Saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Course Saved", Toast.LENGTH_SHORT).show();
         }
         else if(requestCode == EDIT_COURSE_REQUEST && resultCode == RESULT_OK) {
             int id = data.getIntExtra(AddEditCourseActivity.EXTRA_ID, -1);

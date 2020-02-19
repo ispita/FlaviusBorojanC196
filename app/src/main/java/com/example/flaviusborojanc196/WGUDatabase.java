@@ -40,12 +40,10 @@ public abstract class WGUDatabase extends RoomDatabase {
         private TermDao termDao;
         private CourseDao courseDao;
         private AssessmentDao assessmentDao;
-        private NoteDao noteDao;
         private PopulateDbAsyncTask(WGUDatabase db){
             termDao = db.termDao();
             courseDao = db.courseDao();
             assessmentDao = db.assessmentDao();
-            noteDao = db.noteDao();
         }
 
 
@@ -59,6 +57,8 @@ public abstract class WGUDatabase extends RoomDatabase {
             courseDao.insert(new Course("Title2", "Description2", "02/11/2020", "03/31/2020","plan to take", "timmy","777-333-4444","email@email.com"));
             courseDao.insert(new Course("Title3", "Description3", "02/11/2020", "03/31/2020","plan to take", "timmy","777-333-4444","email@email.com"));
             courseDao.insert(new Course("Title4", "Description4", "02/11/2020", "03/31/2020","plan to take", "timmy","777-333-4444","email@email.com"));
+            assessmentDao.insert(new Assessment("Title1","Description1","02/25/2020"));
+
             return null;
         }
     }

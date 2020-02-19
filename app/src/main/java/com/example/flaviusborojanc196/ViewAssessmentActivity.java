@@ -117,7 +117,6 @@ public class ViewAssessmentActivity extends AppCompatActivity {
         if(requestCode == ADD_ASSESSMENT_REQUEST && resultCode == RESULT_OK){
             String title = data.getStringExtra(AddEditAssessmentActivity.EXTRA_TITLE);
             String description = data.getStringExtra(AddEditAssessmentActivity.EXTRA_DESCRIPTION); //need non null default value for int
-            String start = data.getStringExtra(AddEditAssessmentActivity.EXTRA_START_DATE);
             String end = data.getStringExtra(AddEditAssessmentActivity.EXTRA_END_DATE);
 
 
@@ -133,13 +132,12 @@ public class ViewAssessmentActivity extends AppCompatActivity {
             }
             String title = data.getStringExtra(AddEditAssessmentActivity.EXTRA_TITLE);
             String description = data.getStringExtra(AddEditAssessmentActivity.EXTRA_DESCRIPTION); //need non null default value for int
-            String start = data.getStringExtra(AddEditAssessmentActivity.EXTRA_START_DATE);
             String end = data.getStringExtra(AddEditAssessmentActivity.EXTRA_END_DATE);
 
 
-//            Assessment assessment = new Assessment(title,description,start,end,status,mentor,phone,email,note);
-//            assessment.setId(id);
-//            assessmentViewModel.update(assessment);
+            Assessment assessment = new Assessment(title,description,end);
+            assessment.setId(id);
+            assessmentViewModel.update(assessment);
 
         }
         else{

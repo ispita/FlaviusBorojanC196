@@ -124,7 +124,6 @@ public class AddEditTermActivity extends AppCompatActivity {
         data.putExtra(EXTRA_START_DATE, start);
         data.putExtra(EXTRA_END_DATE, end);
         int id = -1;
-       // data.putExtra(EXTRA_TERM_COURSES, termCourses);
         if (!editTerm) {
              id = getIntent().getIntExtra(EXTRA_ID, -1);
         }

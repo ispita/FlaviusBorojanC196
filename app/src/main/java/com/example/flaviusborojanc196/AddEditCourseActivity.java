@@ -41,7 +41,7 @@ public class AddEditCourseActivity extends AppCompatActivity {
             "com.example.flaviusborojanc196.EXTRA_EMAIL";
     public static final String EXTRA_NOTE=
             "com.example.flaviusborojanc196.EXTRA_NOTE";
-    public static final Integer EXTRA_COURSE_CARD_COLOR= 555555;
+
 
     private EditText editTextTitle;
     private EditText editTextDescription;
@@ -62,6 +62,7 @@ public class AddEditCourseActivity extends AppCompatActivity {
     private int endYear;
     private int endMonth;
     private int endDay;
+    private String editCourseId;
     private Boolean edit = false;
     private List<String> emailTLD = new ArrayList<>();
     @Override
@@ -95,7 +96,6 @@ public class AddEditCourseActivity extends AppCompatActivity {
             startMonth = Integer.parseInt(intent.getStringExtra(EXTRA_START_DATE).substring(0, startSep));
             startDay = Integer.parseInt(intent.getStringExtra(EXTRA_START_DATE).substring(startSep + 1, startSep2));
             startYear = Integer.parseInt(intent.getStringExtra(EXTRA_START_DATE).substring(startSep2 + 1, startSep2 + 5));
-//            Toast.makeText(this, startMonth + "/" + startDay + "/" + startYear, Toast.LENGTH_SHORT).show();
             endSep = intent.getStringExtra(EXTRA_END_DATE).indexOf("/");
             endSep2 = intent.getStringExtra(EXTRA_END_DATE).indexOf("/", intent.getStringExtra(EXTRA_END_DATE).indexOf("/") + 1);
             endMonth = Integer.parseInt(intent.getStringExtra(EXTRA_END_DATE).substring(0, endSep));
@@ -107,6 +107,7 @@ public class AddEditCourseActivity extends AppCompatActivity {
             editTextMentor.setText(intent.getStringExtra(EXTRA_MENTOR));
             editTextPhone.setText(intent.getStringExtra(EXTRA_PHONE));
             editTextEmail.setText(intent.getStringExtra(EXTRA_EMAIL));
+            editCourseId = intent.getStringExtra(EXTRA_ID);
             
 
         }
@@ -153,8 +154,14 @@ public class AddEditCourseActivity extends AppCompatActivity {
 
 
 
-        int id = getIntent().getIntExtra(EXTRA_ID, -1);
-
+        int id = -1;
+        if (!edit) {
+            id = getIntent().getIntExtra(EXTRA_ID, -1);
+        }
+        else if (edit) {
+            id = Integer.parseInt(editCourseId);
+        }
+        Toast.makeText(this, "this is the ID " + id, Toast.LENGTH_SHORT).show();
         if (id != -1){
             data.putExtra(EXTRA_ID, id);
         }

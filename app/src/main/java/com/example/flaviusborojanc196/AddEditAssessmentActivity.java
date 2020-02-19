@@ -44,8 +44,6 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
             "com.example.flaviusborojanc196.EXTRA_START_DATE";
     public static final String EXTRA_END_DATE=
             "com.example.flaviusborojanc196.EXTRA_END_DATE";
-//    public static final String EXTRA_ASSESSMENT_COURSES=
-//            "com.example.flaviusborojanc196.EXTRA_ASSESSMENT_COURSES";
 
     private EditText editTextTitle;
     private RadioGroup editTextDescription;
@@ -85,9 +83,6 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
             editTextEndDate.updateDate(endYear,endMonth - 1,endDay);
             editAssessmentId = intent.getStringExtra(EXTRA_ID);
             editAssessment = true;
-//            String[] addedCoursesArray = (addedCourses.getText().toString().split(","));
-//            Collections.addAll(courseArray,addedCoursesArray);
-//            Toast.makeText(this, "EXTRA_ID  " + editAssessmentId , Toast.LENGTH_SHORT).show();
 
         }
         else {
