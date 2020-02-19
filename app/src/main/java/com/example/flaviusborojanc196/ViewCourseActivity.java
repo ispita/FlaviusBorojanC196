@@ -27,7 +27,7 @@ public class ViewCourseActivity extends AppCompatActivity {
 
 
     private CourseViewModel courseViewModel;
-
+    private NoteViewModel noteViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +51,7 @@ public class ViewCourseActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
 
         final CourseAdapter adapter = new CourseAdapter();
+        final NoteAdapter adapterN = new NoteAdapter();
         recyclerView.setAdapter(adapter);
 
         courseViewModel = ViewModelProviders.of(this).get(CourseViewModel.class);
@@ -60,6 +61,16 @@ public class ViewCourseActivity extends AppCompatActivity {
                 adapter.setCourses(courses);
             }
         });
+
+        noteViewModel = ViewModelProviders.of(this).get(NoteViewModel.class);
+        noteViewModel.getAllNotes().observe(this,new Observer<List<Note>>(){
+            @Override
+            public void onChanged(@Nullable List<Note> notes){
+                adapterN.setNotes(notes);
+            }
+        });
+
+
 
 
 //        courseViewModel.getAllCourses().observe(this,new Observer<List<Course>>(){
@@ -71,17 +82,17 @@ public class ViewCourseActivity extends AppCompatActivity {
 //            }
 //        });
 
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT |ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                courseViewModel.delete(adapter.getCourseAt(viewHolder.getAdapterPosition()));
-            }
-        }).attachToRecyclerView(recyclerView);
+//        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT |ItemTouchHelper.RIGHT) {
+//            @Override
+//            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+//                return false;
+//            }
+//
+//            @Override
+//            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+//                courseViewModel.delete(adapter.getCourseAt(viewHolder.getAdapterPosition()));
+//            }
+//        }).attachToRecyclerView(recyclerView);
 
         adapter.setOnItemClickListener(new CourseAdapter.OnItemClickListener() {
             @Override
@@ -96,7 +107,6 @@ public class ViewCourseActivity extends AppCompatActivity {
                 intent.putExtra(ViewCourseDetailedActivity.EXTRA_MENTOR, course.getMentor());
                 intent.putExtra(ViewCourseDetailedActivity.EXTRA_PHONE, course.getPhone());
                 intent.putExtra(ViewCourseDetailedActivity.EXTRA_EMAIL, course.getEmail());
-                intent.putExtra(ViewCourseDetailedActivity.EXTRA_NOTE, course.getNote());
                 startActivityForResult(intent, VIEW_COURSE_DETAILED_REQUEST);
             }
         });
@@ -139,13 +149,18 @@ public class ViewCourseActivity extends AppCompatActivity {
             String mentor = data.getStringExtra(AddEditCourseActivity.EXTRA_MENTOR);
             String phone = data.getStringExtra(AddEditCourseActivity.EXTRA_PHONE);
             String email = data.getStringExtra(AddEditCourseActivity.EXTRA_EMAIL);
-            String note = data.getStringExtra(AddEditCourseActivity.EXTRA_NOTE);
 
 
-            Course course = new Course(title,description,start,end,status,mentor,phone,email,note);
+            Course course = new Course(title,description,start,end,status,mentor,phone,email);
             courseViewModel.insert(course);
+//            List<Course> allCourses = courseViewModel.getAllCourses().getValue();
+//            Course latestCourse = allCourses.get(allCourses.size());
+//            Toast.makeText(this, latestCourse.getTitle(), Toast.LENGTH_SHORT).show();
+//            Note noteRequired = new Note(CourseRepository.courseId,"Note","Note Description");
+//            Toast.makeText(this, "the course ID exists:  " + CourseRepository.courseId, Toast.LENGTH_SHORT).show();
+            noteViewModel.newCourseNoteInsert();
 
-            Toast.makeText(this, "Course Saved", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Course Saved", Toast.LENGTH_SHORT).show();
         }
         else if(requestCode == EDIT_COURSE_REQUEST && resultCode == RESULT_OK) {
             int id = data.getIntExtra(AddEditCourseActivity.EXTRA_ID, -1);
@@ -160,9 +175,8 @@ public class ViewCourseActivity extends AppCompatActivity {
             String mentor = data.getStringExtra(AddEditCourseActivity.EXTRA_MENTOR);
             String phone = data.getStringExtra(AddEditCourseActivity.EXTRA_PHONE);
             String email = data.getStringExtra(AddEditCourseActivity.EXTRA_EMAIL);
-            String note = data.getStringExtra(AddEditCourseActivity.EXTRA_NOTE);
 
-            Course course = new Course(title,description,start,end,status,mentor,phone,email,note);
+            Course course = new Course(title,description,start,end,status,mentor,phone,email);
             course.setId(id);
             courseViewModel.update(course);
 

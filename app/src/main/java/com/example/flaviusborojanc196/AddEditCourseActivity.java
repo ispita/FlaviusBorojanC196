@@ -62,6 +62,7 @@ public class AddEditCourseActivity extends AppCompatActivity {
     private int endYear;
     private int endMonth;
     private int endDay;
+    private Boolean edit = false;
     private List<String> emailTLD = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +77,6 @@ public class AddEditCourseActivity extends AppCompatActivity {
         editTextMentor = findViewById(R.id.edit_course_mentor);
         editTextPhone = findViewById(R.id.edit_course_mentor_phone);
         editTextEmail = findViewById(R.id.edit_course_mentor_email);
-        editTextNote = findViewById(R.id.edit_course_note);
         emailTLD.add("com");
         emailTLD.add("net");
         emailTLD.add("edu");
@@ -87,6 +87,7 @@ public class AddEditCourseActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if(intent.hasExtra(EXTRA_ID)){
             setTitle("Edit Course");
+            edit = true;
             editTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
             editTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
             startSep = intent.getStringExtra(EXTRA_START_DATE).indexOf("/");
@@ -106,8 +107,7 @@ public class AddEditCourseActivity extends AppCompatActivity {
             editTextMentor.setText(intent.getStringExtra(EXTRA_MENTOR));
             editTextPhone.setText(intent.getStringExtra(EXTRA_PHONE));
             editTextEmail.setText(intent.getStringExtra(EXTRA_EMAIL));
-            editTextNote.setText(intent.getStringExtra(EXTRA_NOTE));
-
+            
 
         }
         else {
@@ -125,7 +125,6 @@ public class AddEditCourseActivity extends AppCompatActivity {
         String mentor = editTextMentor.getText().toString();
         String phone = editTextPhone.getText().toString();
         String email = editTextEmail.getText().toString();
-        String note = editTextNote.getText().toString();
 
 
         if(title.trim().isEmpty() || description.trim().isEmpty() || status.isEmpty() || mentor.isEmpty() || phone.isEmpty() || email.isEmpty()){
@@ -151,7 +150,6 @@ public class AddEditCourseActivity extends AppCompatActivity {
         data.putExtra(EXTRA_MENTOR, mentor);
         data.putExtra(EXTRA_PHONE, phone);
         data.putExtra(EXTRA_EMAIL, email);
-        data.putExtra(EXTRA_NOTE, note);
 
 
 

@@ -75,12 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/text_course_mentor_phone"
             android:text="Mentor Email"/>
-        <TextView
-            android:id="@+id/text_course_notes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/text_course_mentor_email"
-            android:text="Notes"/>
+
 
     </RelativeLayout>
 

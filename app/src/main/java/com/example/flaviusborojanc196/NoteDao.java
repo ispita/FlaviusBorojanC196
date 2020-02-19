@@ -14,7 +14,10 @@ import java.util.List;
 public interface NoteDao {
 
     @Insert
-    void insert(Note note );
+    void insert(Note note);
+
+    @Query("INSERT INTO note_table (courseId,title,description) select MAX(cID),'Note','Optional' from course_table")
+    void newCourseNoteInsert();
 
     @Update
     void update(Note note);
@@ -26,7 +29,7 @@ public interface NoteDao {
     @Query("SELECT * FROM note_table ORDER BY nID ASC")
     LiveData<List<Note>> getAllNotes();
 
-    @Query("SELECT * FROM note_table where nID in (select noteId from coursenotes_table where courseId = :courseId)")
+    @Query("SELECT * FROM note_table where courseId = :courseId")
     LiveData<List<Note>> getCurrentNotes(int courseId);
 
 

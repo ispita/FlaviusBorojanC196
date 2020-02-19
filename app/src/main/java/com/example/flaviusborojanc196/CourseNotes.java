@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "coursenotes_table",
-        foreignKeys ={ @ForeignKey(entity = Term.class,
+        foreignKeys ={ @ForeignKey(entity = Note.class,
               parentColumns = "nID",
               childColumns = "noteId",
               onDelete = CASCADE),
@@ -40,7 +40,7 @@ public class CourseNotes {
         return cnid;
     }
 
-    public void setTcid(int cnid) {
+    public void setCnid(int cnid) {
         this.cnid = cnid;
     }
 

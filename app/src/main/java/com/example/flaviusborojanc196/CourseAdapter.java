@@ -41,9 +41,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseHold
         holder.textViewMentor.setText(String.valueOf(currentCourse.getMentor()));
         holder.textViewPhone.setText(String.valueOf(currentCourse.getPhone()));
         holder.textViewEmail.setText(String.valueOf(currentCourse.getEmail()));
-        holder.textViewNote.setText(String.valueOf(currentCourse.getNote()));
-        holder.courseCardView.setCardBackgroundColor(Color.WHITE);
-
     }
 
     @Override
@@ -66,8 +63,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseHold
         private TextView textViewMentor;
         private TextView textViewPhone;
         private TextView textViewEmail;
-        private TextView textViewNote;
-        private CardView courseCardView;
+
 
 
         public CourseHolder(@NonNull View itemView) {
@@ -77,12 +73,10 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseHold
             textViewId = itemView.findViewById(R.id.text_view_ID);
             datePickerStart = itemView.findViewById(R.id.text_course_start_date);
             datePickerEnd = itemView.findViewById(R.id.text_course_end_date);
-            courseCardView = itemView.findViewById(R.id.course_card);
             textViewStatus = itemView.findViewById(R.id.text_course_status);
             textViewMentor = itemView.findViewById(R.id.text_course_mentor);
             textViewPhone = itemView.findViewById(R.id.text_course_mentor_phone);
             textViewEmail = itemView.findViewById(R.id.text_course_mentor_email);
-            textViewNote = itemView.findViewById(R.id.text_course_notes);
 
 
             itemView.setOnClickListener(new View.OnClickListener() {

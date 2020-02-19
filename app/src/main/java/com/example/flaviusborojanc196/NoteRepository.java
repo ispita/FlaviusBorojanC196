@@ -11,12 +11,12 @@ public class NoteRepository {
     private NoteDao noteDao;
     private LiveData<List<Note>> allNotes;
     private LiveData<List<Note>> currentNotes;
-    public static int noteId;
+//    public static int courseId;
     public NoteRepository(Application application){
         WGUDatabase database = WGUDatabase.getInstance(application);
         noteDao = database.noteDao();
         allNotes = noteDao.getAllNotes();
-        currentNotes = noteDao.getCurrentNotes(noteId);
+        currentNotes = noteDao.getCurrentNotes(AssessmentRepository.courseId);
 
     }
     public void insert(Note note){
@@ -31,6 +31,10 @@ public class NoteRepository {
     public void delete(Note note){
         new DeleteNoteAsyncTask(noteDao).execute(note);
     }
+
+    public void newCourseNoteInsert(){
+        new newCourseNoteInsertTask(noteDao).execute();
+    };
 
     public LiveData<List<Note>> getAllNotes() {
         return allNotes;
@@ -54,7 +58,19 @@ public class NoteRepository {
     }
 
 
+    private static class newCourseNoteInsertTask extends AsyncTask<Void, Void, Void>{
+        private NoteDao noteDao;
 
+        private newCourseNoteInsertTask(NoteDao noteDao){
+            this.noteDao = noteDao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids){
+            noteDao.newCourseNoteInsert();
+            return null;
+        }
+    }
     private static class DeleteNoteAsyncTask extends AsyncTask<Note, Void, Void>{
         private NoteDao noteDao;
 

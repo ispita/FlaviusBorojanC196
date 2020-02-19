@@ -2,6 +2,7 @@ package com.example.flaviusborojanc196;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "note_table")
@@ -17,14 +18,20 @@ public class Note {
 
     private String description;
 
+    private int courseId;
 
 
-    public Note(String title, String description) {
+//    @Ignore
+//    public Note(String title, String description) {
+//        this.title = title;
+//        this.description = description;
+//    }
+
+    public Note(int courseId, String title, String description){
+        this.courseId = courseId;
         this.title = title;
         this.description = description;
     }
-
-    public Note(){}
 
 
     public void setId(int id) {
@@ -43,5 +50,19 @@ public class Note {
         return description;
     }
 
+    public int getCourseId() {
+        return courseId;
+    }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
+    }
 }

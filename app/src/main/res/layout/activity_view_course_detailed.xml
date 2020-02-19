@@ -53,6 +53,15 @@
                 android:layout_alignParentEnd="true"
                 android:layout_below="@+id/button_delete_course"
                 android:src="@drawable/ic_add_alert" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/button_add_note"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_alignParentEnd="true"
+                android:onClick="addNote"
+                android:layout_below="@+id/button_reminder_course"
+                android:src="@drawable/ic_note_add" />
 
             <TextView
                 android:id="@+id/view_title"
@@ -185,15 +194,13 @@
                 android:labelFor="@+id/view_course_note"
                 android:text="Course Notes (OPTIONAL):"/>
 
-            <TextView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/view_course_note"
-                android:layout_width="395dp"
-                android:layout_height="68dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/view_course_mentor_email"
                 android:layout_marginTop="31dp"
-                android:calendarViewShown="false"
-                tools:layout_viewor_absoluteX="0dp"
-                tools:layout_viewor_absoluteY="220dp" />
+                tools:listitem="@layout/note_item" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

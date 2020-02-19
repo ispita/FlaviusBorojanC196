@@ -60,10 +60,10 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
     private TextView viewTextMentor;
     private TextView viewTextPhone;
     private TextView viewTextEmail;
-    private TextView viewTextNote;
     private RecyclerView viewTextCourseAssessments;
     private CourseViewModel courseViewModel;
     private AssessmentViewModel assessmentViewMode1;
+    private NoteViewModel noteViewModel;
     private List<Course> coursesList;
 
 
@@ -71,6 +71,7 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
     public static final int EDIT_COURSE_REQUEST = 2;
     public static final int VIEW_COURSE_DETAILED_REQUEST = 3;
     public static final int ADD_ASSESSMENT_REQUEST = 4;
+    public static final int VIEW_NOTE_DETAILED_REQUEST = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +88,6 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
         viewTextMentor = findViewById(R.id.view_course_mentor);
         viewTextPhone = findViewById(R.id.view_course_mentor_phone);
         viewTextEmail = findViewById(R.id.view_course_mentor_email);
-        viewTextNote = findViewById(R.id.view_course_note);
 
 
         Intent intent = getIntent();
@@ -102,7 +102,6 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
             viewTextMentor.setText(intent.getStringExtra(EXTRA_MENTOR));
             viewTextPhone.setText(intent.getStringExtra(EXTRA_PHONE));
             viewTextEmail.setText(intent.getStringExtra(EXTRA_EMAIL));
-            viewTextNote.setText(intent.getStringExtra(EXTRA_NOTE));
             Toast.makeText(this, viewTextCourseId.getText().toString(), Toast.LENGTH_SHORT).show();
 
         }
@@ -121,7 +120,6 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
                 intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR, viewTextMentor.getText().toString());
                 intent.putExtra(AddEditCourseActivity.EXTRA_PHONE, viewTextPhone.getText().toString());
                 intent.putExtra(AddEditCourseActivity.EXTRA_EMAIL, viewTextEmail.getText().toString());
-                intent.putExtra(AddEditCourseActivity.EXTRA_NOTE, viewTextNote.getText().toString());
                         startActivityForResult(intent,EDIT_COURSE_REQUEST);
             }
         });
@@ -160,6 +158,19 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable List<Assessment> assessments){
                 adapterC.setAssessments(assessments);
+            }
+        });
+
+        RecyclerView noteRecycler = findViewById(R.id.view_course_note);
+        noteRecycler.setLayoutManager(new LinearLayoutManager(this));
+        noteRecycler.setHasFixedSize(true);
+        final NoteAdapter adapterN = new NoteAdapter();
+        noteRecycler.setAdapter(adapterN);
+        noteViewModel = ViewModelProviders.of(this).get(NoteViewModel.class);
+        noteViewModel.getCurrentNotes().observe(this,new Observer<List<Note>>(){
+            @Override
+            public void onChanged(@Nullable List<Note> notes){
+                adapterN.setNotes(notes);
             }
         });
 
@@ -226,6 +237,22 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
 
                 }
         });
+
+        adapterN.setOnItemClickListener(new NoteAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Note note) {
+                Intent intent = new Intent (ViewCourseDetailedActivity.this, ViewNoteDetailedActivity.class);
+                intent.putExtra(ViewCourseDetailedActivity.EXTRA_TITLE, note.getTitle());
+                intent.putExtra(ViewCourseDetailedActivity.EXTRA_DESCRIPTION, note.getDescription());
+                intent.putExtra(ViewCourseDetailedActivity.EXTRA_ID, Integer.toString(note.getId()));
+                startActivityForResult(intent, VIEW_NOTE_DETAILED_REQUEST);
+            }
+        });
+    }
+
+    public void addNote(View v){
+        Note newNote = new Note(AssessmentRepository.courseId,"Note","Optional");
+        noteViewModel.insert(newNote);
     }
 
     @Override
@@ -269,7 +296,6 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
             String mentor = data.getStringExtra(AddEditCourseActivity.EXTRA_MENTOR);
             String phone = data.getStringExtra(AddEditCourseActivity.EXTRA_PHONE);
             String email = data.getStringExtra(AddEditCourseActivity.EXTRA_EMAIL);
-            String note = data.getStringExtra(AddEditCourseActivity.EXTRA_NOTE);
                 viewTextTitle.setText(title);
                 viewTextDescription.setText(description);
                 viewTextStartDate.setText(start);
@@ -279,7 +305,6 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
                 viewTextMentor.setText(mentor);
                 viewTextPhone.setText(phone);
                 viewTextEmail.setText(email);
-                viewTextNote.setText(note);
         }
             else if(requestCode == ADD_COURSE_REQUEST && resultCode == RESULT_OK) {
                 Toast.makeText(this, "Entering into RESULT_OK", Toast.LENGTH_SHORT).show();
