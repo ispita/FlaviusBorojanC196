@@ -9,7 +9,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {Term.class, Course.class, TermCourses.class, Assessment.class, CourseAssessments.class}, version = 2, exportSchema = false)
+@Database(entities = {Term.class, Course.class, TermCourses.class, Assessment.class, CourseAssessments.class, Note.class, CourseNotes.class}, version = 2, exportSchema = false)
 public abstract class WGUDatabase extends RoomDatabase {
 
     private static WGUDatabase instance;
@@ -17,6 +17,7 @@ public abstract class WGUDatabase extends RoomDatabase {
     public abstract TermDao termDao();
     public abstract CourseDao courseDao();
     public abstract AssessmentDao assessmentDao();
+    public abstract NoteDao noteDao();
 
     public static synchronized WGUDatabase getInstance(Context context){
         if (instance == null){
@@ -39,10 +40,12 @@ public abstract class WGUDatabase extends RoomDatabase {
         private TermDao termDao;
         private CourseDao courseDao;
         private AssessmentDao assessmentDao;
+        private NoteDao noteDao;
         private PopulateDbAsyncTask(WGUDatabase db){
             termDao = db.termDao();
             courseDao = db.courseDao();
             assessmentDao = db.assessmentDao();
+            noteDao = db.noteDao();
         }
 
 
