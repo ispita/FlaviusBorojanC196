@@ -74,7 +74,6 @@ public class ViewTermDetailedActivity extends AppCompatActivity {
             viewTextStartDate.setText(intent.getStringExtra(EXTRA_START_DATE));
             viewTextEndDate.setText(intent.getStringExtra(EXTRA_END_DATE));
             viewTextTermId.setText(intent.getStringExtra(EXTRA_ID));
-            Toast.makeText(this, viewTextTermId.getText().toString(), Toast.LENGTH_SHORT).show();
 
         }
         final TermAdapter adapter = new TermAdapter();
@@ -108,7 +107,6 @@ public class ViewTermDetailedActivity extends AppCompatActivity {
                 intent.putExtra(AddEditTermActivity.EXTRA_TITLE, viewTextTitle.getText().toString());
                 intent.putExtra(AddEditTermActivity.EXTRA_DESCRIPTION, viewTextDescription.getText().toString());
                 intent.putExtra(AddEditTermActivity.EXTRA_ID, viewTextTermId.getText().toString());
-                Toast.makeText(ViewTermDetailedActivity.this, viewTextTermId.getText().toString(), Toast.LENGTH_SHORT).show();
                 intent.putExtra(AddEditTermActivity.EXTRA_START_DATE, viewTextStartDate.getText().toString());
                 intent.putExtra(AddEditTermActivity.EXTRA_END_DATE, viewTextEndDate.getText().toString());
                 startActivityForResult(intent,EDIT_TERM_REQUEST);
@@ -121,7 +119,6 @@ public class ViewTermDetailedActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ViewTermDetailedActivity.this, AddEditTermCourseActivity.class);
                 intent.putExtra(AddEditTermActivity.EXTRA_ID, viewTextTermId.getText().toString());
-                Toast.makeText(ViewTermDetailedActivity.this, viewTextTermId.getText().toString(), Toast.LENGTH_SHORT).show();
                 startActivityForResult(intent,ADD_COURSE_REQUEST);
             }
         });

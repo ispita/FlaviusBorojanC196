@@ -122,7 +122,6 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
         else if (editAssessment) {
             id = Integer.parseInt(editAssessmentId);
         }
-        Toast.makeText(this, "this is the ID " + id, Toast.LENGTH_SHORT).show();
         if (id != -1){
             data.putExtra(EXTRA_ID, id);
         }

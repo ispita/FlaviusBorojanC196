@@ -83,7 +83,6 @@ public class AddEditTermActivity extends AppCompatActivity {
             startMonth = Integer.parseInt(intent.getStringExtra(EXTRA_START_DATE).substring(0, startSep));
             startDay = Integer.parseInt(intent.getStringExtra(EXTRA_START_DATE).substring(startSep + 1, startSep2));
             startYear = Integer.parseInt(intent.getStringExtra(EXTRA_START_DATE).substring(startSep2 + 1, startSep2 + 5));
-//            Toast.makeText(this, startMonth + "/" + startDay + "/" + startYear, Toast.LENGTH_SHORT).show();
             endSep = intent.getStringExtra(EXTRA_END_DATE).indexOf("/");
             endSep2 = intent.getStringExtra(EXTRA_END_DATE).indexOf("/", intent.getStringExtra(EXTRA_END_DATE).indexOf("/") + 1);
             endMonth = Integer.parseInt(intent.getStringExtra(EXTRA_END_DATE).substring(0, endSep));
@@ -130,7 +129,6 @@ public class AddEditTermActivity extends AppCompatActivity {
         else if (editTerm) {
             id = Integer.parseInt(editTermId);
         }
-        Toast.makeText(this, "this is the ID " + id, Toast.LENGTH_SHORT).show();
         if (id != -1){
             data.putExtra(EXTRA_ID, id);
         }

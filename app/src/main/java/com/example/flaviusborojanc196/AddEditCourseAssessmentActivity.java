@@ -115,7 +115,6 @@ public class AddEditCourseAssessmentActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
                 Intent data = new Intent();
                 int id = courseId;
-                Toast.makeText(this, "this is the ID " + id, Toast.LENGTH_SHORT).show();
                 if (id != -1){
                     data.putExtra(EXTRA_ID, id);
                 }

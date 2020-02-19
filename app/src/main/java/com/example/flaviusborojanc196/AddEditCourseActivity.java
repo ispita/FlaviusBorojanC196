@@ -161,7 +161,6 @@ public class AddEditCourseActivity extends AppCompatActivity {
         else if (edit) {
             id = Integer.parseInt(editCourseId);
         }
-        Toast.makeText(this, "this is the ID " + id, Toast.LENGTH_SHORT).show();
         if (id != -1){
             data.putExtra(EXTRA_ID, id);
         }

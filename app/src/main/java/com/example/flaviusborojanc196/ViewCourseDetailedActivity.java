@@ -102,7 +102,6 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
             viewTextMentor.setText(intent.getStringExtra(EXTRA_MENTOR));
             viewTextPhone.setText(intent.getStringExtra(EXTRA_PHONE));
             viewTextEmail.setText(intent.getStringExtra(EXTRA_EMAIL));
-            Toast.makeText(this, viewTextCourseId.getText().toString(), Toast.LENGTH_SHORT).show();
 
         }
 
@@ -283,7 +282,6 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
 
 
             if(requestCode == EDIT_COURSE_REQUEST && resultCode == RESULT_OK) {
-                Toast.makeText(this, "Entering into RESULT_OK", Toast.LENGTH_SHORT).show();
             int id = data.getIntExtra(AddEditCourseActivity.EXTRA_ID, -1);
             if(id == -1){
                 Toast.makeText(this, "Errors Encountered", Toast.LENGTH_SHORT).show();
@@ -307,7 +305,6 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
                 viewTextEmail.setText(email);
         }
             else if(requestCode == ADD_COURSE_REQUEST && resultCode == RESULT_OK) {
-                Toast.makeText(this, "Entering into RESULT_OK", Toast.LENGTH_SHORT).show();
                 int id = data.getIntExtra(AddEditCourseActivity.EXTRA_ID, -1);
                 if(id == -1){
                     Toast.makeText(this, "Errors Encountered", Toast.LENGTH_SHORT).show();

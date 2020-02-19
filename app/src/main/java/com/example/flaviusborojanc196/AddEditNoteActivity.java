@@ -84,7 +84,6 @@ public class AddEditNoteActivity extends AppCompatActivity {
         else if (editNote) {
             id = Integer.parseInt(editNoteId);
         }
-        Toast.makeText(this, "this is the ID " + id, Toast.LENGTH_SHORT).show();
         if (id != -1){
             data.putExtra(EXTRA_ID, id);
         }

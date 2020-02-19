@@ -70,9 +70,7 @@ public class ViewNoteDetailedActivity extends AppCompatActivity {
             setTitle("Note Detailed View");
             viewTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
             viewTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
-            //   viewTextNoteCourses.setText(intent.getStringExtra(EXTRA_NOTE_COURSES));
             viewTextNoteId.setText(intent.getStringExtra(EXTRA_ID));
-            Toast.makeText(this, viewTextNoteId.getText().toString(), Toast.LENGTH_SHORT).show();
 
         }
 
@@ -84,7 +82,6 @@ public class ViewNoteDetailedActivity extends AppCompatActivity {
                 intent.putExtra(AddEditNoteActivity.EXTRA_TITLE, viewTextTitle.getText().toString());
                 intent.putExtra(AddEditNoteActivity.EXTRA_DESCRIPTION, viewTextDescription.getText().toString());
                 intent.putExtra(AddEditNoteActivity.EXTRA_ID, viewTextNoteId.getText().toString());
-                Toast.makeText(ViewNoteDetailedActivity.this, viewTextNoteId.getText().toString(), Toast.LENGTH_SHORT).show();
                 startActivityForResult(intent,EDIT_NOTE_REQUEST);
             }
         });
@@ -174,7 +171,6 @@ public class ViewNoteDetailedActivity extends AppCompatActivity {
 
 
             if(requestCode == EDIT_NOTE_REQUEST && resultCode == RESULT_OK) {
-                Toast.makeText(this, "Entering into RESULT_OK", Toast.LENGTH_SHORT).show();
             int id = data.getIntExtra(ViewCourseDetailedActivity.EXTRA_ID, -1);
             if(id == -1){
                 Toast.makeText(this, "Errors Encountered", Toast.LENGTH_SHORT).show();

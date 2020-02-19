@@ -73,9 +73,7 @@ public class ViewAssessmentDetailedActivity extends AppCompatActivity {
             viewTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
             viewTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
             viewTextEndDate.setText(intent.getStringExtra(EXTRA_END_DATE));
-            //   viewTextAssessmentCourses.setText(intent.getStringExtra(EXTRA_ASSESSMENT_COURSES));
             viewTextAssessmentId.setText(intent.getStringExtra(EXTRA_ID));
-            Toast.makeText(this, viewTextAssessmentId.getText().toString(), Toast.LENGTH_SHORT).show();
 
         }
 
@@ -87,7 +85,6 @@ public class ViewAssessmentDetailedActivity extends AppCompatActivity {
                 intent.putExtra(AddEditAssessmentActivity.EXTRA_TITLE, viewTextTitle.getText().toString());
                 intent.putExtra(AddEditAssessmentActivity.EXTRA_DESCRIPTION, viewTextDescription.getText().toString());
                 intent.putExtra(AddEditAssessmentActivity.EXTRA_ID, viewTextAssessmentId.getText().toString());
-                Toast.makeText(ViewAssessmentDetailedActivity.this, viewTextAssessmentId.getText().toString(), Toast.LENGTH_SHORT).show();
                 intent.putExtra(AddEditAssessmentActivity.EXTRA_END_DATE, viewTextEndDate.getText().toString());
                 startActivityForResult(intent,EDIT_ASSESSMENT_REQUEST);
             }
@@ -126,7 +123,6 @@ public class ViewAssessmentDetailedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SimpleDateFormat format = new SimpleDateFormat("MM/d/yyyy");
-                Toast.makeText(ViewAssessmentDetailedActivity.this, "Alarm set for this assessment!", Toast.LENGTH_SHORT).show();
                 AlarmManager alarm = (AlarmManager) ViewAssessmentDetailedActivity.this.getSystemService(Context.ALARM_SERVICE);
                 final int requestCodeInt = (int) System.currentTimeMillis();
                 DateBroadcast notification = new DateBroadcast();
@@ -182,7 +178,6 @@ public class ViewAssessmentDetailedActivity extends AppCompatActivity {
 
 
             if(requestCode == EDIT_ASSESSMENT_REQUEST && resultCode == RESULT_OK) {
-                Toast.makeText(this, "Entering into RESULT_OK", Toast.LENGTH_SHORT).show();
             int id = data.getIntExtra(AddEditAssessmentActivity.EXTRA_ID, -1);
             if(id == -1){
                 Toast.makeText(this, "Errors Encountered", Toast.LENGTH_SHORT).show();
