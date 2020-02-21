@@ -48,6 +48,7 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
     private EditText editTextTitle;
     private RadioGroup editTextDescription;
     private RadioButton textDescription;
+    private DatePicker editTextGoalDate;
     private DatePicker editTextEndDate;
     private String editAssessmentId;
     private Boolean editAssessment = false;
@@ -56,6 +57,11 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
     private int endYear;
     private int endMonth;
     private int endDay;
+    private int goalSep;
+    private int goalSep2;
+    private int goalYear;
+    private int goalMonth;
+    private int goalDay;
     private TextView addedCourses;
 
 
@@ -67,6 +73,7 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
 
         editTextTitle = findViewById(R.id.edit_title);
         editTextDescription = findViewById(R.id.edit_description);
+        editTextGoalDate = findViewById(R.id.edit_assessment_goal_date);
         editTextEndDate = findViewById(R.id.edit_assessment_end_date);
         addedCourses = findViewById(R.id.courses_added);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
@@ -75,6 +82,12 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
         if(intent.hasExtra(EXTRA_ID)){
             setTitle("Edit Assessment");
             editTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
+            goalSep = intent.getStringExtra(EXTRA_START_DATE).indexOf("/");
+            goalSep2 = intent.getStringExtra(EXTRA_START_DATE).indexOf("/", intent.getStringExtra(EXTRA_START_DATE).indexOf("/") + 1);
+            goalMonth = Integer.parseInt(intent.getStringExtra(EXTRA_START_DATE).substring(0, goalSep));
+            goalDay = Integer.parseInt(intent.getStringExtra(EXTRA_START_DATE).substring(goalSep + 1, goalSep2));
+            goalYear = Integer.parseInt(intent.getStringExtra(EXTRA_START_DATE).substring(goalSep2 + 1, goalSep2 + 5));
+            editTextGoalDate.updateDate(goalYear,goalMonth - 1,goalDay);
             endSep = intent.getStringExtra(EXTRA_END_DATE).indexOf("/");
             endSep2 = intent.getStringExtra(EXTRA_END_DATE).indexOf("/", intent.getStringExtra(EXTRA_END_DATE).indexOf("/") + 1);
             endMonth = Integer.parseInt(intent.getStringExtra(EXTRA_END_DATE).substring(0, endSep));
@@ -104,6 +117,8 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
         String description = textDescription.getText().toString();
         int endMonth = editTextEndDate.getMonth() + 1;
         String end = endMonth + "/" + editTextEndDate.getDayOfMonth() + "/" + editTextEndDate.getYear();
+        int goalMonth = editTextGoalDate.getMonth() + 1;
+        String goal = goalMonth + "/" + editTextGoalDate.getDayOfMonth() + "/" + editTextGoalDate.getYear();
         if(title.trim().isEmpty() || description.trim().isEmpty()){
             Toast.makeText(this, "Please Insert a Description and a Title!", Toast.LENGTH_SHORT).show();
             return;
@@ -115,6 +130,7 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
         data.putExtra(EXTRA_TITLE, title);
         data.putExtra(EXTRA_DESCRIPTION, description);
         data.putExtra(EXTRA_END_DATE, end);
+        data.putExtra(EXTRA_START_DATE, goal);
         int id = -1;
         if (!editAssessment) {
             id = getIntent().getIntExtra(EXTRA_ID, -1);

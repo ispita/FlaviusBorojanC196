@@ -9,7 +9,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {Term.class, Course.class, TermCourses.class, Assessment.class, CourseAssessments.class, Note.class, CourseNotes.class}, version = 1, exportSchema = false)
+@Database(entities = {Term.class, Course.class, TermCourses.class, Assessment.class, CourseAssessments.class, Note.class, CourseNotes.class}, version = 2, exportSchema = false)
 public abstract class WGUDatabase extends RoomDatabase {
 
     private static WGUDatabase instance;
@@ -53,7 +53,7 @@ public abstract class WGUDatabase extends RoomDatabase {
         protected Void doInBackground(Void... voids){
             termDao.insert(new Term("Title1", "Description1", "02/11/2020", "03/31/2020"));
             courseDao.insert(new Course("Title1", "Description1", "02/11/2020", "03/31/2020","plan to take", "timmy","777-333-4444","email@email.com"));
-            assessmentDao.insert(new Assessment("Title1","Description1","02/25/2020"));
+            assessmentDao.insert(new Assessment("Title1","Description1","02/25/2020", "02/23/2020"));
             noteDao.insert(new Note(1,"Note Title", "Note Description"));
 
             return null;

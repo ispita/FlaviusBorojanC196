@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -190,14 +191,13 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton buttonRemindCourse = findViewById(R.id.button_reminder_course);
+        Button buttonRemindCourse = findViewById(R.id.button_reminder_course);
         buttonRemindCourse.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 SimpleDateFormat format = new SimpleDateFormat("MM/d/yyyy");
-                Toast.makeText(ViewCourseDetailedActivity.this, "Alarm set for this course!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ViewCourseDetailedActivity.this, "Alarm set for this course start date!", Toast.LENGTH_SHORT).show();
                 AlarmManager alarm = (AlarmManager) ViewCourseDetailedActivity.this.getSystemService(Context.ALARM_SERVICE);
-                AlarmManager alarm2 = (AlarmManager) ViewCourseDetailedActivity.this.getSystemService(Context.ALARM_SERVICE);
                 final int requestCodeInt = (int) System.currentTimeMillis();
                 DateBroadcast notification = new DateBroadcast();
                 IntentFilter intentFilter = new IntentFilter("ALARM_ACTION");
@@ -205,9 +205,6 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
                 Intent intent = new Intent( ViewCourseDetailedActivity.this, DateBroadcast.class);
                 intent.putExtra("title", "Course " + viewTextTitle.getText() + " Starting Today!");
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(ViewCourseDetailedActivity.this, requestCodeInt, intent, 0);
-                Intent intent2 = new Intent( ViewCourseDetailedActivity.this, DateBroadcast.class);
-                intent2.putExtra("title", "Course " + viewTextTitle.getText() + " Ends Today!");
-                PendingIntent pendingIntent2 = PendingIntent.getBroadcast(ViewCourseDetailedActivity.this, requestCodeInt+1, intent2, 0);
                 Calendar cal = Calendar.getInstance();
                 try {
                     cal.setTime(format.parse(viewTextStartDate.getText().toString()));
@@ -219,6 +216,26 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
                 cal.set(Calendar.SECOND, 15);
                 cal.set(Calendar.MILLISECOND, 0);
                 long alertDate = cal.getTimeInMillis();
+                alarm.setExact(AlarmManager.RTC_WAKEUP, alertDate, pendingIntent);
+                unregisterReceiver(notification);
+
+                }
+        });
+
+        Button buttonRemindCourseEnd = findViewById(R.id.button_reminder_course_end);
+        buttonRemindCourseEnd .setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                SimpleDateFormat format = new SimpleDateFormat("MM/d/yyyy");
+                Toast.makeText(ViewCourseDetailedActivity.this, "Alarm set for this course end date!", Toast.LENGTH_SHORT).show();
+                AlarmManager alarm2 = (AlarmManager) ViewCourseDetailedActivity.this.getSystemService(Context.ALARM_SERVICE);
+                final int requestCodeInt = (int) System.currentTimeMillis();
+                DateBroadcast notification = new DateBroadcast();
+                IntentFilter intentFilter = new IntentFilter("ALARM_ACTION");
+                registerReceiver(notification, intentFilter);
+                Intent intent2 = new Intent( ViewCourseDetailedActivity.this, DateBroadcast.class);
+                intent2.putExtra("title", "Course " + viewTextTitle.getText() + " Ends Today!");
+                PendingIntent pendingIntent2 = PendingIntent.getBroadcast(ViewCourseDetailedActivity.this, requestCodeInt, intent2, 0);
                 Calendar calEnd = Calendar.getInstance();
                 try {
                     calEnd.setTime(format.parse(viewTextEndDate.getText().toString()));
@@ -230,11 +247,10 @@ public class ViewCourseDetailedActivity extends AppCompatActivity {
                 calEnd.set(Calendar.SECOND, 15);
                 calEnd.set(Calendar.MILLISECOND, 0);
                 long alertDateEnd = calEnd.getTimeInMillis();
-                alarm.setExact(AlarmManager.RTC_WAKEUP, alertDate, pendingIntent);
                 alarm2.setExact(AlarmManager.RTC_WAKEUP, alertDateEnd, pendingIntent2);
                 unregisterReceiver(notification);
 
-                }
+            }
         });
 
         adapterN.setOnItemClickListener(new NoteAdapter.OnItemClickListener() {

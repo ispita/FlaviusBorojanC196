@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +45,7 @@ public class ViewAssessmentDetailedActivity extends AppCompatActivity {
     private TextView viewTextTitle;
     private TextView viewTextDescription;
     private TextView viewTextEndDate;
+    private TextView viewTextGoalDate;
     private TextView viewTextAssessmentId;
     private RecyclerView viewTextAssessmentCourses;
     private AssessmentViewModel assessmentViewModel;
@@ -62,6 +64,7 @@ public class ViewAssessmentDetailedActivity extends AppCompatActivity {
 
         viewTextTitle = findViewById(R.id.view_title);
         viewTextDescription = findViewById(R.id.view_description);
+        viewTextGoalDate = findViewById(R.id.view_assessment_goal_date);
         viewTextEndDate = findViewById(R.id.view_assessment_end_date);
         viewTextAssessmentCourses = findViewById(R.id.view_courses);
         viewTextAssessmentId = findViewById(R.id.view_assessment_id);
@@ -72,6 +75,7 @@ public class ViewAssessmentDetailedActivity extends AppCompatActivity {
             setTitle("Assessment Detailed View");
             viewTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
             viewTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
+            viewTextGoalDate.setText(intent.getStringExtra(EXTRA_START_DATE));
             viewTextEndDate.setText(intent.getStringExtra(EXTRA_END_DATE));
             viewTextAssessmentId.setText(intent.getStringExtra(EXTRA_ID));
 
@@ -86,6 +90,8 @@ public class ViewAssessmentDetailedActivity extends AppCompatActivity {
                 intent.putExtra(AddEditAssessmentActivity.EXTRA_DESCRIPTION, viewTextDescription.getText().toString());
                 intent.putExtra(AddEditAssessmentActivity.EXTRA_ID, viewTextAssessmentId.getText().toString());
                 intent.putExtra(AddEditAssessmentActivity.EXTRA_END_DATE, viewTextEndDate.getText().toString());
+                intent.putExtra(AddEditAssessmentActivity.EXTRA_START_DATE, viewTextGoalDate.getText().toString());
+
                 startActivityForResult(intent,EDIT_ASSESSMENT_REQUEST);
             }
         });
@@ -117,11 +123,11 @@ public class ViewAssessmentDetailedActivity extends AppCompatActivity {
 
             }
         });
-
-        FloatingActionButton buttonRemindAssessment = findViewById(R.id.button_reminder_assessment);
-        buttonRemindAssessment.setOnClickListener(new View.OnClickListener(){
+        Button buttonRemindAssessmentGoal = findViewById(R.id.button_reminder_assessment);
+        buttonRemindAssessmentGoal.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                Toast.makeText(ViewAssessmentDetailedActivity.this, "Alarm set for this Assessment Goal date!", Toast.LENGTH_SHORT).show();
                 SimpleDateFormat format = new SimpleDateFormat("MM/d/yyyy");
                 AlarmManager alarm = (AlarmManager) ViewAssessmentDetailedActivity.this.getSystemService(Context.ALARM_SERVICE);
                 final int requestCodeInt = (int) System.currentTimeMillis();
@@ -129,8 +135,38 @@ public class ViewAssessmentDetailedActivity extends AppCompatActivity {
                 IntentFilter intentFilter = new IntentFilter("ALARM_ACTION");
                 registerReceiver(notification, intentFilter);
                 Intent intent = new Intent( ViewAssessmentDetailedActivity.this, DateBroadcast.class);
-                intent.putExtra("title", "Assessment " + viewTextTitle.getText() + " Starting Today!");
+                intent.putExtra("title", "Assessment " + viewTextTitle.getText() + " Goal Date Today!");
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(ViewAssessmentDetailedActivity.this, requestCodeInt, intent, 0);
+                Calendar cal = Calendar.getInstance();
+                try {
+                    cal.setTime(format.parse(viewTextGoalDate.getText().toString()));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                cal.set(Calendar.HOUR_OF_DAY, 0);
+                cal.set(Calendar.MINUTE, 0);
+                cal.set(Calendar.SECOND, 15);
+                cal.set(Calendar.MILLISECOND, 0);
+                long alertDate = cal.getTimeInMillis();
+                alarm.setExact(AlarmManager.RTC_WAKEUP, alertDate, pendingIntent);
+                unregisterReceiver(notification);
+
+            }
+        });
+        Button buttonRemindAssessmentEnd = findViewById(R.id.button_reminder_assessment_end);
+        buttonRemindAssessmentEnd.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ViewAssessmentDetailedActivity.this, "Alarm set for this Assessment End date!", Toast.LENGTH_SHORT).show();
+                SimpleDateFormat format = new SimpleDateFormat("MM/d/yyyy");
+                AlarmManager alarm = (AlarmManager) ViewAssessmentDetailedActivity.this.getSystemService(Context.ALARM_SERVICE);
+                final int requestCodeInt = (int) System.currentTimeMillis();
+                DateBroadcast notification = new DateBroadcast();
+                IntentFilter intentFilter = new IntentFilter("ALARM_ACTION");
+                registerReceiver(notification, intentFilter);
+                Intent intent2 = new Intent( ViewAssessmentDetailedActivity.this, DateBroadcast.class);
+                intent2.putExtra("title", "Assessment " + viewTextTitle.getText() + " Due Today!");
+                PendingIntent pendingIntent2 = PendingIntent.getBroadcast(ViewAssessmentDetailedActivity.this, requestCodeInt, intent2, 0);
                 Calendar cal = Calendar.getInstance();
                 try {
                     cal.setTime(format.parse(viewTextEndDate.getText().toString()));
@@ -141,8 +177,8 @@ public class ViewAssessmentDetailedActivity extends AppCompatActivity {
                 cal.set(Calendar.MINUTE, 0);
                 cal.set(Calendar.SECOND, 15);
                 cal.set(Calendar.MILLISECOND, 0);
-                long alertDate = cal.getTimeInMillis();
-                alarm.setExact(AlarmManager.RTC_WAKEUP, alertDate, pendingIntent);
+                long alertDate2 = cal.getTimeInMillis();
+                alarm.setExact(AlarmManager.RTC_WAKEUP, alertDate2, pendingIntent2);
                 unregisterReceiver(notification);
 
             }
@@ -184,13 +220,15 @@ public class ViewAssessmentDetailedActivity extends AppCompatActivity {
             }
             String title = data.getStringExtra(AddEditAssessmentActivity.EXTRA_TITLE);
             String description = data.getStringExtra(AddEditAssessmentActivity.EXTRA_DESCRIPTION); //need non null default value for int
-            String start = data.getStringExtra(AddEditAssessmentActivity.EXTRA_START_DATE);
+            String goal = data.getStringExtra(AddEditAssessmentActivity.EXTRA_START_DATE);
             String end = data.getStringExtra(AddEditAssessmentActivity.EXTRA_END_DATE);
+
                 viewTextTitle.setText(title);
                 viewTextDescription.setText(description);
+                viewTextGoalDate.setText(goal);
                 viewTextEndDate.setText(end);
                 viewTextAssessmentId.setText(Integer.toString(id));
-            Assessment assessment = new Assessment(title,description,end);
+            Assessment assessment = new Assessment(title,description,end,goal);
             assessment.setId(id);
             assessmentViewModel.update(assessment);
         }

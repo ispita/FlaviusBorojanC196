@@ -45,16 +45,16 @@
                 android:layout_height="wrap_content"
                 android:text="Objective Assessment"/>
         </RadioGroup>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/edit_description"
-            android:labelFor="@+id/edit_assessment_end_date"
-            android:text="Due Date"/>
+            android:labelFor="@+id/edit_assessment_goal_date"
+            android:text="Goal Date"/>
+
 
         <DatePicker
-            android:id="@+id/edit_assessment_end_date"
+            android:id="@+id/edit_assessment_goal_date"
             android:layout_width="393dp"
             android:layout_height="88dp"
             android:layout_below="@id/edit_description"
@@ -63,6 +63,24 @@
             android:calendarViewShown="false"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="220dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_assessment_goal_date"
+            android:labelFor="@+id/edit_assessment_end_date"
+            android:text="Due Date"/>
+
+        <DatePicker
+            android:id="@+id/edit_assessment_end_date"
+            android:layout_width="393dp"
+            android:layout_height="88dp"
+            android:layout_below="@id/edit_assessment_goal_date"
+            android:layout_marginTop="31dp"
+            android:datePickerMode="spinner"
+            android:calendarViewShown="false"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="220dp" />
+
 
 
 

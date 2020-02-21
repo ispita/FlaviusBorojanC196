@@ -32,6 +32,7 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
         holder.textViewDescription.setText(currentAssessment.getDescription());
         holder.textViewId.setText(String.valueOf(currentAssessment.getId()));
         holder.datePickerEnd.setText(String.valueOf(currentAssessment.getEnd()));
+        holder.datePickerGoal.setText(String.valueOf(currentAssessment.getGoal()));
 
     }
 
@@ -50,6 +51,7 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
         private TextView textViewDescription;
         private TextView textViewId;
         private TextView datePickerEnd;
+        private TextView datePickerGoal;
 
 
         public AssessmentHolder(@NonNull View itemView) {
@@ -58,6 +60,7 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
             textViewDescription = itemView.findViewById(R.id.text_view_description);
             textViewId = itemView.findViewById(R.id.text_view_ID);
             datePickerEnd = itemView.findViewById(R.id.text_assessment_end_date);
+            datePickerGoal = itemView.findViewById(R.id.text_assessment_goal_date);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

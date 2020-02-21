@@ -17,17 +17,18 @@ public class Assessment {
 
     private String description;
 
+    private String goal;
 
     private String end;
 
 
 
 
-    public Assessment(String title, String description, String end) {
+    public Assessment(String title, String description, String end, String goal) {
         this.title = title;
         this.description = description;
         this.end = end;
-
+        this.goal = goal;
 
 
     }
@@ -50,6 +51,7 @@ public class Assessment {
         return description;
     }
 
+    public String getGoal(){ return goal;}
 
     public String getEnd() {
         return end;

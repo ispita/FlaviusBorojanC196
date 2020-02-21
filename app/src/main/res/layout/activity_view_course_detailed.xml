@@ -45,13 +45,23 @@
                 android:layout_alignParentEnd="true"
                 android:layout_below="@+id/button_add_course_assessment"
                 android:src="@drawable/ic_delete" />
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
+            <Button
                 android:id="@+id/button_reminder_course"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_alignParentEnd="true"
+                android:text="Add Start Date Alert"
                 android:layout_below="@+id/button_delete_course"
+                android:src="@drawable/ic_add_alert" />
+            <Button
+                android:id="@+id/button_reminder_course_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_alignParentEnd="true"
+                android:text="Add End Date Alert"
+                android:layout_below="@+id/button_reminder_course"
                 android:src="@drawable/ic_add_alert" />
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/button_add_note"
@@ -60,7 +70,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_alignParentEnd="true"
                 android:onClick="addNote"
-                android:layout_below="@+id/button_reminder_course"
+                android:layout_below="@+id/button_reminder_course_end"
                 android:src="@drawable/ic_note_add" />
 
             <TextView
